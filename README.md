@@ -1,13 +1,28 @@
-# HpTex — Definitive Developer Tools & Systems Reference
+# HpTex — جعبه‌ابزار و چیت‌شیت‌های سریع برنامه‌نویسی
 
-> **High-density, mathematically rigorous, production-grade technical manuals and quick-reference manifests for vital developer utilities.**
+> **دیگه لازم نیست برای شورت‌کات‌های tmux، تنظیمات scrcpy یا کدهای اسکرپی ۲۰ تا تب گوگل باز کنی!  
+> هپتکس (HpTex) مجموعه‌ای از راهنماهای تصویری و ۲ صفحه‌ای (PDF و وب تعاملی) برای ابزارهای پرکاربرد توسعه‌دهنده‌هاست.**
 
 [![Language: Multi](https://img.shields.io/badge/Language-English%20%7C%20فارسی-blue.svg)](#tool-index--فهرست-ابزارها)
 [![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg)](LICENSE)
-[![Format: Markdown & Modern PDF](https://img.shields.io/badge/Format-MD%20%2B%20PDF-purple.svg)](#tool-index--فهرست-ابزارها)
-[![Theme: Dynamic Light / Dark](https://img.shields.io/badge/HTML%20Theme-Light%20%2F%20Dark%20Switcher-indigo.svg)](#interactive-html-features)
+[![Format: PDF & Web](https://img.shields.io/badge/Format-PDF%20%2B%20Web-purple.svg)](#tool-index--فهرست-ابزارها)
+[![Theme: Light / Dark](https://img.shields.io/badge/Theme-Light%20%2F%20Dark-indigo.svg)](#interactive-html-features)
 
 ---
+
+### 💡 هپتکس (HpTex) دقیقاً چیه؟ / What is HpTex?
+
+فرض کن وسط کدنویسی یا کانفیگ سرور هستی:
+* کلیدهای تقسیم صفحه در **tmux** یادت رفته؟
+* می‌خوای صفحه گوشی رو با **scrcpy** بندازی رو مانیتور ولی دستور اتصال بی‌سیم یا وب‌کمش یادت نیست؟
+* می‌خوای با **Scrapy** داده کراول کنی و نمی‌خوای رم سرور منفجر بشه یا آی‌پیت بلاک بشه؟
+
+**هپتکس دقیقاً برای همین ساخته شده:**  
+به جای گشتن تو سایت‌های مختلف و خوندن متن‌های طولانی، برای هر ابزار یک بسته شسته و رفته داری:
+1. **یک فایل PDF دو صفحه‌ای شیک و تمیز:** خلاصه تمام دستورات، کلیدها و رفع خطاهای رایج (آماده ذخیره روی دسکتاپ یا پرینت).
+2. **یک صفحه وب HTML مدرن:** با امکان تغییر سریع حالت دارک / لایت (Dark/Light).
+3. **راهنمای متنی کامل (Markdown):** به دو زبان **فارسی روان** و **انگلیسی** به همراه کانفیگ‌های تست‌شده و آماده کپی‌پیست.
+
 
 ## Directory Architecture: `HpTex/<Tool>/<Language>/<Files>`
 
