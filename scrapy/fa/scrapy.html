@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl" data-theme="light">
 <head>
 <meta charset="UTF-8">
-<title>Scrapy — مرجع استاندارد مهندسی و راهنمای جامع عملیاتی</title>
+<title>Scrapy — راهنمای مو به مو و فوق‌العاده ساده استخراج اطلاعات از سایت‌ها</title>
 <style>
   :root {
     --canvas: #ffffff;
@@ -15,12 +15,6 @@
     --hero-border: #c7d2fe;
     --card-bg: #ffffff;
     --card-border: #e2e8f0;
-    --arch-bg: #f8fafc;
-    --arch-node-bg: #ffffff;
-    --arch-node-border: #cbd5e1;
-    --arch-node-hl: #eef2ff;
-    --arch-node-hl-border: #818cf8;
-    --arch-node-hl-color: #312e81;
     --table-header: #f1f5f9;
     --table-border: #cbd5e1;
     --table-row-even: #f8fafc;
@@ -49,12 +43,6 @@
     --hero-border: #312e81;
     --card-bg: #111827;
     --card-border: #1f2937;
-    --arch-bg: #0d1322;
-    --arch-node-bg: #1e293b;
-    --arch-node-border: #334155;
-    --arch-node-hl: #1e1b4b;
-    --arch-node-hl-border: #6366f1;
-    --arch-node-hl-color: #c7d2fe;
     --table-header: #1e293b;
     --table-border: #334155;
     --table-row-even: rgba(17, 24, 39, 0.4);
@@ -95,12 +83,6 @@
       --hero-border: #c7d2fe !important;
       --card-bg: #ffffff !important;
       --card-border: #e2e8f0 !important;
-      --arch-bg: #f8fafc !important;
-      --arch-node-bg: #ffffff !important;
-      --arch-node-border: #cbd5e1 !important;
-      --arch-node-hl: #eef2ff !important;
-      --arch-node-hl-border: #818cf8 !important;
-      --arch-node-hl-color: #312e81 !important;
       --table-header: #f1f5f9 !important;
       --table-border: #cbd5e1 !important;
       --table-row-even: #f8fafc !important;
@@ -132,14 +114,13 @@
     background-color: var(--canvas);
     color: var(--text-primary);
     font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, "Segoe UI", Tahoma, Arial, sans-serif;
-    font-size: 9pt;
+    font-size: 8.8pt;
     line-height: 1.55;
     padding: 8px;
     direction: rtl;
     text-align: right;
   }
 
-  /* Interactive Theme Toggle Button */
   .theme-toggle-btn {
     position: fixed;
     top: 14px;
@@ -164,31 +145,28 @@
     border-color: var(--accent-indigo);
   }
 
-  /* Header Hero */
   .hero {
     background: var(--hero-bg);
     border: 1px solid var(--hero-border);
-    border-radius: 12px;
-    padding: 18px 24px;
-    margin-bottom: 14px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
   }
 
   .badge-row {
     display: flex;
-    gap: 8px;
-    margin-bottom: 8px;
+    gap: 6px;
+    margin-bottom: 6px;
   }
 
   .badge {
-    font-size: 7.5pt;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    padding: 3px 8px;
-    border-radius: 4px;
-    background: #e0e7ff;
+    background: #eef2ff;
     color: #3730a3;
     border: 1px solid #c7d2fe;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 7pt;
+    font-weight: 700;
   }
 
   .badge.cyan {
@@ -204,13 +182,13 @@
   }
 
   h1 {
-    font-size: 19pt;
+    font-size: 16pt;
     font-weight: 800;
     color: var(--text-primary);
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 3px;
+    margin-bottom: 4px;
   }
 
   h1 .accent {
@@ -225,21 +203,30 @@
     font-weight: 500;
   }
 
-  /* Section Title */
   .section-title {
-    font-size: 10.5pt;
+    font-size: 9.8pt;
     font-weight: 800;
     color: var(--text-primary);
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-top: 12px;
-    margin-bottom: 8px;
+    margin-top: 10px;
+    margin-bottom: 6px;
     border-bottom: 2px solid var(--border);
-    padding-bottom: 4px;
+    padding-bottom: 3px;
   }
 
-  /* Grid Layouts */
+  .explain-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-right: 3px solid var(--accent-indigo);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 8.3pt;
+    margin-bottom: 8px;
+    line-height: 1.6;
+  }
+
   .grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -247,7 +234,6 @@
     margin-bottom: 10px;
   }
 
-  /* Cards */
   .card {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
@@ -268,50 +254,6 @@
     align-items: center;
   }
 
-  /* Architecture Box */
-  .arch-box {
-    background: var(--arch-bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 12px;
-    font-size: 8pt;
-    color: var(--text-secondary);
-    margin-bottom: 12px;
-    page-break-inside: avoid;
-  }
-
-  .arch-flow {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-between;
-    align-items: center;
-    gap: 6px;
-    margin-top: 8px;
-  }
-
-  .arch-node {
-    background: var(--arch-node-bg);
-    border: 1px solid var(--arch-node-border);
-    border-radius: 6px;
-    padding: 6px 8px;
-    text-align: center;
-    flex: 1;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
-  }
-
-  .arch-node.highlight {
-    background: var(--arch-node-hl);
-    border-color: var(--arch-node-hl-border);
-    color: var(--arch-node-hl-color);
-    font-weight: 700;
-  }
-
-  .arch-arrow {
-    color: var(--text-muted);
-    font-size: 11pt;
-  }
-
-  /* Tables */
   table {
     width: 100%;
     border-collapse: collapse;
@@ -342,7 +284,6 @@
     background: var(--table-row-even);
   }
 
-  /* Keyboards & Code Badges */
   kbd {
     background: var(--kbd-bg);
     border: 1px solid var(--kbd-border);
@@ -350,7 +291,7 @@
     border-radius: 4px;
     padding: 1px 5px;
     font-family: 'Consolas', monospace;
-    font-size: 7pt;
+    font-size: 7.5pt;
     color: var(--kbd-text);
     font-weight: 700;
     direction: ltr;
@@ -359,7 +300,7 @@
 
   code {
     font-family: 'Consolas', 'JetBrains Mono', monospace;
-    font-size: 7.5pt;
+    font-size: 7.8pt;
     background: var(--code-bg);
     color: var(--code-color);
     padding: 1px 4px;
@@ -369,15 +310,14 @@
     display: inline-block;
   }
 
-  /* Code block */
   pre {
     background: var(--pre-bg);
     border: 1px solid var(--border);
     border-radius: 6px;
     padding: 8px 10px;
     font-family: 'Consolas', monospace;
-    font-size: 7pt;
-    line-height: 1.35;
+    font-size: 7.5pt;
+    line-height: 1.4;
     color: var(--pre-color);
     overflow: hidden;
     page-break-inside: avoid;
@@ -386,16 +326,25 @@
     text-align: left;
   }
 
-  .comment { color: var(--text-muted); font-style: italic; }
-  .keyword { color: var(--accent-indigo); font-weight: 700; }
-  .string { color: var(--accent-emerald); }
+  .step-badge {
+    display: inline-block;
+    background: var(--accent-indigo);
+    color: white;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 18px;
+    font-size: 7.5pt;
+    font-weight: 700;
+    margin-left: 4px;
+  }
 
   .page-break {
     page-break-before: always;
     margin-top: 12px;
   }
 
-  /* Footer */
   .doc-footer {
     display: flex;
     justify-content: space-between;
@@ -410,7 +359,7 @@
 </head>
 <body>
 
-  <!-- Floating Theme Toggle for Browser Viewing -->
+  <!-- Floating Theme Toggle -->
   <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle Theme">
     <span>🌓</span> <span id="themeLabel">حالت تیره / روشن</span>
   </button>
@@ -418,281 +367,135 @@
   <!-- HERO -->
   <div class="hero">
     <div class="badge-row">
-      <span class="badge">مستندات استاندارد مهندسی PhTex</span>
-      <span class="badge cyan">نسخه Twisted/Asyncio v2.11+</span>
-      <span class="badge green">آماده برای محیط عملیاتی</span>
+      <span class="badge">الفبای استخراج خودکار داده</span>
+      <span class="badge cyan">بدون نیاز به دانش قبلی</span>
+      <span class="badge green">آموزش مو به مو</span>
     </div>
-    <h1><span class="accent">Scrapy</span> // فریم‌ورک وب کراولینگ ناهمگام</h1>
-    <div class="subtitle">توپولوژی راکتور غیرمسدودکننده، جبر استخراج با سلکتورها، الگوریتم AutoThrottle و کانفیگ پایدار</div>
+    <h1><span class="accent">Scrapy</span> // ربات جمع‌آوری اطلاعات از وب‌سایت‌ها</h1>
+    <div class="subtitle">چگونه بدون ساعت‌ها کپی‌پیست دستی، اطلاعات هزاران صفحه وب را در چند ثانیه داخل اکسل بریزیم؟</div>
   </div>
 
-  <!-- SECTION 1: ARCHITECTURE -->
-  <div class="section-title">۰۱. آناتومی معماری و چرخه جریان داده (Data Flow)</div>
-  <div class="arch-box">
-    <div style="font-weight:700; color:var(--accent-indigo); margin-bottom:4px;">ماشین حالت متناهی و حلقه رخداد غیرمسدودکننده Twisted / Asyncio</div>
-    موتور اسکرپی جریان داده میان صف زمان‌بندی، دانلودر غیرهمگام شبکه و لایه‌های پایپ‌لاین را بدون قفل کردن پردازه‌ها هماهنگ می‌کند.
-    <div class="arch-flow">
-      <div class="arch-node highlight">
-        <strong>موتور مرکزی</strong><br>
-        <span style="font-size:6.5pt; color:var(--text-muted);">هماهنگ‌کننده</span>
-      </div>
-      <div class="arch-arrow">➔</div>
-      <div class="arch-node">
-        <strong>زمان‌بند صف</strong><br>
-        <span style="font-size:6.5pt; color:var(--text-muted);">حذف تکراری‌ها</span>
-      </div>
-      <div class="arch-arrow">➔</div>
-      <div class="arch-node">
-        <strong>دانلودر</strong><br>
-        <span style="font-size:6.5pt; color:var(--text-muted);">واکشی HTTP</span>
-      </div>
-      <div class="arch-arrow">➔</div>
-      <div class="arch-node">
-        <strong>اسپایدرها</strong><br>
-        <span style="font-size:6.5pt; color:var(--text-muted);">پارسر XPath/CSS</span>
-      </div>
-      <div class="arch-arrow">➔</div>
-      <div class="arch-node">
-        <strong>پایپ‌لاین اقلام</strong><br>
-        <span style="font-size:6.5pt; color:var(--text-muted);">ذخیره در DB</span>
-      </div>
-    </div>
+  <!-- SECTION 1: WHAT IS SCRAPY -->
+  <div class="section-title">۰۱. اصل داستان به زبان ساده: اسکرپینگ چیست؟</div>
+  <div class="explain-box">
+    فرض کنید می‌خواهید قیمت و نام ۱,۰۰۰ تا کالا را از یک سایت یادداشت کنید.<br>
+    <strong>روش دستی:</strong> باید هزار بار کلیک کنید، متن را کپی کنید، اکسل را باز کنید و پیست کنید. این کار هفته‌ها وقت می‌گیرد و خسته‌کننده است.<br>
+    <strong>روش جادویی با Scrapy:</strong> اسکرپی یک ربات کوچک است؛ آدرس سایت را به او می‌دهید و در عرض ۳۰ ثانیه تمام صفحات را می‌خواند، قیمت‌ها و کلمات را جدا می‌کند و یک فایل شیک اکسل تحویلتان می‌دهد!
   </div>
 
-  <!-- SECTION 2: COMMAND GRAMMAR -->
-  <div class="section-title">۰۲. گرامر دستورات و جدول ماتریس CLI</div>
+  <!-- SECTION 2: INSTALLATION & PROJECT -->
+  <div class="section-title">۰۲. نصب و راه‌اندازی کارگاه ربات در خط فرمان کامپیوتر</div>
   
   <div class="grid-2">
-    <!-- Project Commands -->
     <div class="card">
       <div class="card-header">
-        <span>دستورات قلمرو پروژه</span>
-        <span class="badge cyan">محیط کاری</span>
+        <span><span class="step-badge">۱</span> نصب ربات (با یک خط)</span>
+        <span class="badge cyan">نصب اولیه</span>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>دستور</th>
-            <th>مثال دستوری</th>
-            <th>عملکرد سیستمی</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code>crawl</code></td>
-            <td><code>scrapy crawl sp -O out.jsonl</code></td>
-            <td>اجرای اسپایدر و استریم به فایل خروجی.</td>
-          </tr>
-          <tr>
-            <td><code>parse</code></td>
-            <td><code>scrapy parse --spider=sp &lt;url&gt;</code></td>
-            <td>تست واحد کالبک‌های اسپایدر به طور مجزا.</td>
-          </tr>
-          <tr>
-            <td><code>genspider</code></td>
-            <td><code>scrapy genspider -t crawl name site.com</code></td>
-            <td>تولید قالب اولیه اسپایدر از روی الگو.</td>
-          </tr>
-          <tr>
-            <td><code>check</code></td>
-            <td><code>scrapy check &lt;spider_name&gt;</code></td>
-            <td>بررسی اعتبارسنجی قراردادها (Contracts).</td>
-          </tr>
-        </tbody>
-      </table>
+      <p style="font-size:7.8pt; line-height:1.5; color:var(--text-secondary);">
+        پنجره سیاه (خط فرمان یا CMD) را باز کنید، دستور زیر را تایپ کنید و کلید <strong>Enter</strong> را بزنید:
+      </p>
+      <pre><code>pip install scrapy</code></pre>
+      <p style="font-size:7.5pt; color:var(--accent-emerald); font-weight:700;">
+        ✓ بعد از ۱ دقیقه ربات آماده به کار روی کامپیوتر شما نصب می‌شود.
+      </p>
     </div>
 
-    <!-- Global Commands -->
     <div class="card">
       <div class="card-header">
-        <span>دستورات سراسری سیستم</span>
-        <span class="badge">مستقل</span>
+        <span><span class="step-badge">۲</span> ساخت کارگاه پروژه</span>
+        <span class="badge">پروژه جدید</span>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>دستور</th>
-            <th>مثال دستوری</th>
-            <th>عملکرد سیستمی</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code>shell</code></td>
-            <td><code>scrapy shell "&lt;url&gt;" --nolog</code></td>
-            <td>محیط تعاملی REPL برای ارزیابی سلکتورها.</td>
-          </tr>
-          <tr>
-            <td><code>fetch</code></td>
-            <td><code>scrapy fetch --headers "&lt;url&gt;"</code></td>
-            <td>دریافت سند خام HTTP با دانلودر داخلی.</td>
-          </tr>
-          <tr>
-            <td><code>view</code></td>
-            <td><code>scrapy view "&lt;url&gt;"</code></td>
-            <td>بررسی رندر صفحه در مرورگر برای تست JS.</td>
-          </tr>
-          <tr>
-            <td><code>runspider</code></td>
-            <td><code>scrapy runspider single_spider.py</code></td>
-            <td>اجرای مستقیم فایل پایتون بدون پروژه.</td>
-          </tr>
-        </tbody>
-      </table>
+      <p style="font-size:7.8pt; line-height:1.5; color:var(--text-secondary);">
+        برای ساخت پوشه پروژه‌تان، در همان پنجره تایپ کنید:
+      </p>
+      <pre><code>scrapy startproject mybot</code></pre>
+      <p style="font-size:7.5pt; color:var(--accent-indigo); font-weight:700;">
+        یک پوشه به نام <code>mybot</code> ساخته می‌شود که تمام ابزارها داخل آن است.
+      </p>
     </div>
   </div>
 
-  <!-- Selectors Comparison -->
-  <div class="card" style="margin-bottom:10px;">
-    <div class="card-header">
-      <span>موتور انتخاب‌گرها: مقایسه CSS3 و XPath 1.0</span>
-      <span class="badge green">مبتنی بر lxml در C</span>
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th>هدف استخراج</th>
-          <th>ساختار نحو CSS3</th>
-          <th>معادل استاندارد XPath 1.0</th>
-          <th>مزیت و نکات فنی</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>مقدار ویژگی (Attribute)</strong></td>
-          <td><code>a::attr(href)</code></td>
-          <td><code>//a/@href</code></td>
-          <td>پشتیبانی XPath از توابع <code>contains()</code> و <code>starts-with()</code>.</td>
-        </tr>
-        <tr>
-          <td><strong>استخراج متن گره</strong></td>
-          <td><code>div.title::text</code></td>
-          <td><code>//div[@class='title']/text()</code></td>
-          <td>تجمیع بازگشتی متون نودهای فرزند با <code>string(//div)</code>.</td>
-        </tr>
-        <tr>
-          <td><strong>پیمایش معکوس والد</strong></td>
-          <td><em>غیرقابل پشتیبانی</em></td>
-          <td><code>//input[@id='x']/ancestor::form</code></td>
-          <td>پیمایش دوطرفه در کل گراف DOM بدون وابستگی به درخت.</td>
-        </tr>
-        <tr>
-          <td><strong>استخراج با ریجکس</strong></td>
-          <td><code>css('h1::text').re(r'\d+')</code></td>
-          <td><code>xpath('//h1/text()').re_first(r'\d+')</code></td>
-          <td>تطبیق مستقیم الگو بدون تخصیص حافظه اضافه در پایتون.</td>
-        </tr>
-      </tbody>
-    </table>
+  <!-- SECTION 3: SPIDER CODE -->
+  <div class="section-title">۰۳. کد ساده عنکبوت جمع‌آوری‌کننده (Spider چیست؟)</div>
+  <div class="explain-box" style="border-right-color: var(--accent-cyan);">
+    داخل پوشه <code>mybot/spiders/</code> یک فایل متنی با نام <code>quotes.py</code> بسازید و این کد چندخطی را داخل آن قرار دهید:
+    <pre><code>import scrapy
+
+class QuotesSpider(scrapy.Spider):
+    name = "quotes"  # نام این ربات
+    start_urls = ["https://quotes.toscrape.com"]  # آدرس سایت مقصد
+
+    def parse(self, response):
+        # پیدا کردن هر جعبه متن و برداشتن عنوان و نام نویسنده
+        for item in response.css("div.quote"):
+            yield {
+                "text": item.css("span.text::text").get(),
+                "author": item.css("small.author::text").get(),
+            }</code></pre>
   </div>
 
-  <!-- PAGE BREAK -->
   <div class="page-break"></div>
 
-  <!-- SECTION 3: AUTOTHROTTLE & DIAGNOSTICS -->
-  <div class="section-title">۰۳. موتور کنترل تطبیقی AutoThrottle و جدول عیب‌یابی</div>
-  <div class="grid-2">
-    <div class="card">
-      <div class="card-header">
-        <span>منطق الگوریتم AutoThrottle</span>
-        <span class="badge cyan">تنظیم خودکار تأخیر</span>
-      </div>
-      <div style="font-size:7.8pt; color:var(--text-secondary); margin-bottom:8px;">
-        میزان تأخیر دانلود را به طور پویا بر اساس تأخیر پاسخ‌دهی (Latency) سرور مقصد تنظیم می‌کند.
-      </div>
-      <div style="background:var(--table-header); border-right:3px solid var(--accent-cyan); padding:6px 10px; font-size:7.5pt; margin-bottom:6px;">
-        <strong>۱. محاسبه تأخیر:</strong> محاسبه زمان رفت و برگشت (RTT) هر پاسخ HTTP.<br>
-        <strong>۲. هدف‌گذاری هم‌روندی:</strong> حفظ ضریب <code>AUTOTHROTTLE_TARGET_CONCURRENCY</code>.<br>
-        <strong>۳. فرمول تأخیر:</strong> <code>delay = latency / target_concurrency</code>.<br>
-        <strong>۴. بازه امنیتی:</strong> محدودسازی بین مقادیر <code>START_DELAY</code> و <code>MAX_DELAY</code>.<br>
-        <strong>۵. واکنش به ترافیک بالا:</strong> افزایش آنی تأخیر در صورت دریافت کدهای 503 یا 429.
-      </div>
-    </div>
+  <!-- SECTION 4: RUNNING & EXCEL -->
+  <div class="section-title">۰۴. زدن دکمه استارت و تحویل گرفتن فایل اکسل</div>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:35%;">دستوری که در خط فرمان تایپ می‌کنید</th>
+        <th style="width:65%;">چه نتیجه‌ای حاصل می‌شود؟</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>scrapy crawl quotes -O results.csv</code></td>
+        <td>
+          ربات بیدار می‌شود، سایت را در ۳ ثانیه اسکن می‌کند و تمام داده‌ها را داخل فایلی به نام <strong>results.csv</strong> می‌ریزد.<br>
+          وقتی با ماوس روی فایل کلیک کنید، برنامه <strong>Excel</strong> باز شده و جدول تمیز را می‌بینید!
+        </td>
+      </tr>
+      <tr>
+        <td><code>scrapy shell "آدرس سایت"</code></td>
+        <td>یک محیط آزمایشی باز می‌کند تا قبل از ذخیره کردن، تست کنید که آیا کدهای صفحه درست انتخاب می‌شوند یا خیر.</td>
+      </tr>
+    </tbody>
+  </table>
 
-    <div class="card">
-      <div class="card-header">
-        <span>جدول عیب‌یابی و سناریوهای بحرانی</span>
-        <span class="badge">عیب‌یابی</span>
-      </div>
-      <table>
-        <tbody>
-          <tr>
-            <td><strong>خطای 403 کلودفلر</strong></td>
-            <td>استفاده از پروکسی مسکونی، هدرهای Sec-CH یا درایور Playwright.</td>
-          </tr>
-          <tr>
-            <td><strong>خطای Reactor</strong></td>
-            <td>فراخوانی <code>asyncioreactor.install()</code> قبل از ایمپورت راکتور.</td>
-          </tr>
-          <tr>
-            <td><strong>نشت رم و خطای OOM</strong></td>
-            <td>تنظیم <code>DEPTH_PRIORITY = 1</code> و فعال‌سازی <code>MEMUSAGE_LIMIT_MB</code>.</td>
-          </tr>
-          <tr>
-            <td><strong>تایم‌اوت DNS</strong></td>
-            <td>فعال‌سازی <code>DNSCACHE_ENABLED = True</code> و کاهش <code>DOWNLOAD_TIMEOUT</code>.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <!-- SECTION 5: ANTIBAN -->
+  <div class="section-title">۰۵. جلوگیری از مسدود شدن ربات توسط سایت‌ها (سرعت ایمن)</div>
+  <div class="explain-box" style="border-right-color: var(--accent-emerald);">
+    اگر سایتی ببیند در ۱ ثانیه ۱۰۰ صفحه باز شده، فکر می‌کند حمله شده و ربات را قفل می‌کند (خطای ۴۰۳).<br>
+    برای اینکه ربات با ادب و شبیه انسان با فاصله زمانی صفحات را باز کند، در فایل <code>settings.py</code> این خط را بگذارید:
+    <pre><code>AUTOTHROTTLE_ENABLED = True</code></pre>
+    با این یک خط، ربات خودکار بین هر صفحه ۱ ثانیه صبر می‌کند تا هیچ‌وقت مسدود نشود.
   </div>
 
-  <!-- SECTION 4: PRODUCTION CONFIG -->
-  <div class="section-title">۰۴. فایل تنظیمات بهینه‌شده برای محیط عملیاتی (settings.py)</div>
-  <pre>
-<span class="comment"># ==============================================================================</span>
-<span class="comment"># PhTex High-Performance Production Scrapy settings.py</span>
-<span class="comment"># ==============================================================================</span>
-<span class="keyword">TWISTED_REACTOR</span> = <span class="string">"twisted.internet.asyncioreactor.AsyncioSelectorReactor"</span>
-<span class="keyword">CONCURRENT_REQUESTS</span> = 32                           <span class="comment"># حداکثر چرخه‌های هم‌روند شبکه در حلقه رخداد</span>
-<span class="keyword">CONCURRENT_REQUESTS_PER_DOMAIN</span> = 16
-<span class="keyword">DOWNLOAD_TIMEOUT</span> = 15                              <span class="comment"># پیشگیری از قفل شدن پورت‌های معلق شبکه</span>
-
-<span class="comment"># کنترل تطبیقی و هوشمند نرخ ارسال درخواست‌ها</span>
-<span class="keyword">AUTOTHROTTLE_ENABLED</span> = True
-<span class="keyword">AUTOTHROTTLE_START_DELAY</span> = 1.0
-<span class="keyword">AUTOTHROTTLE_MAX_DELAY</span> = 10.0
-<span class="keyword">AUTOTHROTTLE_TARGET_CONCURRENCY</span> = 2.0
-
-<span class="comment"># تاب‌آوری در برابر خطاهای سرور و حفاظت از رم سرور</span>
-<span class="keyword">RETRY_ENABLED</span> = True
-<span class="keyword">RETRY_TIMES</span> = 3
-<span class="keyword">RETRY_HTTP_CODES</span> = [500, 502, 503, 504, 522, 524, 408, 429]
-<span class="keyword">MEMUSAGE_ENABLED</span> = True
-<span class="keyword">MEMUSAGE_LIMIT_MB</span> = 2048                           <span class="comment"># بستن ایمن پروسه قبل از فرخوانی OOM-killer سیستم عامل</span>
-
-<span class="comment"># کش داخلی تفکیک آدرس DNS و فیلتر درخواست‌های تکراری</span>
-<span class="keyword">DNSCACHE_ENABLED</span> = True
-<span class="keyword">DNSCACHE_SIZE</span> = 10000
-<span class="keyword">REQUEST_FINGERPRINTER_IMPLEMENTATION</span> = <span class="string">"2.7"</span>
-<span class="keyword">DUPEFILTER_CLASS</span> = <span class="string">"scrapy.dupefilters.RFPDupeFilter"</span>
-
-<span class="keyword">DEFAULT_REQUEST_HEADERS</span> = {
-    <span class="string">"Accept"</span>: <span class="string">"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"</span>,
-    <span class="string">"Accept-Language"</span>: <span class="string">"fa-IR,fa;q=0.9,en-US;q=0.8,en;q=0.7"</span>,
-    <span class="string">"Upgrade-Insecure-Requests"</span>: <span class="string">"1"</span>,
-}</pre>
-
+  <!-- FOOTER -->
   <div class="doc-footer">
-    <span>مجموعه مرجع مهندسی PhTex — ابزارهای سیستمی</span>
-    <span>شناسه سند: PHTEX-SCRAPY-FA-2026.09</span>
-    <span style="direction:ltr;">https://github.com/Fernie2000/PhTex</span>
+    <span>مجموعه مرجع کاربردی HpTex — مستندات استاندارد برای همه</span>
+    <span>مسیر پوشه: <code>HpTex/scrapy/fa/</code></span>
   </div>
 
   <script>
     const btn = document.getElementById('themeToggle');
     const label = document.getElementById('themeLabel');
-    const saved = localStorage.getItem('phtex-theme') || 'light';
-    document.documentElement.setAttribute('data-theme', saved);
+    const root = document.documentElement;
+
+    const savedTheme = localStorage.getItem('phtex_theme') || 'light';
+    root.setAttribute('data-theme', savedTheme);
+    updateLabel(savedTheme);
 
     btn.addEventListener('click', () => {
-      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-      const next = isDark ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('phtex-theme', next);
-      label.textContent = next === 'dark' ? 'حالت روشن' : 'حالت تیره';
+      const current = root.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('phtex_theme', next);
+      updateLabel(next);
     });
-  </script>
 
+    function updateLabel(theme) {
+      label.textContent = theme === 'dark' ? 'حالت روشن' : 'حالت تیره';
+    }
+  </script>
 </body>
 </html>

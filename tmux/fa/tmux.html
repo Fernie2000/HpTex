@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl" data-theme="light">
 <head>
 <meta charset="UTF-8">
-<title>tmux — مرجع استاندارد مهندسی و راهنمای جامع عملیاتی</title>
+<title>tmux — راهنمای مو به مو و فوق‌العاده ساده برای مبتدیان</title>
 <style>
   :root {
     --canvas: #ffffff;
@@ -15,12 +15,6 @@
     --hero-border: #c7d2fe;
     --card-bg: #ffffff;
     --card-border: #e2e8f0;
-    --arch-bg: #f8fafc;
-    --arch-node-bg: #ffffff;
-    --arch-node-border: #cbd5e1;
-    --arch-node-hl: #eef2ff;
-    --arch-node-hl-border: #818cf8;
-    --arch-node-hl-color: #312e81;
     --table-header: #f1f5f9;
     --table-border: #cbd5e1;
     --table-row-even: #f8fafc;
@@ -49,12 +43,6 @@
     --hero-border: #312e81;
     --card-bg: #111827;
     --card-border: #1f2937;
-    --arch-bg: #0d1322;
-    --arch-node-bg: #1e293b;
-    --arch-node-border: #334155;
-    --arch-node-hl: #1e1b4b;
-    --arch-node-hl-border: #6366f1;
-    --arch-node-hl-color: #c7d2fe;
     --table-header: #1e293b;
     --table-border: #334155;
     --table-row-even: rgba(17, 24, 39, 0.4);
@@ -95,12 +83,6 @@
       --hero-border: #c7d2fe !important;
       --card-bg: #ffffff !important;
       --card-border: #e2e8f0 !important;
-      --arch-bg: #f8fafc !important;
-      --arch-node-bg: #ffffff !important;
-      --arch-node-border: #cbd5e1 !important;
-      --arch-node-hl: #eef2ff !important;
-      --arch-node-hl-border: #818cf8 !important;
-      --arch-node-hl-color: #312e81 !important;
       --table-header: #f1f5f9 !important;
       --table-border: #cbd5e1 !important;
       --table-row-even: #f8fafc !important;
@@ -132,14 +114,13 @@
     background-color: var(--canvas);
     color: var(--text-primary);
     font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, "Segoe UI", Tahoma, Arial, sans-serif;
-    font-size: 9pt;
+    font-size: 8.8pt;
     line-height: 1.55;
     padding: 8px;
     direction: rtl;
     text-align: right;
   }
 
-  /* Interactive Theme Toggle Button */
   .theme-toggle-btn {
     position: fixed;
     top: 14px;
@@ -164,31 +145,28 @@
     border-color: var(--accent-indigo);
   }
 
-  /* Header Hero */
   .hero {
     background: var(--hero-bg);
     border: 1px solid var(--hero-border);
-    border-radius: 12px;
-    padding: 18px 24px;
-    margin-bottom: 14px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
   }
 
   .badge-row {
     display: flex;
-    gap: 8px;
-    margin-bottom: 8px;
+    gap: 6px;
+    margin-bottom: 6px;
   }
 
   .badge {
-    font-size: 7.5pt;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    padding: 3px 8px;
-    border-radius: 4px;
-    background: #e0e7ff;
+    background: #eef2ff;
     color: #3730a3;
     border: 1px solid #c7d2fe;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 7pt;
+    font-weight: 700;
   }
 
   .badge.cyan {
@@ -204,13 +182,13 @@
   }
 
   h1 {
-    font-size: 19pt;
+    font-size: 16pt;
     font-weight: 800;
     color: var(--text-primary);
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 3px;
+    margin-bottom: 4px;
   }
 
   h1 .accent {
@@ -225,21 +203,30 @@
     font-weight: 500;
   }
 
-  /* Section Title */
   .section-title {
-    font-size: 10.5pt;
+    font-size: 9.8pt;
     font-weight: 800;
     color: var(--text-primary);
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-top: 12px;
-    margin-bottom: 8px;
+    margin-top: 10px;
+    margin-bottom: 6px;
     border-bottom: 2px solid var(--border);
-    padding-bottom: 4px;
+    padding-bottom: 3px;
   }
 
-  /* Grid Layouts */
+  .explain-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-right: 3px solid var(--accent-indigo);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 8.3pt;
+    margin-bottom: 8px;
+    line-height: 1.6;
+  }
+
   .grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -247,7 +234,6 @@
     margin-bottom: 10px;
   }
 
-  /* Cards */
   .card {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
@@ -268,50 +254,6 @@
     align-items: center;
   }
 
-  /* Architecture Box */
-  .arch-box {
-    background: var(--arch-bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 12px;
-    font-size: 8pt;
-    color: var(--text-secondary);
-    margin-bottom: 12px;
-    page-break-inside: avoid;
-  }
-
-  .arch-flow {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-between;
-    align-items: center;
-    gap: 6px;
-    margin-top: 8px;
-  }
-
-  .arch-node {
-    background: var(--arch-node-bg);
-    border: 1px solid var(--arch-node-border);
-    border-radius: 6px;
-    padding: 6px 8px;
-    text-align: center;
-    flex: 1;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
-  }
-
-  .arch-node.highlight {
-    background: var(--arch-node-hl);
-    border-color: var(--arch-node-hl-border);
-    color: var(--arch-node-hl-color);
-    font-weight: 700;
-  }
-
-  .arch-arrow {
-    color: var(--text-muted);
-    font-size: 11pt;
-  }
-
-  /* Tables */
   table {
     width: 100%;
     border-collapse: collapse;
@@ -342,7 +284,6 @@
     background: var(--table-row-even);
   }
 
-  /* Keyboards & Code Badges */
   kbd {
     background: var(--kbd-bg);
     border: 1px solid var(--kbd-border);
@@ -350,7 +291,7 @@
     border-radius: 4px;
     padding: 1px 5px;
     font-family: 'Consolas', monospace;
-    font-size: 7pt;
+    font-size: 7.5pt;
     color: var(--kbd-text);
     font-weight: 700;
     direction: ltr;
@@ -359,7 +300,7 @@
 
   code {
     font-family: 'Consolas', 'JetBrains Mono', monospace;
-    font-size: 7.5pt;
+    font-size: 7.8pt;
     background: var(--code-bg);
     color: var(--code-color);
     padding: 1px 4px;
@@ -369,15 +310,14 @@
     display: inline-block;
   }
 
-  /* Code block */
   pre {
     background: var(--pre-bg);
     border: 1px solid var(--border);
     border-radius: 6px;
     padding: 8px 10px;
     font-family: 'Consolas', monospace;
-    font-size: 7pt;
-    line-height: 1.35;
+    font-size: 7.5pt;
+    line-height: 1.4;
     color: var(--pre-color);
     overflow: hidden;
     page-break-inside: avoid;
@@ -386,16 +326,25 @@
     text-align: left;
   }
 
-  .comment { color: var(--text-muted); font-style: italic; }
-  .keyword { color: var(--accent-indigo); font-weight: 700; }
-  .string { color: var(--accent-emerald); }
+  .step-num {
+    display: inline-block;
+    background: var(--accent-indigo);
+    color: white;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 18px;
+    font-size: 7.5pt;
+    font-weight: 700;
+    margin-left: 4px;
+  }
 
   .page-break {
     page-break-before: always;
     margin-top: 12px;
   }
 
-  /* Footer */
   .doc-footer {
     display: flex;
     justify-content: space-between;
@@ -410,7 +359,7 @@
 </head>
 <body>
 
-  <!-- Floating Theme Toggle for Browser Viewing -->
+  <!-- Floating Theme Toggle -->
   <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle Theme">
     <span>🌓</span> <span id="themeLabel">حالت تیره / روشن</span>
   </button>
@@ -418,309 +367,198 @@
   <!-- HERO -->
   <div class="hero">
     <div class="badge-row">
-      <span class="badge">مستندات استاندارد مهندسی PhTex</span>
-      <span class="badge cyan">استاندارد POSIX v3.3a+</span>
-      <span class="badge green">آماده برای محیط عملیاتی</span>
+      <span class="badge">الفبای کار با کامپیوتر</span>
+      <span class="badge cyan">صفر مطلق بدون نیاز به پیش‌زمینه</span>
+      <span class="badge green">آموزش مو به مو</span>
     </div>
-    <h1><span class="accent">tmux</span> // ترمینال مالتی‌پلکسر</h1>
-    <div class="subtitle">معماری جامع سیستمی، جبر ناوبری و کلیدهای میانبر، مدیریت بافرهای Vi و کانفیگ پایدار</div>
+    <h1><span class="accent">tmux</span> // راهنمای تقسیم صفحه سیاه و نجات کارها</h1>
+    <div class="subtitle">چگونه صفحه سیاه کامپیوتر را نصف کنیم و نگذاریم برنامه‌هایمان با قطع شدن اینترنت متوقف شوند؟</div>
   </div>
 
-  <!-- SECTION 1: ARCHITECTURE -->
-  <div class="section-title">۰۱. آناتومی معماری و توپولوژی سیستم</div>
-  <div class="arch-box">
-    <div style="font-weight:700; color:var(--accent-indigo); margin-bottom:4px;">جداسازی کامل چرخه عمر کلاینت از پروسه‌های سرور</div>
-    ابزار tmux در قالب یک دیمن پس‌زمینه ناهمگام (`tmuxd`) اجرا شده و کلیه پردازه‌های درون ترمینال را از چرخه عمر پنجره‌های گرافیکی یا نشست‌های ناپایدار SSH ایزوله می‌سازد.
-    <div class="arch-flow">
-      <div class="arch-node highlight">
-        <strong>سرور دیمن</strong><br>
-        <span style="font-size:6.5pt; color:var(--text-muted);">/tmp/tmux-$UID/default</span>
-      </div>
-      <div class="arch-arrow">➔</div>
-      <div class="arch-node">
-        <strong>نشست‌ها</strong><br>
-        <span style="font-size:6.5pt; color:var(--text-muted);">گروه‌های نام‌گذاری</span>
-      </div>
-      <div class="arch-arrow">➔</div>
-      <div class="arch-node">
-        <strong>پنجره‌ها</strong><br>
-        <span style="font-size:6.5pt; color:var(--text-muted);">تب‌های مستقل</span>
-      </div>
-      <div class="arch-arrow">➔</div>
-      <div class="arch-node">
-        <strong>پنل‌ها</strong><br>
-        <span style="font-size:6.5pt; color:var(--text-muted);">شبیه‌ساز PTY</span>
-      </div>
-    </div>
+  <!-- SECTION 1: WHAT IS TERMINAL & TMUX -->
+  <div class="section-title">۰۱. اول از همه: این پنجره سیاه (ترمینال) چیست و tmux چه دردی دوا می‌کند؟</div>
+  <div class="explain-box">
+    <strong>کامپیوتر شما دو ظاهر دارد:</strong> یکی همین ظاهر رنگی با ماوس و آیکون‌ها؛ و دیگری یک صفحه کاملاً سیاه به نام <strong>ترمینال (خط فرمان)</strong> که به جای کلیک کردن، دستورات انگلیسی را در آن تایپ می‌کنید و کلید <strong>Enter</strong> را می‌زنید.<br>
+    <strong>چرا به tmux نیاز داریم؟</strong><br>
+    ۱. <strong>تقسیم صفحه مثل تلویزیون دونفره:</strong> در صفحه سیاه عادی، هر بار فقط یک کار می‌توانید بکنید. با tmux صفحه را به ۲ یا ۴ مستطیل تقسیم می‌کنید تا هم‌زمان چند برنامه کنار هم باز باشند.<br>
+    ۲. <strong>خاموش نشدن کارها با بستن لپ‌تاپ یا قطع اینترنت:</strong> اگر به کامپیوتر دوری وصل باشید و اینترنت یک ثانیه قطع شود، برنامه‌های عادی متوقف می‌شوند؛ اما داخل tmux برنامه‌ها در پس‌زمینه زنده می‌مانند و فردا دقیقاً همان‌جا تحویلتان داده می‌شوند!
   </div>
 
-  <!-- SECTION 2: COMMAND GRAMMAR -->
-  <div class="section-title">۰۲. گرامر دستورات و جدول کلیدهای میانبر</div>
+  <!-- SECTION 2: HOW TO OPEN & PHYSICAL KEYS -->
+  <div class="section-title">۰۲. نحوه باز کردن و آموزش فیزیکی انگشتان دست روی کیبورد</div>
   
   <div class="grid-2">
-    <!-- Session Control -->
     <div class="card">
       <div class="card-header">
-        <span>مدیریت چرخه نشست‌ها (Sessions)</span>
-        <span class="badge cyan">عمومی</span>
+        <span><span class="step-num">۱</span> چگونه tmux را روشن کنیم؟</span>
+        <span class="badge cyan">ورود</span>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>عملیات</th>
-            <th>دستور خط فرمان (CLI)</th>
-            <th>کلید تعاملی</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>ساخت نشست جدید</td>
-            <td><code>tmux new -s &lt;name&gt;</code></td>
-            <td><code>:new -s &lt;name&gt;</code></td>
-          </tr>
-          <tr>
-            <td>اتصال به نشست هدف</td>
-            <td><code>tmux attach -t &lt;name&gt;</code></td>
-            <td>—</td>
-          </tr>
-          <tr>
-            <td>خروج از نشست (Detach)</td>
-            <td><code>tmux detach</code></td>
-            <td><kbd>Prefix</kbd> <kbd>d</kbd></td>
-          </tr>
-          <tr>
-            <td>درخت تعاملی نشست‌ها</td>
-            <td><code>tmux choose-tree -s</code></td>
-            <td><kbd>Prefix</kbd> <kbd>s</kbd></td>
-          </tr>
-          <tr>
-            <td>تغییر نام نشست</td>
-            <td><code>tmux rename-session &lt;n&gt;</code></td>
-            <td><kbd>Prefix</kbd> <kbd>$</kbd></td>
-          </tr>
-          <tr>
-            <td>بستن کامل نشست</td>
-            <td><code>tmux kill-session -t &lt;n&gt;</code></td>
-            <td><code>:kill-session</code></td>
-          </tr>
-        </tbody>
-      </table>
+      <p style="font-size:8pt; margin-bottom:6px; color:var(--text-secondary);">
+        پنجره سیاه را باز کنید، کلمه زیر را با حروف کوچک تایپ کنید و کلید بزرگ <strong>Enter</strong> کیبورد را فشار دهید:
+      </p>
+      <pre><code>tmux</code></pre>
+      <p style="font-size:7.5pt; color:var(--accent-emerald); font-weight:700;">
+        ✓ در پایین‌ترین قسمت صفحه مانیتور یک نوار باریک سبز رنگ ظاهر می‌شود. یعنی آماده است!
+      </p>
     </div>
 
-    <!-- Window Navigation -->
     <div class="card">
       <div class="card-header">
-        <span>مجازی‌سازی پنجره‌ها (Windows)</span>
-        <span class="badge">تب‌ها</span>
+        <span><span class="step-num">۲</span> نحوه فشردن دکمه جادویی (<kbd>Ctrl+b</kbd>)</span>
+        <span class="badge">دستور دادن</span>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>عملیات</th>
-            <th>دستور خط فرمان</th>
-            <th>کلید تعاملی</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>ساخت پنجره جدید</td>
-            <td><code>tmux new-window -n &lt;n&gt;</code></td>
-            <td><kbd>Prefix</kbd> <kbd>c</kbd></td>
-          </tr>
-          <tr>
-            <td>پنجره بعدی / قبلی</td>
-            <td><code>tmux next-window / prev</code></td>
-            <td><kbd>Prefix</kbd> <kbd>n</kbd> / <kbd>p</kbd></td>
-          </tr>
-          <tr>
-            <td>پرش مستقیم با شماره</td>
-            <td><code>tmux select-window -t &lt;i&gt;</code></td>
-            <td><kbd>Prefix</kbd> <kbd>0..9</kbd></td>
-          </tr>
-          <tr>
-            <td>فهرست تعاملی پنجره‌ها</td>
-            <td><code>tmux choose-tree -w</code></td>
-            <td><kbd>Prefix</kbd> <kbd>w</kbd></td>
-          </tr>
-          <tr>
-            <td>تغییر نام پنجره جاری</td>
-            <td><code>tmux rename-window &lt;n&gt;</code></td>
-            <td><kbd>Prefix</kbd> <kbd>,</kbd></td>
-          </tr>
-          <tr>
-            <td>بستن و نابودی پنجره</td>
-            <td><code>tmux kill-window</code></td>
-            <td><kbd>Prefix</kbd> <kbd>&amp;</kbd></td>
-          </tr>
-        </tbody>
-      </table>
+      <p style="font-size:7.8pt; line-height:1.5; color:var(--text-secondary);">
+        برای اینکه کامپیوتر بفهمد می‌خواهید صفحه را تقسیم کنید (نه اینکه متن تایپ کنید):<br>
+        ۱. کلید <kbd>Ctrl</kbd> (پایین سمت چپ کیبورد) را با دست چپ نگه دارید.<br>
+        ۲. یک بار کلید حرف <kbd>b</kbd> را بزنید.<br>
+        ۳. <strong>هر دو انگشت را از کیبورد بردارید!</strong><br>
+        ۴. حالا کلید دستور بعدی (مثل % یا فلش‌ها) را بزنید.
+      </p>
     </div>
   </div>
 
-  <!-- Pane Geometry -->
-  <div class="card" style="margin-bottom:10px;">
-    <div class="card-header">
-      <span>هندسه و تقسیم‌بندی پنل‌ها (Panes)</span>
-      <span class="badge green">ارگونومیک</span>
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th>عملیات</th>
-          <th>کلید پیش‌فرض</th>
-          <th>کلید بهینه‌شده (.tmux.conf)</th>
-          <th>دستور سیستمی زیرین</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>تقسیم افقی (کنار هم / Split Horizontal)</strong></td>
-          <td><kbd>Prefix</kbd> <kbd>%</kbd></td>
-          <td><kbd>Prefix</kbd> <kbd>|</kbd></td>
-          <td><code>split-window -h -c "#{pane_current_path}"</code></td>
-        </tr>
-        <tr>
-          <td><strong>تقسیم عمودی (زیر هم / Split Vertical)</strong></td>
-          <td><kbd>Prefix</kbd> <kbd>"</kbd></td>
-          <td><kbd>Prefix</kbd> <kbd>-</kbd></td>
-          <td><code>split-window -v -c "#{pane_current_path}"</code></td>
-        </tr>
-        <tr>
-          <td><strong>ناوبری جهت‌دار بین پنل‌ها</strong></td>
-          <td><kbd>Prefix</kbd> <kbd>جهت‌ها</kbd></td>
-          <td><kbd>Prefix</kbd> <kbd>h</kbd> <kbd>j</kbd> <kbd>k</kbd> <kbd>l</kbd></td>
-          <td><code>select-pane -[U|D|L|R]</code></td>
-        </tr>
-        <tr>
-          <td><strong>بزرگ‌نمایی موقت پنل (Zoom Toggle)</strong></td>
-          <td><kbd>Prefix</kbd> <kbd>z</kbd></td>
-          <td><kbd>Prefix</kbd> <kbd>z</kbd></td>
-          <td><code>resize-pane -Z</code> (حفظ ساختار پنجره‌ها)</td>
-        </tr>
-        <tr>
-          <td><strong>چرخش الگوهای چیدمان</strong></td>
-          <td><kbd>Prefix</kbd> <kbd>Space</kbd></td>
-          <td><kbd>Prefix</kbd> <kbd>Space</kbd></td>
-          <td><code>next-layout</code> (افقی، عمودی، کاشی‌کاری)</td>
-        </tr>
-        <tr>
-          <td><strong>همگام‌سازی ورودی تمام پنل‌ها</strong></td>
-          <td><code>:setw synchronize-panes</code></td>
-          <td><kbd>Prefix</kbd> <kbd>y</kbd></td>
-          <td>ارسال همزمان کلیدها به همه شل‌های فعال</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+  <!-- SECTION 3: SPLITTING SCREENS -->
+  <div class="section-title">۰۳. راهنمای تصویری و قدم به قدم تقسیم صفحه به چند تکه</div>
 
-  <!-- PAGE BREAK -->
+  <table>
+    <thead>
+      <tr>
+        <th style="width:25%;">کاری که می‌خواهید</th>
+        <th style="width:35%;">کلیدهایی که باید به ترتیب بزنید</th>
+        <th style="width:40%;">پیش روی چشمانتان در مانیتور چه رخ می‌دهد؟</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>نصف کردن صفحه چپ و راست</strong></td>
+        <td>اول <kbd>Ctrl+b</kbd> دست بردارید، بعد <kbd>Shift</kbd> + <kbd>5</kbd> (علامت <code>%</code>)</td>
+        <td>یک خط سفید عمودی در وسط صفحه کشیده می‌شود و دو مستطیل ترمینال کنار هم دارید.</td>
+      </tr>
+      <tr>
+        <td><strong>نصف کردن صفحه بالا و پایین</strong></td>
+        <td>اول <kbd>Ctrl+b</kbd> دست بردارید، بعد <kbd>Shift</kbd> + <kbd>'</kbd> (علامت <code>"</code>)</td>
+        <td>یک خط افقی کشیده می‌شود و دو مستطیل بالا و پایین خواهید داشت.</td>
+      </tr>
+      <tr>
+        <td><strong>پریدن به مستطیل بغلی یا بالایی</strong></td>
+        <td>اول <kbd>Ctrl+b</kbd> دست بردارید، بعد یکی از <kbd>فلش‌های جهت‌نما</kbd></td>
+        <td>مکان‌نمای چشمک‌زن به مستطیل دلخواه می‌پرد و می‌توانید در آن تایپ کنید.</td>
+      </tr>
+      <tr>
+        <td><strong>بزرگ کردن موقت یک مستطیل (زوم)</strong></td>
+        <td>اول <kbd>Ctrl+b</kbd> دست بردارید، بعد حرف <kbd>z</kbd></td>
+        <td>آن کادر تمام‌صفحه می‌شود. دوباره همان دکمه را بزنید به حالت نصفه برمی‌گردد.</td>
+      </tr>
+      <tr>
+        <td><strong>بستن یک مستطیل اضافه</strong></td>
+        <td>اول <kbd>Ctrl+b</kbd> بعد حرف <kbd>x</kbd> و سپس زدن حرف <kbd>y</kbd></td>
+        <td>آن تکه برای همیشه بسته می‌شود و کادر کناری جای آن را می‌گیرد.</td>
+      </tr>
+    </tbody>
+  </table>
+
   <div class="page-break"></div>
 
-  <!-- SECTION 3: VI MODE & CLIPBOARD -->
-  <div class="section-title">۰۳. مدیریت بافرهای Vi و خط‌لوله کلیپ‌بورد</div>
+  <!-- SECTION 4: DETACH & ATTACH -->
+  <div class="section-title">۰۴. ترک کردن برنامه‌ها بدون بسته شدن و بازگشت دوباره فردا (Detach & Attach)</div>
   <div class="grid-2">
     <div class="card">
       <div class="card-header">
-        <span>فرایند کپی و ناوبری بافر</span>
-        <span class="badge cyan">حافظه سرور</span>
+        <span>مرحله ۱: ترک امن و بستن کامپیوتر (Detach)</span>
+        <span class="badge">خروج ایمن</span>
       </div>
-      <div style="font-size:7.8pt; color:var(--text-secondary); margin-bottom:8px;">
-        تاریخچه اسکرول درون حافظه اختصاصی سرور نگهداری شده و به محدودیت‌های ترمینال وابسته نیست.
-      </div>
-      <div style="background:var(--table-header); border-right:3px solid var(--accent-cyan); padding:6px 10px; font-size:7.5pt; margin-bottom:6px;">
-        <strong>۱. ورود به حالت اسکرول:</strong> <kbd>Prefix</kbd> <kbd>[</kbd><br>
-        <strong>۲. ناوبری مطابق Vim:</strong> <kbd>h</kbd> <kbd>j</kbd> <kbd>k</kbd> <kbd>l</kbd> و <kbd>Ctrl+u</kbd> / <kbd>Ctrl+d</kbd><br>
-        <strong>۳. جستجو در متن:</strong> <kbd>/</kbd> (رو به جلو) و <kbd>?</kbd> (رو به عقب)<br>
-        <strong>۴. شروع انتخاب متن:</strong> <kbd>v</kbd><br>
-        <strong>۵. رونوشت (کپی):</strong> <kbd>y</kbd> ➔ انتقال به کلیپ‌بورد سیستم و بافر داخلی<br>
-        <strong>۶. الصاق (Paste):</strong> <kbd>Prefix</kbd> <kbd>]</kbd>
-      </div>
+      <p style="font-size:8pt; line-height:1.55; color:var(--text-secondary);">
+        برنامه‌هایتان وسط کار هستند و می‌خواهید بخوابید یا لپ‌تاپ را ببندید:<br>
+        ۱. کلید <kbd>Ctrl+b</kbd> را بزنید و دستتان را بردارید.<br>
+        ۲. کلید حرف <kbd>d</kbd> را یک بار فشار دهید.<br>
+        ۳. نوار سبز می‌رود و پیام <code>[detached]</code> می‌آید.<br>
+        حالا پنجره سیاه را با خیال راحت ببندید؛ کارها در پس‌زمینه در حال اجرا می‌مانند!
+      </p>
     </div>
 
     <div class="card">
       <div class="card-header">
-        <span>جدول رفع اشکال و پیشگیری</span>
-        <span class="badge">عیب‌یابی</span>
+        <span>مرحله ۲: بازگشت به همان صفحه در روز بعد (Attach)</span>
+        <span class="badge green">احیا</span>
       </div>
-      <table>
-        <tbody>
-          <tr>
-            <td><strong>تاخیر کلید Esc در Vim</strong></td>
-            <td>تنظیم <code>escape-time 0</code> در فایل کانفیگ جهت حذف تاخیر.</td>
-          </tr>
-          <tr>
-            <td><strong>به‌هم‌ریختگی رنگ‌ها</strong></td>
-            <td>اعمال <code>default-terminal "tmux-256color"</code> و RGB overrides.</td>
-          </tr>
-          <tr>
-            <td><strong>نشست تودرتوی SSH</strong></td>
-            <td>فشردن دو بار کلید <kbd>Prefix</kbd> جهت ارسال به نشست مهمان.</td>
-          </tr>
-          <tr>
-            <td><strong>محدودیت سایز کلاینت</strong></td>
-            <td>فعال‌سازی <code>setw -g aggressive-resize on</code>.</td>
-          </tr>
-        </tbody>
-      </table>
+      <p style="font-size:8pt; line-height:1.55; color:var(--text-secondary);">
+        فردا پنجره سیاه را در کامپیوتر باز کنید و دقیقاً این دستور را بنویسید و کلید <strong>Enter</strong> را بزنید:
+      </p>
+      <pre><code>tmux attach</code></pre>
+      <p style="font-size:7.5pt; color:var(--accent-indigo); font-weight:700;">
+        همان صفحه با همان خطوط تقسیم، متن‌ها و برنامه‌های در حال اجرا بازگردانده می‌شوند!
+      </p>
     </div>
   </div>
 
-  <!-- SECTION 4: HARDENED PRODUCTION CONFIG -->
-  <div class="section-title">۰۴. فایل کانفیگ بهینه‌شده برای محیط عملیاتی (~/.tmux.conf)</div>
-  <pre>
-<span class="comment"># ==============================================================================</span>
-<span class="comment"># PhTex High-Performance Production .tmux.conf</span>
-<span class="comment"># ==============================================================================</span>
-<span class="keyword">unbind</span> C-b
-<span class="keyword">set</span> -g prefix C-a                                  <span class="comment"># پیشوند ارگونومیک با کلید Ctrl-a</span>
-<span class="keyword">bind</span> C-a send-prefix
+  <!-- SECTION 5: WINDOWS & TABS -->
+  <div class="section-title">۰۵. ساختن تب جدید (درست مثل تب‌های مرورگر اینترنت)</div>
+  <table>
+    <thead>
+      <tr>
+        <th>کاری که می‌خواهید انجام دهید</th>
+        <th>دکمه‌ای که باید بزنید</th>
+        <th>نتیجه</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>ساخت یک تب سفید و نو</strong></td>
+        <td><kbd>Ctrl+b</kbd> سپس حرف <kbd>c</kbd></td>
+        <td>یک صفحه کامل و تازه برای کارهای دیگر باز می‌شود.</td>
+      </tr>
+      <tr>
+        <td><strong>رفتن به تب بعدی</strong></td>
+        <td><kbd>Ctrl+b</kbd> سپس حرف <kbd>n</kbd></td>
+        <td>به صفحه بعدی می‌روید.</td>
+      </tr>
+      <tr>
+        <td><strong>رفتن به تب قبلی</strong></td>
+        <td><kbd>Ctrl+b</kbd> سپس حرف <kbd>p</kbd></td>
+        <td>به صفحه قبلی برمی‌گردید.</td>
+      </tr>
+      <tr>
+        <td><strong>بستن کامل یک تب</strong></td>
+        <td><kbd>Ctrl+b</kbd> سپس علامت <kbd>&</kbd> (سپس زدن <kbd>y</kbd>)</td>
+        <td>کل آن تب بسته می‌شود.</td>
+      </tr>
+    </tbody>
+  </table>
 
-<span class="keyword">set</span> -g default-terminal <span class="string">"tmux-256color"</span>            <span class="comment"># پشتیبانی از رنگ‌های ۲۴ بیتی Truecolor</span>
-<span class="keyword">set</span> -ag terminal-overrides <span class="string">",xterm-256color:RGB"</span>
-<span class="keyword">set</span> -s escape-time 0                               <span class="comment"># تاخیر صفر ثانیه برای ادیتور Neovim/Vim</span>
-<span class="keyword">set</span> -g history-limit 50000                         <span class="comment"># ۵۰ هزار خط تاریخچه اسکرول</span>
-<span class="keyword">set</span> -g mouse on                                    <span class="comment"># فعال‌سازی کامل اشاره‌گر ماوس</span>
+  <!-- SECTION 6: TROUBLESHOOTING -->
+  <div class="section-title">۰۶. اگر اشتباه دکمه زدم یا گیر کردم چه‌کار کنم؟</div>
+  <div class="explain-box" style="border-right-color: var(--accent-emerald);">
+    <strong>۱. گیر کردن یا کار نکردن دستور:</strong> اگر دکمه اشتباهی زدید، کافیست دکمه <kbd>Esc</kbd> (بالا سمت چپ کیبورد) یا دو بار کلیدهای <kbd>Ctrl+c</kbd> را بزنید تا همه‌چیز لغو شود.<br>
+    <strong>۲. بالا رفتن در نوشته‌های قبلی (اسکرول):</strong> دکمه <kbd>Ctrl+b</kbd> را بزنید سپس علامت کروشه باز <kbd>[</kbd> را بزنید. حالا با فلش‌های کیبورد می‌توانید متن‌های بالایی را بخوانید. برای برگشتن به تایپ عادی فقط حرف <kbd>q</kbd> را بزنید.<br>
+    <strong>۳. خروج همیشگی:</strong> هر وقت کارتان کاملاً تمام شد، کلمه <code>exit</code> را بنویسید و دکمه Enter را بزنید.
+  </div>
 
-<span class="keyword">set</span> -g base-index 1                                <span class="comment"># شماره‌گذاری پنجره‌ها و پنل‌ها از ۱</span>
-<span class="keyword">setw</span> -g pane-base-index 1
-<span class="keyword">set</span> -g renumber-windows on
-
-<span class="comment"># کلیدهای بصری تقسیم پنجره و حفظ دایرکتوری جاری</span>
-<span class="keyword">bind</span> | split-window -h -c <span class="string">"#{pane_current_path}"</span>
-<span class="keyword">bind</span> - split-window -v -c <span class="string">"#{pane_current_path}"</span>
-
-<span class="comment"># ناوبری سریع پنل‌ها با حروف Vim</span>
-<span class="keyword">bind</span> h select-pane -L \; <span class="keyword">bind</span> j select-pane -D \; <span class="keyword">bind</span> k select-pane -U \; <span class="keyword">bind</span> l select-pane -R
-<span class="keyword">setw</span> -g mode-keys vi
-<span class="keyword">bind</span> -T copy-mode-vi v send-keys -X begin-selection
-<span class="keyword">bind</span> -T copy-mode-vi y send-keys -X copy-pipe-and-cancel <span class="string">"wl-copy || xclip -in -selection clipboard"</span>
-
-<span class="comment"># استایل نوار وضعیت مدرن و مینیمال</span>
-<span class="keyword">set</span> -g status-style <span class="string">"bg=#1e1e2e,fg=#cdd6f4"</span>
-<span class="keyword">set</span> -g status-left <span class="string">"#[bg=#89b4fa,fg=#11111b,bold]  #S #[bg=#1e1e2e,fg=#89b4fa] "</span>
-<span class="keyword">set</span> -g window-status-current-format <span class="string">"#[fg=#11111b,bg=#a6e3a1,bold] #I:#W "</span>
-<span class="keyword">bind</span> r source-file ~/.tmux.conf \; display-message <span class="string">"کانفیگ مجدداً بارگذاری شد."</span></pre>
-
+  <!-- FOOTER -->
   <div class="doc-footer">
-    <span>مجموعه مرجع مهندسی PhTex — ابزارهای سیستمی</span>
-    <span>شناسه سند: PHTEX-TMUX-FA-2026.09</span>
-    <span style="direction:ltr;">https://github.com/Fernie2000/PhTex</span>
+    <span>مجموعه مرجع کاربردی HpTex — مستندات استاندارد برای همه</span>
+    <span>مسیر پوشه: <code>HpTex/tmux/fa/</code></span>
   </div>
 
   <script>
     const btn = document.getElementById('themeToggle');
     const label = document.getElementById('themeLabel');
-    const saved = localStorage.getItem('phtex-theme') || 'light';
-    document.documentElement.setAttribute('data-theme', saved);
+    const root = document.documentElement;
+
+    const savedTheme = localStorage.getItem('phtex_theme') || 'light';
+    root.setAttribute('data-theme', savedTheme);
+    updateLabel(savedTheme);
 
     btn.addEventListener('click', () => {
-      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-      const next = isDark ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('phtex-theme', next);
-      label.textContent = next === 'dark' ? 'حالت روشن' : 'حالت تیره';
+      const current = root.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('phtex_theme', next);
+      updateLabel(next);
     });
-  </script>
 
+    function updateLabel(theme) {
+      label.textContent = theme === 'dark' ? 'حالت روشن' : 'حالت تیره';
+    }
+  </script>
 </body>
 </html>

@@ -66,11 +66,11 @@ HpTex/
 | Tool | Category | Language | Markdown Dossier | Modern PDF Dossier | Core Capability |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **`tmux`** | Terminal Multiplexing | **EN** (English) | [English Guide](tmux/en/tmux.md) | [English PDF](tmux/en/tmux.pdf) | Client-server PTY management, persistent sessions, decoupled multiplexing |
-| **`tmux`** | ترمینال مالتی‌پلکسر | **FA** (فارسی) | [راهنمای فارسی](tmux/fa/tmux.md) | [پی‌دی‌اف فارسی](tmux/fa/tmux.pdf) | مدیریت کلاینت-سرور PTY، سشن‌های پایدار، تقسیم پنل‌ها و بافرها |
+| **`tmux`** | ترمینال مالتی‌پلکسر | **FA** (فارسی) | [راهنمای فارسی](tmux/fa/tmux.md) | [پی‌دی‌اف فارسی](tmux/fa/tmux.pdf) | آموزش مو به موی تقسیم صفحه سیاه، کلیدهای کیبورد و زنده‌ماندن برنامه‌ها |
 | **`scrcpy`**| Android Virtualization | **EN** (English) | [English Guide](scrcpy/en/scrcpy.md) | [English PDF](scrcpy/en/scrcpy.pdf) | Low-latency display mirroring, MediaCodec hardware encoding, UHID/AOA input |
-| **`scrcpy`**| کنترل و تصویر اندروید | **FA** (فارسی) | [راهنمای فارسی](scrcpy/fa/scrcpy.md) | [پی‌دی‌اف فارسی](scrcpy/fa/scrcpy.pdf) | مجازی‌سازی بلادرنگ تصویر، انکود سخت‌افزاری MediaCodec، شبیه‌سازی سخت‌افزاری UHID |
+| **`scrcpy`**| کنترل و تصویر اندروید | **FA** (فارسی) | [راهنمای فارسی](scrcpy/fa/scrcpy.md) | [پی‌دی‌اف فارسی](scrcpy/fa/scrcpy.pdf) | آموزش مو به مو از اتصال کابل تا تنظیمات مخفی گوشی و کنترل با ماوس/کیبورد |
 | **`scrapy`**| Asynchronous Web Crawling | **EN** (English) | [English Guide](scrapy/en/scrapy.md) | [English PDF](scrapy/en/scrapy.pdf) | Twisted/asyncio reactive scraping engine, XPath/CSS parsel algebra, AutoThrottle |
-| **`scrapy`**| وب اسکرپینگ ناهمگام | **FA** (فارسی) | [راهنمای فارسی](scrapy/fa/scrapy.md) | [پی‌دی‌اف فارسی](scrapy/fa/scrapy.pdf) | موتور واکشی غیرمسدودکننده رخدادمحور، پایپ‌لاین اقلام، الگوریتم AutoThrottle |
+| **`scrapy`**| وب اسکرپینگ و استخراج داده | **FA** (فارسی) | [راهنمای فارسی](scrapy/fa/scrapy.md) | [پی‌دی‌اف فارسی](scrapy/fa/scrapy.pdf) | آموزش ساخت ربات جمع‌آوری اطلاعات سایت‌ها و تبدیل مستقیم به فایل اکسل |
 
 ---
 

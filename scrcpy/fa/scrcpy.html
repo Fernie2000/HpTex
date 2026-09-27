@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl" data-theme="light">
 <head>
 <meta charset="UTF-8">
-<title>scrcpy — مرجع استاندارد مهندسی و راهنمای جامع عملیاتی</title>
+<title>scrcpy — راهنمای مو به مو و فوق‌العاده ساده اتصال گوشی به کامپیوتر</title>
 <style>
   :root {
     --canvas: #ffffff;
@@ -15,12 +15,6 @@
     --hero-border: #c7d2fe;
     --card-bg: #ffffff;
     --card-border: #e2e8f0;
-    --arch-bg: #f8fafc;
-    --arch-node-bg: #ffffff;
-    --arch-node-border: #cbd5e1;
-    --arch-node-hl: #eef2ff;
-    --arch-node-hl-border: #818cf8;
-    --arch-node-hl-color: #312e81;
     --table-header: #f1f5f9;
     --table-border: #cbd5e1;
     --table-row-even: #f8fafc;
@@ -49,12 +43,6 @@
     --hero-border: #312e81;
     --card-bg: #111827;
     --card-border: #1f2937;
-    --arch-bg: #0d1322;
-    --arch-node-bg: #1e293b;
-    --arch-node-border: #334155;
-    --arch-node-hl: #1e1b4b;
-    --arch-node-hl-border: #6366f1;
-    --arch-node-hl-color: #c7d2fe;
     --table-header: #1e293b;
     --table-border: #334155;
     --table-row-even: rgba(17, 24, 39, 0.4);
@@ -95,12 +83,6 @@
       --hero-border: #c7d2fe !important;
       --card-bg: #ffffff !important;
       --card-border: #e2e8f0 !important;
-      --arch-bg: #f8fafc !important;
-      --arch-node-bg: #ffffff !important;
-      --arch-node-border: #cbd5e1 !important;
-      --arch-node-hl: #eef2ff !important;
-      --arch-node-hl-border: #818cf8 !important;
-      --arch-node-hl-color: #312e81 !important;
       --table-header: #f1f5f9 !important;
       --table-border: #cbd5e1 !important;
       --table-row-even: #f8fafc !important;
@@ -132,14 +114,13 @@
     background-color: var(--canvas);
     color: var(--text-primary);
     font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, "Segoe UI", Tahoma, Arial, sans-serif;
-    font-size: 9pt;
+    font-size: 8.8pt;
     line-height: 1.55;
     padding: 8px;
     direction: rtl;
     text-align: right;
   }
 
-  /* Interactive Theme Toggle Button */
   .theme-toggle-btn {
     position: fixed;
     top: 14px;
@@ -164,31 +145,28 @@
     border-color: var(--accent-indigo);
   }
 
-  /* Header Hero */
   .hero {
     background: var(--hero-bg);
     border: 1px solid var(--hero-border);
-    border-radius: 12px;
-    padding: 18px 24px;
-    margin-bottom: 14px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
   }
 
   .badge-row {
     display: flex;
-    gap: 8px;
-    margin-bottom: 8px;
+    gap: 6px;
+    margin-bottom: 6px;
   }
 
   .badge {
-    font-size: 7.5pt;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    padding: 3px 8px;
-    border-radius: 4px;
-    background: #e0e7ff;
+    background: #eef2ff;
     color: #3730a3;
     border: 1px solid #c7d2fe;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 7pt;
+    font-weight: 700;
   }
 
   .badge.cyan {
@@ -204,13 +182,13 @@
   }
 
   h1 {
-    font-size: 19pt;
+    font-size: 16pt;
     font-weight: 800;
     color: var(--text-primary);
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 3px;
+    margin-bottom: 4px;
   }
 
   h1 .accent {
@@ -225,21 +203,30 @@
     font-weight: 500;
   }
 
-  /* Section Title */
   .section-title {
-    font-size: 10.5pt;
+    font-size: 9.8pt;
     font-weight: 800;
     color: var(--text-primary);
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-top: 12px;
-    margin-bottom: 8px;
+    margin-top: 10px;
+    margin-bottom: 6px;
     border-bottom: 2px solid var(--border);
-    padding-bottom: 4px;
+    padding-bottom: 3px;
   }
 
-  /* Grid Layouts */
+  .explain-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-right: 3px solid var(--accent-indigo);
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 8.3pt;
+    margin-bottom: 8px;
+    line-height: 1.6;
+  }
+
   .grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -247,7 +234,6 @@
     margin-bottom: 10px;
   }
 
-  /* Cards */
   .card {
     background: var(--card-bg);
     border: 1px solid var(--card-border);
@@ -268,50 +254,6 @@
     align-items: center;
   }
 
-  /* Architecture Box */
-  .arch-box {
-    background: var(--arch-bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 12px;
-    font-size: 8pt;
-    color: var(--text-secondary);
-    margin-bottom: 12px;
-    page-break-inside: avoid;
-  }
-
-  .arch-flow {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-between;
-    align-items: center;
-    gap: 6px;
-    margin-top: 8px;
-  }
-
-  .arch-node {
-    background: var(--arch-node-bg);
-    border: 1px solid var(--arch-node-border);
-    border-radius: 6px;
-    padding: 6px 8px;
-    text-align: center;
-    flex: 1;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
-  }
-
-  .arch-node.highlight {
-    background: var(--arch-node-hl);
-    border-color: var(--arch-node-hl-border);
-    color: var(--arch-node-hl-color);
-    font-weight: 700;
-  }
-
-  .arch-arrow {
-    color: var(--text-muted);
-    font-size: 11pt;
-  }
-
-  /* Tables */
   table {
     width: 100%;
     border-collapse: collapse;
@@ -342,7 +284,6 @@
     background: var(--table-row-even);
   }
 
-  /* Keyboards & Code Badges */
   kbd {
     background: var(--kbd-bg);
     border: 1px solid var(--kbd-border);
@@ -350,7 +291,7 @@
     border-radius: 4px;
     padding: 1px 5px;
     font-family: 'Consolas', monospace;
-    font-size: 7pt;
+    font-size: 7.5pt;
     color: var(--kbd-text);
     font-weight: 700;
     direction: ltr;
@@ -359,7 +300,7 @@
 
   code {
     font-family: 'Consolas', 'JetBrains Mono', monospace;
-    font-size: 7.5pt;
+    font-size: 7.8pt;
     background: var(--code-bg);
     color: var(--code-color);
     padding: 1px 4px;
@@ -369,15 +310,14 @@
     display: inline-block;
   }
 
-  /* Code block */
   pre {
     background: var(--pre-bg);
     border: 1px solid var(--border);
     border-radius: 6px;
     padding: 8px 10px;
     font-family: 'Consolas', monospace;
-    font-size: 7pt;
-    line-height: 1.35;
+    font-size: 7.5pt;
+    line-height: 1.4;
     color: var(--pre-color);
     overflow: hidden;
     page-break-inside: avoid;
@@ -386,16 +326,25 @@
     text-align: left;
   }
 
-  .comment { color: var(--text-muted); font-style: italic; }
-  .keyword { color: var(--accent-indigo); font-weight: 700; }
-  .string { color: var(--accent-emerald); }
+  .step-badge {
+    display: inline-block;
+    background: var(--accent-indigo);
+    color: white;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 18px;
+    font-size: 7.5pt;
+    font-weight: 700;
+    margin-left: 4px;
+  }
 
   .page-break {
     page-break-before: always;
     margin-top: 12px;
   }
 
-  /* Footer */
   .doc-footer {
     display: flex;
     justify-content: space-between;
@@ -410,7 +359,7 @@
 </head>
 <body>
 
-  <!-- Floating Theme Toggle for Browser Viewing -->
+  <!-- Floating Theme Toggle -->
   <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle Theme">
     <span>🌓</span> <span id="themeLabel">حالت تیره / روشن</span>
   </button>
@@ -418,286 +367,184 @@
   <!-- HERO -->
   <div class="hero">
     <div class="badge-row">
-      <span class="badge">مستندات استاندارد مهندسی PhTex</span>
-      <span class="badge cyan">زیرسیستم Android API 21-34</span>
-      <span class="badge green">آماده برای محیط عملیاتی</span>
+      <span class="badge">الفبای کار با کامپیوتر و گوشی</span>
+      <span class="badge cyan">صفر مطلق بدون نیاز به روت</span>
+      <span class="badge green">آموزش مو به مو</span>
     </div>
-    <h1><span class="accent">scrcpy</span> // انتقال تصویر و کنترل دستگاه‌های اندرویدی</h1>
-    <div class="subtitle">مجازی‌سازی صفحه با تاخیر ناچیز، خط‌لوله انکود سخت‌افزاری MediaCodec و درایورهای فیزیکی UHID</div>
+    <h1><span class="accent">scrcpy</span> // انداختن تصویر گوشی روی صفحه کامپیوتر</h1>
+    <div class="subtitle">چگونه گوشی اندروید را با سیم شارژر به کامپیوتر وصل کنیم و با ماوس و کیبورد با آن کار کنیم؟</div>
   </div>
 
-  <!-- SECTION 1: ARCHITECTURE -->
-  <div class="section-title">۰۱. آناتومی معماری و پایپ‌لاین داخلی سیستم</div>
-  <div class="arch-box">
-    <div style="font-weight:700; color:var(--accent-indigo); margin-bottom:4px;">دیمن موقت جاوا درون حافظه رم با فرمان app_process در ADB</div>
-    معماری بی‌نیاز از روت با اتصال مستقیم به SurfaceControl اندروید، فشرده‌سازی با شتاب‌دهنده تراشه و استریم روی سوکت فوروارد محلی ADB.
-    <div class="arch-flow">
-      <div class="arch-node highlight">
-        <strong>کلاینت سیستم</strong><br>
-        <span style="font-size:6.5pt; color:var(--text-muted);">SDL2 + FFmpeg</span>
-      </div>
-      <div class="arch-arrow">➔</div>
-      <div class="arch-node">
-        <strong>تونل ADB</strong><br>
-        <span style="font-size:6.5pt; color:var(--text-muted);">USB یا وای‌فای ۵۵۵۵</span>
-      </div>
-      <div class="arch-arrow">➔</div>
-      <div class="arch-node">
-        <strong>سرور scrcpy</strong><br>
-        <span style="font-size:6.5pt; color:var(--text-muted);">فایل موقت JAR</span>
-      </div>
-      <div class="arch-arrow">➔</div>
-      <div class="arch-node">
-        <strong>MediaCodec</strong><br>
-        <span style="font-size:6.5pt; color:var(--text-muted);">انکود H.264/5</span>
-      </div>
-      <div class="arch-arrow">➔</div>
-      <div class="arch-node">
-        <strong>کرنل لینوکس</strong><br>
-        <span style="font-size:6.5pt; color:var(--text-muted);">درایور UHID / AOA</span>
-      </div>
-    </div>
+  <!-- SECTION 1: WHAT IS IT -->
+  <div class="section-title">۰۱. اصل داستان به زبان ساده: این برنامه دقیقاً چه کار می‌کند؟</div>
+  <div class="explain-box">
+    تصور کنید می‌خواهید بدون اینکه به گوشی دست بزنید، پیام‌های واتساپ و تلگرام را روی مانیتور کامپیوتر بخوانید و با کیبورد بزرگ کامپیوتر سریع تایپ کنید. همچنین با کلیک ماوس انگار با انگشت روی گوشی ضربه می‌زنید!<br>
+    برنامه <strong>scrcpy</strong> مثل یک آینه عمل می‌کند: صفحه گوشی را روی کامپیوتر می‌اندازد، هیچ تبلیغاتی ندارد و حتی نیازی به نصب هیچ برنامه‌ای روی گوشی ندارد!
   </div>
 
-  <!-- SECTION 2: COMMAND GRAMMAR -->
-  <div class="section-title">۰۲. گرامر دستورات و پارامترهای خط فرمان (CLI)</div>
+  <!-- SECTION 2: PHONE PREPARATION -->
+  <div class="section-title">۰۲. آماده‌سازی گوشی (کلید مخفی برنامه‌نویس) — فقط یک‌بار در تمام عمر گوشی!</div>
   
   <div class="grid-2">
-    <!-- Transport & Video -->
     <div class="card">
       <div class="card-header">
-        <span>انتقال داده و فشرده‌سازی تصویر</span>
-        <span class="badge cyan">ویدیو و شبکه</span>
+        <span><span class="step-badge">۱</span> ۷ بار ضربه روی شماره ساخت</span>
+        <span class="badge cyan">منوی مخفی</span>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>پارامتر</th>
-            <th>پیش‌فرض</th>
-            <th>عملکرد سیستمی</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code>--tcpip=&lt;ip:port&gt;</code></td>
-            <td>USB</td>
-            <td>سوئیچ آنی به اتصال شبکه بی‌سیم.</td>
-          </tr>
-          <tr>
-            <td><code>-m, --max-size</code></td>
-            <td>0 (اصلی)</td>
-            <td>کاهش رزولوشن تصویر (مانند <code>1080</code>).</td>
-          </tr>
-          <tr>
-            <td><code>-b, --video-bit-rate</code></td>
-            <td>8M</td>
-            <td>تنظیم سقف پهنای باند ویدیویی.</td>
-          </tr>
-          <tr>
-            <td><code>--max-fps</code></td>
-            <td>0</td>
-            <td>محدودسازی نرخ فریم (مانند <code>60</code> یا <code>30</code>).</td>
-          </tr>
-          <tr>
-            <td><code>--video-codec</code></td>
-            <td>h264</td>
-            <td>انتخاب کدک سخت‌افزاری: <code>h264</code>، <code>h265</code>، <code>av1</code>.</td>
-          </tr>
-        </tbody>
-      </table>
+      <p style="font-size:7.8pt; line-height:1.5; color:var(--text-secondary);">
+        ۱. در گوشی به <strong>تنظیمات (Settings)</strong> با آیکون چرخ‌دنده بروید.<br>
+        ۲. بروید پایین‌ترین خط: <strong>درباره تلفن (About phone)</strong>.<br>
+        ۳. گزینه <strong>شماره ساخت (Build number)</strong> را پیدا کنید.<br>
+        ۴. <strong>۷ بار سریع و پشت سر هم با انگشت روی آن بزنید!</strong><br>
+        پیامی می‌آید: «حالت توسعه‌دهنده فعال شد».
+      </p>
     </div>
 
-    <!-- Device Controls -->
     <div class="card">
       <div class="card-header">
-        <span>وضعیت دستگاه و ورودی‌ها</span>
-        <span class="badge">کنترل سخت‌افزار</span>
+        <span><span class="step-badge">۲</span> روشن کردن اشکال‌زدایی USB</span>
+        <span class="badge">تنظیمات اصلی</span>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>پارامتر</th>
-            <th>پیش‌فرض</th>
-            <th>عملکرد سیستمی</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><code>-S, --turn-screen-off</code></td>
-            <td>false</td>
-            <td>خاموش کردن صفحه فیزیکی گوشی.</td>
-          </tr>
-          <tr>
-            <td><code>-w, --stay-awake</code></td>
-            <td>false</td>
-            <td>ایجاد قفل بیداری (Wakelock) پردازنده.</td>
-          </tr>
-          <tr>
-            <td><code>--keyboard=&lt;mode&gt;</code></td>
-            <td>sdk</td>
-            <td>درایور ورودی: <code>sdk</code>، <code>uhid</code>، یا <code>aoa</code>.</td>
-          </tr>
-          <tr>
-            <td><code>--no-audio</code></td>
-            <td>false</td>
-            <td>غیرفعال‌سازی صوت (برای اندروید &lt; ۱۱).</td>
-          </tr>
-          <tr>
-            <td><code>--record=out.mp4</code></td>
-            <td>none</td>
-            <td>ضبط و استریم مستقیم به فایل ویدیویی.</td>
-          </tr>
-        </tbody>
-      </table>
+      <p style="font-size:7.8pt; line-height:1.5; color:var(--text-secondary);">
+        ۱. به صفحه اصلی تنظیمات برگردید.<br>
+        ۲. گزینه تازه ظاهر شده به نام <strong>Developer options</strong> را باز کنید.<br>
+        ۳. کلید <strong>USB debugging (اشکال‌زدایی USB)</strong> را روشن کنید.<br>
+        ۴. روی پیام هشدار، دکمه <strong>تأیید (OK)</strong> را بزنید.
+      </p>
     </div>
   </div>
 
-  <!-- Modal Keybindings -->
-  <div class="card" style="margin-bottom:10px;">
-    <div class="card-header">
-      <span>کلیدهای میانبر درون‌برنامه‌ای (کلید پیش‌فرض MOD = Alt)</span>
-      <span class="badge green">کنترل بلادرنگ</span>
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th>کلید میانبر</th>
-          <th>عملکرد سیستمی</th>
-          <th>سیگنال ارسالی به اندروید</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><kbd>MOD</kbd> + <kbd>f</kbd></td>
-          <td><strong>تمام‌صفحه (Fullscreen)</strong></td>
-          <td>تغییر اندازه پنجره بین حالت شناور و تمام‌صفحه.</td>
-        </tr>
-        <tr>
-          <td><kbd>MOD</kbd> + <kbd>h</kbd> / <kbd>b</kbd> / <kbd>s</kbd></td>
-          <td><strong>خانه / بازگشت / برنامه‌های اخیر</strong></td>
-          <td>ارسال کدهای <code>KEYCODE_HOME</code> یا <code>BACK</code> یا منوی Recents.</td>
-        </tr>
-        <tr>
-          <td><kbd>MOD</kbd> + <kbd>p</kbd> / <kbd>o</kbd></td>
-          <td><strong>پاور / سیاه کردن صفحه فیزیکی</strong></td>
-          <td>خاموش/روشن کردن گوشی یا قطع نور پس‌زمینه پنل.</td>
-        </tr>
-        <tr>
-          <td><kbd>MOD</kbd> + <kbd>c</kbd> / <kbd>v</kbd></td>
-          <td><strong>همگام‌سازی کلیپ‌بورد</strong></td>
-          <td>انتقال متن بین کامپیوتر و حافظه کلیپ‌بورد گوشی.</td>
-        </tr>
-        <tr>
-          <td><kbd>MOD</kbd> + <kbd>Shift</kbd> + <kbd>v</kbd></td>
-          <td><strong>تزریق فیزیکی کاراکترها</strong></td>
-          <td>تبدیل متن به رویدادهای فشردن کیبورد سخت‌افزاری.</td>
-        </tr>
-        <tr>
-          <td><strong>کشیدن و رها کردن فایل / APK</strong></td>
-          <td><strong>نصب برنامه یا کپی فایل</strong></td>
-          <td>اجرای مستقیم <code>adb install</code> یا ذخیره در پوشه Download.</td>
-        </tr>
-      </tbody>
-    </table>
+  <!-- SECTION 3: CONNECTION -->
+  <div class="section-title">۰۳. اتصال با کابل و باز کردن تصویر گوشی روی کامپیوتر</div>
+  
+  <div class="explain-box" style="border-right-color: var(--accent-cyan);">
+    <strong>مرحله ۱:</strong> کابل شارژر را به پورت USB کامپیوتر و سر دیگر را به گوشی بزنید.<br>
+    <strong>مرحله ۲:</strong> روی صفحه گوشی پیامی می‌آید: <em>Allow USB debugging?</em> حتماً تیک مربع <strong>Always allow from this computer</strong> را بزنید و <strong>Allow/OK</strong> کنید.<br>
+    <strong>مرحله ۳:</strong> در کامپیوتر خط فرمان (پنجره سیاه) را باز کنید و تایپ کنید:
+    <pre><code>scrcpy</code></pre>
+    سپس کلید <strong>Enter</strong> را بزنید. پنجره زنده گوشی شما روی مانیتور ظاهر می‌شود!
   </div>
 
-  <!-- PAGE BREAK -->
   <div class="page-break"></div>
 
-  <!-- SECTION 3: PROFILES & DIAGNOSTICS -->
-  <div class="section-title">۰۳. پروفایل اتصال بی‌سیم و جدول خطایابی</div>
+  <!-- SECTION 4: MOUSE CONTROLS -->
+  <div class="section-title">۰۴. چطور با ماوس کامپیوتر گوشی را کنترل کنیم؟</div>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:30%;">کاری که با ماوس انجام می‌دهید</th>
+        <th style="width:70%;">چه اتفاقی روی گوشی شما می‌افتد؟</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>کلیک چپ ماوس</strong></td>
+        <td>دقیقاً مثل ضربه زدن با انگشت روی صفحه لمسی گوشی است (لمس و انتخاب برنامه).</td>
+      </tr>
+      <tr>
+        <td><strong>کشیدن ماوس با کلیک چپ</strong></td>
+        <td>اسکرول کردن و بالا/پایین رفتن در منوها، تلگرام و اینستاگرام.</td>
+      </tr>
+      <tr>
+        <td><strong>یک بار کلیک راست ماوس</strong></td>
+        <td>دکمه بازگشت (Back) گوشی؛ شما را به صفحه قبلی برمی‌گرداند.</td>
+      </tr>
+      <tr>
+        <td><strong>فشردن چرخ وسط ماوس</strong></td>
+        <td>دکمه خانه (Home) گوشی؛ شما را فوراً به صفحه اصلی می‌برد.</td>
+      </tr>
+      <tr>
+        <td><strong>تایپ با کیبورد کامپیوتر</strong></td>
+        <td>هر جا کادر نوشتنی دیدید کلیک کنید و با کیبورد تایپ کنید؛ حروف فوراً در گوشی نوشته می‌شوند.</td>
+      </tr>
+      <tr>
+        <td><strong>کشیدن فایل از کامپیوتر به پنجره</strong></td>
+        <td>عکس، آهنگ یا ویدیو را بکشید و رها کنید؛ به صورت خودکار در پوشه دانلود گوشی ذخیره می‌شود.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- SECTION 5: KEYBOARD SHORTCUTS -->
+  <div class="section-title">۰۵. کلیدهای میانبر روی کیبورد (کلید Alt را نگه دارید و این حروف را بزنید)</div>
   <div class="grid-2">
     <div class="card">
       <div class="card-header">
-        <span>پروفایل اتصال وای‌فای با تاخیر ناچیز</span>
-        <span class="badge cyan">پورت ۵۵۵۵</span>
+        <span>کنترل تصویر و صفحه</span>
+        <span class="badge cyan">کاربردی</span>
       </div>
-      <div style="font-size:7.8pt; color:var(--text-secondary); margin-bottom:8px;">
-        پیکربندی بهینه برای اتصال پایدار ۶۰ فریم بدون کابل با تایپ کیبورد فیزیکی.
-      </div>
-      <div style="background:var(--table-header); border-right:3px solid var(--accent-cyan); padding:6px 10px; font-size:7.5pt; margin-bottom:6px;">
-        <strong>۱. برقراری اتصال:</strong> <code>adb connect 192.168.1.X:5555</code><br>
-        <strong>۲. انکودر ویدیویی:</strong> <code>--video-codec=h265 -m 1600 -b 6M --max-fps=60</code><br>
-        <strong>۳. انتقال صدا:</strong> <code>--audio-codec=opus --audio-bit-rate=96K</code><br>
-        <strong>۴. مدیریت گرما:</strong> <code>--turn-screen-off --stay-awake</code><br>
-        <strong>۵. درایور کیبورد و ماوس:</strong> <code>--keyboard=uhid --mouse=uhid</code>
-      </div>
+      <table style="margin-bottom:0;">
+        <tr>
+          <td><kbd>Alt</kbd> + <kbd>f</kbd></td>
+          <td>تمام‌صفحه کردن تصویر گوشی روی مانیتور</td>
+        </tr>
+        <tr>
+          <td><kbd>Alt</kbd> + <kbd>o</kbd></td>
+          <td><strong>خاموش کردن صفحه گوشی</strong> (صرفه‌جویی در باتری)</td>
+        </tr>
+        <tr>
+          <td><kbd>Alt</kbd> + <kbd>p</kbd></td>
+          <td>دکمه روشن/خاموش کردن (Power)</td>
+        </tr>
+      </table>
     </div>
 
     <div class="card">
       <div class="card-header">
-        <span>جدول رفع اشکال و سناریوهای بحرانی</span>
-        <span class="badge">عیب‌یابی</span>
+        <span>دکمه‌های اصلی گوشی</span>
+        <span class="badge green">ناوبری</span>
       </div>
-      <table>
-        <tbody>
-          <tr>
-            <td><strong>خطای عدم دسترسی (unauthorized)</strong></td>
-            <td>باز کردن قفل گوشی و تایید کلید RSA در پاپ‌آپ USB.</td>
-          </tr>
-          <tr>
-            <td><strong>خطای انکودر MediaCodec</strong></td>
-            <td>تنزل به H.264 با <code>--video-codec=h264</code> یا محدودسازی به ۱۰۸۰.</td>
-          </tr>
-          <tr>
-            <td><strong>فریز یا لگ تصویر در Wi-Fi</strong></td>
-            <td>استفاده از وای‌فای 5GHz و محدود کردن بیت‌ریت با <code>-b 4M</code>.</td>
-          </tr>
-          <tr>
-            <td><strong>عدم انتقال صدای گوشی</strong></td>
-            <td>اندروید کمتر از ۱۱ است؛ سوئیچ <code>--no-audio</code> را لحاظ کنید.</td>
-          </tr>
-        </tbody>
+      <table style="margin-bottom:0;">
+        <tr>
+          <td><kbd>Alt</kbd> + <kbd>h</kbd></td>
+          <td>رفتن به صفحه اصلی گوشی (Home)</td>
+        </tr>
+        <tr>
+          <td><kbd>Alt</kbd> + <kbd>b</kbd></td>
+          <td>زدن دکمه برگشت (Back)</td>
+        </tr>
+        <tr>
+          <td><kbd>Alt</kbd> + <kbd>s</kbd></td>
+          <td>دیدن برنامه‌های باز (مالتی‌تسکینگ)</td>
+        </tr>
       </table>
     </div>
   </div>
 
-  <!-- SECTION 4: PRODUCTION AUTOMATION PROFILE -->
-  <div class="section-title">۰۴. اسکریپت اتوماسیون اتصال بی‌سیم (scrcpy-wireless.sh)</div>
-  <pre>
-<span class="comment">#!/usr/bin/env bash</span>
-<span class="comment"># ==============================================================================</span>
-<span class="comment"># اسکریپت اختصاصی اتصال بی‌سیم با حداقل تاخیر در مجموعه PhTex</span>
-<span class="comment"># ==============================================================================</span>
-<span class="keyword">DEVICE_IP</span>=<span class="string">"${1:-192.168.1.150}"</span>
+  <!-- SECTION 6: WIRELESS -->
+  <div class="section-title">۰۶. اتصال بدون سیم (با وای‌فای خانه)</div>
+  <div class="explain-box" style="border-right-color: var(--accent-emerald);">
+    ۱. کابل را وصل کنید و در پنجره سیاه بنویسید: <code>adb tcpip 5555</code> و Enter بزنید.<br>
+    ۲. حالا کابل را از گوشی بکشید و جدا کنید!<br>
+    ۳. در گوشی وارد تنظیمات وای‌فای شوید و عدد IP گوشی را بخوانید (مثلاً <code>192.168.1.150</code>).<br>
+    ۴. در کامپیوتر تایپ کنید: <code>scrcpy --tcpip=192.168.1.150:5555</code> و Enter بزنید. تمام! بدون سیم وصل شدید.
+  </div>
 
-<span class="keyword">adb</span> connect <span class="string">"${DEVICE_IP}:5555"</span> || { echo <span class="string">"اتصال به دستگاه ناموفق بود"</span>; exit 1; }
-
-<span class="keyword">exec</span> scrcpy \
-  --tcpip=<span class="string">"${DEVICE_IP}:5555"</span> \
-  --video-codec=h265 \
-  --max-size=1600 \
-  --video-bit-rate=6M \
-  --max-fps=60 \
-  --audio-codec=opus \
-  --audio-bit-rate=96K \
-  --turn-screen-off \
-  --stay-awake \
-  --keyboard=uhid \
-  --mouse=uhid \
-  --shortcut-mod=lalt \
-  --window-title=<span class="string">"گوشی اندروید [${DEVICE_IP}]"</span></pre>
-
+  <!-- FOOTER -->
   <div class="doc-footer">
-    <span>مجموعه مرجع مهندسی PhTex — ابزارهای سیستمی</span>
-    <span>شناسه سند: PHTEX-SCRCPY-FA-LIGHT-2026.09</span>
-    <span style="direction:ltr;">https://github.com/Fernie2000/PhTex</span>
+    <span>مجموعه مرجع کاربردی HpTex — مستندات استاندارد برای همه</span>
+    <span>مسیر پوشه: <code>HpTex/scrcpy/fa/</code></span>
   </div>
 
   <script>
     const btn = document.getElementById('themeToggle');
     const label = document.getElementById('themeLabel');
-    const saved = localStorage.getItem('phtex-theme') || 'light';
-    document.documentElement.setAttribute('data-theme', saved);
+    const root = document.documentElement;
+
+    const savedTheme = localStorage.getItem('phtex_theme') || 'light';
+    root.setAttribute('data-theme', savedTheme);
+    updateLabel(savedTheme);
 
     btn.addEventListener('click', () => {
-      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-      const next = isDark ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', next);
-      localStorage.setItem('phtex-theme', next);
-      label.textContent = next === 'dark' ? 'حالت روشن' : 'حالت تیره';
+      const current = root.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('phtex_theme', next);
+      updateLabel(next);
     });
-  </script>
 
+    function updateLabel(theme) {
+      label.textContent = theme === 'dark' ? 'حالت روشن' : 'حالت تیره';
+    }
+  </script>
 </body>
 </html>
