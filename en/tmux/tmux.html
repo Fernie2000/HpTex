@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>tmux — Architecture & Operational Engineering Reference</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 10mm 10mm 12mm 10mm;
+    @bottom-right {
+      content: "Page " counter(page);
+      font-size: 8pt;
+      color: #64748b;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body {
+    background-color: #0b0f19;
+    color: #e2e8f0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 9.5pt;
+    line-height: 1.45;
+    padding: 10px;
+  }
+
+  /* Header Hero */
+  .hero {
+    background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 60%, #111827 100%);
+    border: 1px solid #312e81;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    position: relative;
+  }
+
+  .badge-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .badge {
+    font-size: 7pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: rgba(99, 102, 241, 0.2);
+    color: #a5b4fc;
+    border: 1px solid rgba(99, 102, 241, 0.4);
+  }
+
+  .badge.cyan {
+    background: rgba(56, 189, 248, 0.15);
+    color: #38bdf8;
+    border-color: rgba(56, 189, 248, 0.35);
+  }
+
+  .badge.green {
+    background: rgba(52, 211, 153, 0.15);
+    color: #34d399;
+    border-color: rgba(52, 211, 153, 0.35);
+  }
+
+  h1 {
+    font-size: 20pt;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+
+  h1 .accent {
+    color: #38bdf8;
+  }
+
+  .subtitle {
+    color: #94a3b8;
+    font-size: 9pt;
+    font-weight: 400;
+  }
+
+  /* Section Title */
+  .section-title {
+    font-size: 11pt;
+    font-weight: 700;
+    color: #38bdf8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #1e293b;
+    padding-bottom: 4px;
+  }
+
+  /* Grid Layouts */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  /* Cards */
+  .card {
+    background: #111827;
+    border: 1px solid #1f2937;
+    border-radius: 8px;
+    padding: 10px 12px;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .card-header {
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #f1f5f9;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Architecture Box */
+  .arch-box {
+    background: #0d1322;
+    border: 1px solid #1e293b;
+    border-radius: 8px;
+    padding: 12px;
+    font-family: 'Consolas', 'JetBrains Mono', monospace;
+    font-size: 8pt;
+    color: #cbd5e1;
+    margin-bottom: 12px;
+    page-break-inside: avoid;
+  }
+
+  .arch-flow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .arch-node {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 6px;
+    padding: 6px 8px;
+    text-align: center;
+    flex: 1;
+  }
+
+  .arch-node.highlight {
+    background: #1e1b4b;
+    border-color: #6366f1;
+    color: #c7d2fe;
+    font-weight: 700;
+  }
+
+  .arch-arrow {
+    color: #64748b;
+    font-size: 11pt;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8.5pt;
+    margin-bottom: 10px;
+    page-break-inside: avoid;
+  }
+
+  th {
+    background: #1e293b;
+    color: #94a3b8;
+    text-align: left;
+    padding: 6px 8px;
+    font-weight: 600;
+    font-size: 7.5pt;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-top: 1px solid #334155;
+    border-bottom: 1px solid #334155;
+  }
+
+  td {
+    padding: 5px 8px;
+    border-bottom: 1px solid #1e293b;
+    color: #cbd5e1;
+  }
+
+  tr:nth-child(even) td {
+    background: rgba(17, 24, 39, 0.4);
+  }
+
+  /* Keyboards & Code Badges */
+  kbd {
+    background: #1e293b;
+    border: 1px solid #475569;
+    border-bottom: 2px solid #334155;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-family: 'Consolas', monospace;
+    font-size: 7.5pt;
+    color: #f8fafc;
+    font-weight: 600;
+  }
+
+  code {
+    font-family: 'Consolas', 'JetBrains Mono', monospace;
+    font-size: 8pt;
+    background: rgba(15, 23, 42, 0.8);
+    color: #38bdf8;
+    padding: 1px 4px;
+    border-radius: 3px;
+    border: 1px solid rgba(56, 189, 248, 0.2);
+  }
+
+  /* Code block */
+  pre {
+    background: #050811;
+    border: 1px solid #1e293b;
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-family: 'Consolas', monospace;
+    font-size: 7.5pt;
+    line-height: 1.35;
+    color: #e2e8f0;
+    overflow: hidden;
+    page-break-inside: avoid;
+    margin-bottom: 8px;
+  }
+
+  .comment { color: #64748b; }
+  .keyword { color: #f43f5e; font-weight: 600; }
+  .string { color: #a6e3a1; }
+  .variable { color: #fab387; }
+
+  .page-break {
+    page-break-before: always;
+    margin-top: 14px;
+  }
+
+  /* Footer */
+  .doc-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #1e293b;
+    padding-top: 6px;
+    margin-top: 14px;
+    font-size: 7.5pt;
+    color: #64748b;
+  }
+</style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="badge-row">
+      <span class="badge">PhTex Architecture Series</span>
+      <span class="badge cyan">v3.3a+ POSIX Standard</span>
+      <span class="badge green">Production Ready</span>
+    </div>
+    <h1><span class="accent">tmux</span> // Terminal Multiplexer</h1>
+    <div class="subtitle">Complete Technical Architecture, Control Algebra, Vi Buffers & Hardened Configuration</div>
+  </div>
+
+  <!-- SECTION 1: ARCHITECTURE -->
+  <div class="section-title">01. Architectural Topology & PTY Virtualization</div>
+  <div class="arch-box">
+    <div style="font-weight:700; color:#38bdf8; margin-bottom:4px;">Client-Server Execution Decoupling</div>
+    tmux runs as an asynchronous event-driven daemon (`tmuxd`), detaching child processes from the originating GUI terminal or remote SSH session.
+    <div class="arch-flow">
+      <div class="arch-node highlight">
+        <strong>Server Daemon</strong><br>
+        <span style="font-size:7pt; color:#94a3b8;">/tmp/tmux-$UID/default</span>
+      </div>
+      <div class="arch-arrow">➔</div>
+      <div class="arch-node">
+        <strong>Sessions</strong><br>
+        <span style="font-size:7pt; color:#94a3b8;">Identified Groups</span>
+      </div>
+      <div class="arch-arrow">➔</div>
+      <div class="arch-node">
+        <strong>Windows</strong><br>
+        <span style="font-size:7pt; color:#94a3b8;">Visual Tabs (1..N)</span>
+      </div>
+      <div class="arch-arrow">➔</div>
+      <div class="arch-node">
+        <strong>Panes</strong><br>
+        <span style="font-size:7pt; color:#94a3b8;">Discrete PTY ptys/X</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: COMMAND GRAMMAR -->
+  <div class="section-title">02. Control Matrix & Keybinding Algebra</div>
+  
+  <div class="grid-2">
+    <!-- Session Control -->
+    <div class="card">
+      <div class="card-header">
+        <span>Session Lifecycle</span>
+        <span class="badge cyan">Global</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Action</th>
+            <th>CLI Command</th>
+            <th>Interactive</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>New Session</td>
+            <td><code>tmux new -s &lt;name&gt;</code></td>
+            <td><code>:new -s &lt;name&gt;</code></td>
+          </tr>
+          <tr>
+            <td>Attach Target</td>
+            <td><code>tmux attach -t &lt;name&gt;</code></td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>Detach Client</td>
+            <td><code>tmux detach</code></td>
+            <td><kbd>Prefix</kbd> <kbd>d</kbd></td>
+          </tr>
+          <tr>
+            <td>Interactive Tree</td>
+            <td><code>tmux choose-tree -s</code></td>
+            <td><kbd>Prefix</kbd> <kbd>s</kbd></td>
+          </tr>
+          <tr>
+            <td>Rename Session</td>
+            <td><code>tmux rename-session &lt;n&gt;</code></td>
+            <td><kbd>Prefix</kbd> <kbd>$</kbd></td>
+          </tr>
+          <tr>
+            <td>Kill Session</td>
+            <td><code>tmux kill-session -t &lt;n&gt;</code></td>
+            <td><code>:kill-session</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Window Navigation -->
+    <div class="card">
+      <div class="card-header">
+        <span>Window Virtualization</span>
+        <span class="badge">Tabs</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Action</th>
+            <th>CLI / Command</th>
+            <th>Interactive</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Create Window</td>
+            <td><code>tmux new-window -n &lt;n&gt;</code></td>
+            <td><kbd>Prefix</kbd> <kbd>c</kbd></td>
+          </tr>
+          <tr>
+            <td>Next / Previous</td>
+            <td><code>tmux next-window / prev</code></td>
+            <td><kbd>Prefix</kbd> <kbd>n</kbd> / <kbd>p</kbd></td>
+          </tr>
+          <tr>
+            <td>Direct Slot Jump</td>
+            <td><code>tmux select-window -t &lt;i&gt;</code></td>
+            <td><kbd>Prefix</kbd> <kbd>0..9</kbd></td>
+          </tr>
+          <tr>
+            <td>Interactive Selector</td>
+            <td><code>tmux choose-tree -w</code></td>
+            <td><kbd>Prefix</kbd> <kbd>w</kbd></td>
+          </tr>
+          <tr>
+            <td>Rename Window</td>
+            <td><code>tmux rename-window &lt;n&gt;</code></td>
+            <td><kbd>Prefix</kbd> <kbd>,</kbd></td>
+          </tr>
+          <tr>
+            <td>Terminate Window</td>
+            <td><code>tmux kill-window</code></td>
+            <td><kbd>Prefix</kbd> <kbd>&amp;</kbd></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Pane Geometry -->
+  <div class="card" style="margin-bottom:12px;">
+    <div class="card-header">
+      <span>Pane Geometry & Geometry Tiling</span>
+      <span class="badge green">Ergonomic</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Operation</th>
+          <th>Default Binding</th>
+          <th>Optimized (.tmux.conf)</th>
+          <th>Core System Command</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Vertical Split (Side-by-Side)</strong></td>
+          <td><kbd>Prefix</kbd> <kbd>%</kbd></td>
+          <td><kbd>Prefix</kbd> <kbd>|</kbd></td>
+          <td><code>split-window -h -c "#{pane_current_path}"</code></td>
+        </tr>
+        <tr>
+          <td><strong>Horizontal Split (Stacked)</strong></td>
+          <td><kbd>Prefix</kbd> <kbd>"</kbd></td>
+          <td><kbd>Prefix</kbd> <kbd>-</kbd></td>
+          <td><code>split-window -v -c "#{pane_current_path}"</code></td>
+        </tr>
+        <tr>
+          <td><strong>Directional Focus Navigation</strong></td>
+          <td><kbd>Prefix</kbd> <kbd>Arrows</kbd></td>
+          <td><kbd>Prefix</kbd> <kbd>h</kbd> <kbd>j</kbd> <kbd>k</kbd> <kbd>l</kbd></td>
+          <td><code>select-pane -[U|D|L|R]</code></td>
+        </tr>
+        <tr>
+          <td><strong>Zoom / Fullscreen Toggle</strong></td>
+          <td><kbd>Prefix</kbd> <kbd>z</kbd></td>
+          <td><kbd>Prefix</kbd> <kbd>z</kbd></td>
+          <td><code>resize-pane -Z</code> (preserves layout state)</td>
+        </tr>
+        <tr>
+          <td><strong>Cycle Tiling Layouts</strong></td>
+          <td><kbd>Prefix</kbd> <kbd>Space</kbd></td>
+          <td><kbd>Prefix</kbd> <kbd>Space</kbd></td>
+          <td><code>next-layout</code> (even-horiz, even-vert, tiled)</td>
+        </tr>
+        <tr>
+          <td><strong>Synchronize Panes (Broadcast)</strong></td>
+          <td><code>:setw synchronize-panes</code></td>
+          <td><kbd>Prefix</kbd> <kbd>y</kbd></td>
+          <td>Sends simultaneous keystrokes across all panes</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PAGE BREAK FOR CLEAN 2-PAGE DOSSIER -->
+  <div class="page-break"></div>
+
+  <!-- SECTION 3: VI MODE & CLIPBOARD -->
+  <div class="section-title">03. The Vi Buffer Engine & Clipboard Pipeline</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header">
+        <span>Vi Copy Mode Pipeline</span>
+        <span class="badge cyan">Memory Buffer</span>
+      </div>
+      <div style="font-size:8pt; color:#94a3b8; margin-bottom:8px;">
+        Scrollback is stored in server-allocated memory, isolated from terminal viewport limitations.
+      </div>
+      <div style="background:#090d16; border-left:3px solid #38bdf8; padding:6px 10px; font-size:7.5pt; margin-bottom:6px;">
+        <strong>1. Enter Mode:</strong> <kbd>Prefix</kbd> <kbd>[</kbd><br>
+        <strong>2. Vi Navigation:</strong> <kbd>h</kbd> <kbd>j</kbd> <kbd>k</kbd> <kbd>l</kbd>, <kbd>Ctrl+u</kbd>, <kbd>Ctrl+d</kbd><br>
+        <strong>3. Search:</strong> <kbd>/</kbd> (forward), <kbd>?</kbd> (backward)<br>
+        <strong>4. Visual Select:</strong> <kbd>v</kbd><br>
+        <strong>5. Yank (Copy):</strong> <kbd>y</kbd> ➔ passes to OS clipboard & buffer<br>
+        <strong>6. Paste Buffer:</strong> <kbd>Prefix</kbd> <kbd>]</kbd>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span>Failure Remediation</span>
+        <span class="badge">Diagnostics</span>
+      </div>
+      <table>
+        <tbody>
+          <tr>
+            <td><strong>Vim Esc Delay</strong></td>
+            <td>Set <code>escape-time 0</code> in config to remove modal delay.</td>
+          </tr>
+          <tr>
+            <td><strong>Color Loss</strong></td>
+            <td>Enforce <code>default-terminal "tmux-256color"</code> + RGB overrides.</td>
+          </tr>
+          <tr>
+            <td><strong>Nested SSH</strong></td>
+            <td>Press <kbd>Prefix</kbd> twice to pass hotkey to guest session.</td>
+          </tr>
+          <tr>
+            <td><strong>Small Viewport</strong></td>
+            <td>Enable <code>setw -g aggressive-resize on</code>.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 4: HARDENED PRODUCTION CONFIG -->
+  <div class="section-title">04. Hardened Production Configuration (~/.tmux.conf)</div>
+  <pre>
+<span class="comment"># ==============================================================================</span>
+<span class="comment"># PhTex High-Performance Production .tmux.conf</span>
+<span class="comment"># ==============================================================================</span>
+<span class="keyword">unbind</span> C-b
+<span class="keyword">set</span> -g prefix C-a                                  <span class="comment"># Ergonomic prefix</span>
+<span class="keyword">bind</span> C-a send-prefix
+
+<span class="keyword">set</span> -g default-terminal <span class="string">"tmux-256color"</span>            <span class="comment"># Full 24-bit Truecolor</span>
+<span class="keyword">set</span> -ag terminal-overrides <span class="string">",xterm-256color:RGB"</span>
+<span class="keyword">set</span> -s escape-time 0                               <span class="comment"># 0ms delay for Neovim/Vim</span>
+<span class="keyword">set</span> -g history-limit 50000                         <span class="comment"># 50,000 line scrollback buffer</span>
+<span class="keyword">set</span> -g mouse on                                    <span class="comment"># Full mouse support</span>
+
+<span class="keyword">set</span> -g base-index 1                                <span class="comment"># 1-based indexing for windows & panes</span>
+<span class="keyword">setw</span> -g pane-base-index 1
+<span class="keyword">set</span> -g renumber-windows on
+
+<span class="comment"># Intuitive Split & Directory Preservation</span>
+<span class="keyword">bind</span> | split-window -h -c <span class="string">"#{pane_current_path}"</span>
+<span class="keyword">bind</span> - split-window -v -c <span class="string">"#{pane_current_path}"</span>
+
+<span class="comment"># Vi Navigation Chords</span>
+<span class="keyword">bind</span> h select-pane -L \; <span class="keyword">bind</span> j select-pane -D \; <span class="keyword">bind</span> k select-pane -U \; <span class="keyword">bind</span> l select-pane -R
+<span class="keyword">setw</span> -g mode-keys vi
+<span class="keyword">bind</span> -T copy-mode-vi v send-keys -X begin-selection
+<span class="keyword">bind</span> -T copy-mode-vi y send-keys -X copy-pipe-and-cancel <span class="string">"wl-copy || xclip -in -selection clipboard"</span>
+
+<span class="comment"># Minimalist Status Bar Design</span>
+<span class="keyword">set</span> -g status-style <span class="string">"bg=#1e1e2e,fg=#cdd6f4"</span>
+<span class="keyword">set</span> -g status-left <span class="string">"#[bg=#89b4fa,fg=#11111b,bold]  #S #[bg=#1e1e2e,fg=#89b4fa] "</span>
+<span class="keyword">set</span> -g window-status-current-format <span class="string">"#[fg=#11111b,bg=#a6e3a1,bold] #I:#W "</span>
+<span class="keyword">bind</span> r source-file ~/.tmux.conf \; display-message <span class="string">"Config Reloaded."</span></pre>
+
+  <div class="doc-footer">
+    <span>PhTex Engineering Reference — Tools Series</span>
+    <span>Document ID: PHTEX-TMUX-EN-2026.09</span>
+    <span>https://github.com/Fernie2000/PhTex</span>
+  </div>
+
+</body>
+</html>
