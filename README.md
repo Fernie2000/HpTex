@@ -1,4 +1,4 @@
-# PhTex — Definitive Developer Tools & Systems Reference
+# HpTex — Definitive Developer Tools & Systems Reference
 
 > **High-density, mathematically rigorous, production-grade technical manuals and quick-reference manifests for vital developer utilities.**
 
@@ -9,35 +9,36 @@
 
 ---
 
-## Directory Architecture
+## Directory Architecture: `HpTex/<Tool>/<Language>/<Files>`
 
 ```text
-PhTex/
+HpTex/
 ├── README.md                      # Global entrypoint, tool taxonomy, shortcuts, sources
 ├── .agents/skills/                # Standardized Agent Skills for autonomous tool synthesis
-├── en/                            # English technical manuals and vectors
-│   ├── scrcpy/
+├── scrcpy/                        # Low-Latency Android Screen Copy & HID Subsystem
+│   ├── en/
 │   │   ├── scrcpy.md              # Low-latency display virtualization & UHID spec
 │   │   ├── scrcpy.html            # Standalone dynamic light/dark HTML viewer
 │   │   └── scrcpy.pdf             # Modern vector PDF dossier
-│   ├── scrapy/
+│   └── fa/
+│       ├── scrcpy.md              # مستندات تخصصی انتقال تصویر و کنترل دستگاه‌های اندروید
+│       ├── scrcpy.html            # سورس HTML دوحالته لایت/دارک با ساختار کامل RTL
+│       └── scrcpy.pdf             # نسخه پی‌دی‌اف مدرن وکتور زبان فارسی
+├── scrapy/                        # Asynchronous Web Crawling & Scraping Framework
+│   ├── en/
 │   │   ├── scrapy.md              # Asynchronous crawling specification & settings.py
 │   │   ├── scrapy.html            # Standalone dynamic light/dark HTML viewer
 │   │   └── scrapy.pdf             # Modern vector PDF dossier
-│   └── tmux/
-│       ├── tmux.md                # Exhaustive Markdown reference & production config
-│       ├── tmux.html              # Standalone dynamic light/dark HTML viewer
-│       └── tmux.pdf               # Stylized modern standalone PDF dossier
-└── fa/                            # راهنماهای فنی و تخصصی به زبان فارسی
-    ├── scrcpy/
-    │   ├── scrcpy.md              # مستندات تخصصی انتقال تصویر و کنترل دستگاه‌های اندروید
-    │   ├── scrcpy.html            # سورس HTML دوحالته لایت/دارک با ساختار کامل RTL
-    │   └── scrcpy.pdf             # نسخه پی‌دی‌اف مدرن وکتور زبان فارسی
-    ├── scrapy/
-    │   ├── scrapy.md              # مستندات جامع وب اسکرپینگ، معماری و تنظیمات
-    │   ├── scrapy.html            # سورس HTML دوحالته لایت/دارک با ساختار کامل RTL
-    │   └── scrapy.pdf             # نسخه پی‌دی‌اف مدرن وکتور زبان فارسی
-    └── tmux/
+│   └── fa/
+│       ├── scrapy.md              # مستندات جامع وب اسکرپینگ، معماری و تنظیمات
+│       ├── scrapy.html            # سورس HTML دوحالته لایت/دارک با ساختار کامل RTL
+│       └── scrapy.pdf             # نسخه پی‌دی‌اف مدرن وکتور زبان فارسی
+└── tmux/                          # Terminal Multiplexing Engine
+    ├── en/
+    │   ├── tmux.md                # Exhaustive Markdown reference & production config
+    │   ├── tmux.html              # Standalone dynamic light/dark HTML viewer
+    │   └── tmux.pdf               # Stylized modern standalone PDF dossier
+    └── fa/
         ├── tmux.md                # مستندات جامع، معماری و کانفیگ بهینه‌سازی شده
         ├── tmux.html              # سورس HTML دوحالته لایت/دارک با ساختار کامل RTL
         └── tmux.pdf               # نسخه سند مدرن و طراحی‌شده‌ی اختصاصی PDF
@@ -49,18 +50,18 @@ PhTex/
 
 | Tool | Category | Language | Markdown Dossier | Modern PDF Dossier | Core Capability |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **`tmux`** | Terminal Multiplexing | **EN** (English) | [English Guide](en/tmux/tmux.md) | [English PDF](en/tmux/tmux.pdf) | Client-server PTY management, persistent sessions, decoupled multiplexing |
-| **`tmux`** | ترمینال مالتی‌پلکسر | **FA** (فارسی) | [راهنمای فارسی](fa/tmux/tmux.md) | [پی‌دی‌اف فارسی](fa/tmux/tmux.pdf) | مدیریت کلاینت-سرور PTY، سشن‌های پایدار، تقسیم پنل‌ها و بافرها |
-| **`scrcpy`**| Android Virtualization | **EN** (English) | [English Guide](en/scrcpy/scrcpy.md) | [English PDF](en/scrcpy/scrcpy.pdf) | Low-latency display mirroring, MediaCodec hardware encoding, UHID/AOA input |
-| **`scrcpy`**| کنترل و تصویر اندروید | **FA** (فارسی) | [راهنمای فارسی](fa/scrcpy/scrcpy.md) | [پی‌دی‌اف فارسی](fa/scrcpy/scrcpy.pdf) | مجازی‌سازی بلادرنگ تصویر، انکود سخت‌افزاری MediaCodec، شبیه‌سازی سخت‌افزاری UHID |
-| **`scrapy`**| Asynchronous Web Crawling | **EN** (English) | [English Guide](en/scrapy/scrapy.md) | [English PDF](en/scrapy/scrapy.pdf) | Twisted/asyncio reactive scraping engine, XPath/CSS parsel algebra, AutoThrottle |
-| **`scrapy`**| وب اسکرپینگ ناهمگام | **FA** (فارسی) | [راهنمای فارسی](fa/scrapy/scrapy.md) | [پی‌دی‌اف فارسی](fa/scrapy/scrapy.pdf) | موتور واکشی غیرمسدودکننده رخدادمحور، پایپ‌لاین اقلام، الگوریتم AutoThrottle |
+| **`tmux`** | Terminal Multiplexing | **EN** (English) | [English Guide](tmux/en/tmux.md) | [English PDF](tmux/en/tmux.pdf) | Client-server PTY management, persistent sessions, decoupled multiplexing |
+| **`tmux`** | ترمینال مالتی‌پلکسر | **FA** (فارسی) | [راهنمای فارسی](tmux/fa/tmux.md) | [پی‌دی‌اف فارسی](tmux/fa/tmux.pdf) | مدیریت کلاینت-سرور PTY، سشن‌های پایدار، تقسیم پنل‌ها و بافرها |
+| **`scrcpy`**| Android Virtualization | **EN** (English) | [English Guide](scrcpy/en/scrcpy.md) | [English PDF](scrcpy/en/scrcpy.pdf) | Low-latency display mirroring, MediaCodec hardware encoding, UHID/AOA input |
+| **`scrcpy`**| کنترل و تصویر اندروید | **FA** (فارسی) | [راهنمای فارسی](scrcpy/fa/scrcpy.md) | [پی‌دی‌اف فارسی](scrcpy/fa/scrcpy.pdf) | مجازی‌سازی بلادرنگ تصویر، انکود سخت‌افزاری MediaCodec، شبیه‌سازی سخت‌افزاری UHID |
+| **`scrapy`**| Asynchronous Web Crawling | **EN** (English) | [English Guide](scrapy/en/scrapy.md) | [English PDF](scrapy/en/scrapy.pdf) | Twisted/asyncio reactive scraping engine, XPath/CSS parsel algebra, AutoThrottle |
+| **`scrapy`**| وب اسکرپینگ ناهمگام | **FA** (فارسی) | [راهنمای فارسی](scrapy/fa/scrapy.md) | [پی‌دی‌اف فارسی](scrapy/fa/scrapy.pdf) | موتور واکشی غیرمسدودکننده رخدادمحور، پایپ‌لاین اقلام، الگوریتم AutoThrottle |
 
 ---
 
 ## Interactive HTML Features
 
-All standalone `.html` dossiers across `en/` and `fa/` directories incorporate a **Dynamic Light / Dark Theme Switcher**:
+All standalone `.html` dossiers across tools and languages incorporate a **Dynamic Light / Dark Theme Switcher**:
 * **Browser View:** Click the floating toggle button (`🌓`) to switch between Dark Slate and Clean Light themes. The preference is persisted in browser `localStorage`.
 * **Print / Vector PDF Compilation:** Strictly locked to the high-contrast light theme under `@media print` to guarantee flawless vector rendering and zero toner/ink waste when rasterizing.
 
@@ -103,6 +104,18 @@ All operations assume standard or optimized Prefix. Default prefix is `Ctrl+b` (
 | Cycle Pane Layouts | `tmux next-layout` | `Prefix` + `Space` | `Prefix` + `Space` |
 | Display Pane Indices & Sizes | `tmux display-panes` | `Prefix` + `q` | `Prefix` + `q` |
 | Terminate Active Pane | `tmux kill-pane` | `Prefix` + `x` | `Prefix` + `x` |
+
+### 4. Buffer Operations & Vi Copy Mode
+
+| Operation | Action Sequence |
+| :--- | :--- |
+| Enter Copy Mode | `Prefix` + `[` |
+| Start Selection (Vi mode enabled) | `v` (or `Space` in default emacs mode) |
+| Copy Selection to Buffer | `y` (or `Enter` in default emacs mode) |
+| Paste Active Buffer | `Prefix` + `]` |
+| List Buffer Cache | `tmux list-buffers` or `:list-buffers` |
+| Forward Regex Search | `/` |
+| Backward Regex Search | `?` |
 
 ---
 
@@ -147,14 +160,14 @@ Default modifier key is `MOD` = `Alt` (or `Super` on macOS/Linux).
 
 ## Roadmap
 
-- [x] **tmux** (Terminal Multiplexer) — `en/`, `fa/` [MD + PDF]
-- [x] **scrcpy** (Low-Latency Screen Copy) — `en/`, `fa/` [MD + PDF]
-- [x] **scrapy** (Asynchronous Web Scraping) — `en/`, `fa/` [MD + PDF]
-- [ ] **neovim** (Modal Hyperextensible Editor) — `en/`, `fa/` [MD + PDF]
-- [ ] **fzf** (Command-line Fuzzy Finder) — `en/`, `fa/` [MD + PDF]
-- [ ] **ripgrep (`rg`)** (Parallel Regex File Search) — `en/`, `fa/` [MD + PDF]
-- [ ] **jq** (High-Performance JSON Processor) — `en/`, `fa/` [MD + PDF]
-- [ ] **git** (Plumbing & Porcelain Deep Diagnostics) — `en/`, `fa/` [MD + PDF]
+- [x] **tmux** (Terminal Multiplexer) — `tmux/{en,fa}/` [MD + PDF]
+- [x] **scrcpy** (Low-Latency Screen Copy) — `scrcpy/{en,fa}/` [MD + PDF]
+- [x] **scrapy** (Asynchronous Web Scraping) — `scrapy/{en,fa}/` [MD + PDF]
+- [ ] **neovim** (Modal Hyperextensible Editor) — `neovim/{en,fa}/` [MD + PDF]
+- [ ] **fzf** (Command-line Fuzzy Finder) — `fzf/{en,fa}/` [MD + PDF]
+- [ ] **ripgrep (`rg`)** (Parallel Regex File Search) — `ripgrep/{en,fa}/` [MD + PDF]
+- [ ] **jq** (High-Performance JSON Processor) — `jq/{en,fa}/` [MD + PDF]
+- [ ] **git** (Plumbing & Porcelain Deep Diagnostics) — `git/{en,fa}/` [MD + PDF]
 
 ---
 
