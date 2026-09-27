@@ -1,9 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
-<title>Scrapy — Architecture & Operational Engineering Reference (Light)</title>
+<title>Scrapy — Architecture & Operational Engineering Reference</title>
 <style>
+  :root {
+    --canvas: #ffffff;
+    --surface: #f8fafc;
+    --border: #e2e8f0;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #64748b;
+    --hero-bg: linear-gradient(135deg, #f8fafc 0%, #eef2ff 60%, #e0e7ff 100%);
+    --hero-border: #c7d2fe;
+    --card-bg: #ffffff;
+    --card-border: #e2e8f0;
+    --arch-bg: #f8fafc;
+    --arch-node-bg: #ffffff;
+    --arch-node-border: #cbd5e1;
+    --arch-node-hl: #eef2ff;
+    --arch-node-hl-border: #818cf8;
+    --arch-node-hl-color: #312e81;
+    --table-header: #f1f5f9;
+    --table-border: #cbd5e1;
+    --table-row-even: #f8fafc;
+    --table-row-border: #f1f5f9;
+    --kbd-bg: #f8fafc;
+    --kbd-border: #cbd5e1;
+    --kbd-shadow: #94a3b8;
+    --kbd-text: #0f172a;
+    --code-bg: #f1f5f9;
+    --code-color: #0284c7;
+    --pre-bg: #f8fafc;
+    --pre-color: #0f172a;
+    --accent-indigo: #4f46e5;
+    --accent-cyan: #0284c7;
+    --accent-emerald: #059669;
+  }
+
+  [data-theme="dark"] {
+    --canvas: #0b0f19;
+    --surface: #111827;
+    --border: #1f2937;
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --text-muted: #94a3b8;
+    --hero-bg: linear-gradient(135deg, #1e1b4b 0%, #0f172a 60%, #111827 100%);
+    --hero-border: #312e81;
+    --card-bg: #111827;
+    --card-border: #1f2937;
+    --arch-bg: #0d1322;
+    --arch-node-bg: #1e293b;
+    --arch-node-border: #334155;
+    --arch-node-hl: #1e1b4b;
+    --arch-node-hl-border: #6366f1;
+    --arch-node-hl-color: #c7d2fe;
+    --table-header: #1e293b;
+    --table-border: #334155;
+    --table-row-even: rgba(17, 24, 39, 0.4);
+    --table-row-border: #1e293b;
+    --kbd-bg: #1e293b;
+    --kbd-border: #475569;
+    --kbd-shadow: #334155;
+    --kbd-text: #f8fafc;
+    --code-bg: rgba(15, 23, 42, 0.8);
+    --code-color: #38bdf8;
+    --pre-bg: #050811;
+    --pre-color: #e2e8f0;
+    --accent-indigo: #818cf8;
+    --accent-cyan: #38bdf8;
+    --accent-emerald: #34d399;
+  }
+
   @page {
     size: A4 portrait;
     margin: 10mm 10mm 12mm 10mm;
@@ -15,27 +83,89 @@
     }
   }
 
+  @media print {
+    :root, [data-theme="dark"] {
+      --canvas: #ffffff !important;
+      --surface: #f8fafc !important;
+      --border: #e2e8f0 !important;
+      --text-primary: #0f172a !important;
+      --text-secondary: #475569 !important;
+      --text-muted: #64748b !important;
+      --hero-bg: linear-gradient(135deg, #f8fafc 0%, #eef2ff 60%, #e0e7ff 100%) !important;
+      --hero-border: #c7d2fe !important;
+      --card-bg: #ffffff !important;
+      --card-border: #e2e8f0 !important;
+      --arch-bg: #f8fafc !important;
+      --arch-node-bg: #ffffff !important;
+      --arch-node-border: #cbd5e1 !important;
+      --arch-node-hl: #eef2ff !important;
+      --arch-node-hl-border: #818cf8 !important;
+      --arch-node-hl-color: #312e81 !important;
+      --table-header: #f1f5f9 !important;
+      --table-border: #cbd5e1 !important;
+      --table-row-even: #f8fafc !important;
+      --table-row-border: #f1f5f9 !important;
+      --kbd-bg: #f8fafc !important;
+      --kbd-border: #cbd5e1 !important;
+      --kbd-shadow: #94a3b8 !important;
+      --kbd-text: #0f172a !important;
+      --code-bg: #f1f5f9 !important;
+      --code-color: #0284c7 !important;
+      --pre-bg: #f8fafc !important;
+      --pre-color: #0f172a !important;
+    }
+    .theme-toggle-btn {
+      display: none !important;
+    }
+  }
+
   * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
   }
 
   body {
-    background-color: #ffffff;
-    color: #1e293b;
+    background-color: var(--canvas);
+    color: var(--text-primary);
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-size: 9.5pt;
     line-height: 1.45;
     padding: 8px;
   }
 
+  /* Interactive Theme Toggle Button */
+  .theme-toggle-btn {
+    position: fixed;
+    top: 14px;
+    right: 14px;
+    z-index: 1000;
+    background: var(--card-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-family: inherit;
+    font-size: 8pt;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .theme-toggle-btn:hover {
+    border-color: var(--accent-indigo);
+  }
+
   /* Header Hero */
   .hero {
-    background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 60%, #e0e7ff 100%);
-    border: 1px solid #c7d2fe;
+    background: var(--hero-bg);
+    border: 1px solid var(--hero-border);
     border-radius: 12px;
     padding: 18px 24px;
     margin-bottom: 14px;
@@ -76,7 +206,7 @@
     font-size: 20pt;
     font-weight: 800;
     letter-spacing: -0.5px;
-    color: #0f172a;
+    color: var(--text-primary);
     display: flex;
     align-items: center;
     gap: 10px;
@@ -84,11 +214,11 @@
   }
 
   h1 .accent {
-    color: #4f46e5;
+    color: var(--accent-indigo);
   }
 
   .subtitle {
-    color: #475569;
+    color: var(--text-secondary);
     font-size: 8.8pt;
     font-weight: 500;
   }
@@ -97,7 +227,7 @@
   .section-title {
     font-size: 10.5pt;
     font-weight: 800;
-    color: #1e1b4b;
+    color: var(--text-primary);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     display: flex;
@@ -105,7 +235,7 @@
     gap: 8px;
     margin-top: 12px;
     margin-bottom: 8px;
-    border-bottom: 2px solid #e2e8f0;
+    border-bottom: 2px solid var(--border);
     padding-bottom: 4px;
   }
 
@@ -119,8 +249,8 @@
 
   /* Cards */
   .card {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: 8px;
     padding: 10px 12px;
     break-inside: avoid;
@@ -131,7 +261,7 @@
   .card-header {
     font-size: 8.5pt;
     font-weight: 700;
-    color: #0f172a;
+    color: var(--text-primary);
     margin-bottom: 6px;
     display: flex;
     justify-content: space-between;
@@ -140,12 +270,12 @@
 
   /* Architecture Box */
   .arch-box {
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
+    background: var(--arch-bg);
+    border: 1px solid var(--border);
     border-radius: 8px;
     padding: 12px;
     font-size: 8pt;
-    color: #334155;
+    color: var(--text-secondary);
     margin-bottom: 12px;
     page-break-inside: avoid;
   }
@@ -159,8 +289,8 @@
   }
 
   .arch-node {
-    background: #ffffff;
-    border: 1px solid #cbd5e1;
+    background: var(--arch-node-bg);
+    border: 1px solid var(--arch-node-border);
     border-radius: 6px;
     padding: 6px 8px;
     text-align: center;
@@ -169,14 +299,14 @@
   }
 
   .arch-node.highlight {
-    background: #eef2ff;
-    border-color: #818cf8;
-    color: #312e81;
+    background: var(--arch-node-hl);
+    border-color: var(--arch-node-hl-border);
+    color: var(--arch-node-hl-color);
     font-weight: 700;
   }
 
   .arch-arrow {
-    color: #94a3b8;
+    color: var(--text-muted);
     font-size: 11pt;
   }
 
@@ -190,69 +320,69 @@
   }
 
   th {
-    background: #f1f5f9;
-    color: #334155;
+    background: var(--table-header);
+    color: var(--text-secondary);
     text-align: left;
     padding: 5px 8px;
     font-weight: 700;
     font-size: 7.5pt;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    border-top: 1px solid #cbd5e1;
-    border-bottom: 1px solid #cbd5e1;
+    border-top: 1px solid var(--table-border);
+    border-bottom: 1px solid var(--table-border);
   }
 
   td {
     padding: 5px 8px;
-    border-bottom: 1px solid #f1f5f9;
-    color: #1e293b;
+    border-bottom: 1px solid var(--table-row-border);
+    color: var(--text-primary);
   }
 
   tr:nth-child(even) td {
-    background: #f8fafc;
+    background: var(--table-row-even);
   }
 
   /* Keyboards & Code Badges */
   kbd {
-    background: #f8fafc;
-    border: 1px solid #cbd5e1;
-    border-bottom: 2px solid #94a3b8;
+    background: var(--kbd-bg);
+    border: 1px solid var(--kbd-border);
+    border-bottom: 2px solid var(--kbd-shadow);
     border-radius: 4px;
     padding: 1px 5px;
     font-family: 'Consolas', monospace;
     font-size: 7.5pt;
-    color: #0f172a;
+    color: var(--kbd-text);
     font-weight: 700;
   }
 
   code {
     font-family: 'Consolas', 'JetBrains Mono', monospace;
     font-size: 8pt;
-    background: #f1f5f9;
-    color: #0284c7;
+    background: var(--code-bg);
+    color: var(--code-color);
     padding: 1px 4px;
     border-radius: 3px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border);
   }
 
   /* Code block */
   pre {
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
+    background: var(--pre-bg);
+    border: 1px solid var(--border);
     border-radius: 6px;
     padding: 8px 10px;
     font-family: 'Consolas', monospace;
     font-size: 7.5pt;
     line-height: 1.35;
-    color: #0f172a;
+    color: var(--pre-color);
     overflow: hidden;
     page-break-inside: avoid;
     margin-bottom: 6px;
   }
 
-  .comment { color: #64748b; font-style: italic; }
-  .keyword { color: #4338ca; font-weight: 700; }
-  .string { color: #047857; }
+  .comment { color: var(--text-muted); font-style: italic; }
+  .keyword { color: var(--accent-indigo); font-weight: 700; }
+  .string { color: var(--accent-emerald); }
 
   .page-break {
     page-break-before: always;
@@ -264,15 +394,20 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid #e2e8f0;
+    border-top: 1px solid var(--border);
     padding-top: 6px;
     margin-top: 12px;
     font-size: 7.5pt;
-    color: #64748b;
+    color: var(--text-muted);
   }
 </style>
 </head>
 <body>
+
+  <!-- Floating Theme Toggle for Browser Viewing -->
+  <button id="themeToggle" class="theme-toggle-btn" aria-label="Toggle Theme">
+    <span>🌓</span> <span id="themeLabel">Light / Dark</span>
+  </button>
 
   <!-- HERO -->
   <div class="hero">
@@ -288,32 +423,32 @@
   <!-- SECTION 1: ARCHITECTURE -->
   <div class="section-title">01. Architectural Topology & Reactive Data Flow</div>
   <div class="arch-box">
-    <div style="font-weight:700; color:#4338ca; margin-bottom:4px;">Non-Blocking Twisted / Asyncio Finite State Machine</div>
+    <div style="font-weight:700; color:var(--accent-indigo); margin-bottom:4px;">Non-Blocking Twisted / Asyncio Finite State Machine</div>
     The Scrapy Engine coordinates non-blocking I/O event loops, passing Requests and Responses through middleware pipelines without blocking execution threads.
     <div class="arch-flow">
       <div class="arch-node highlight">
         <strong>Engine</strong><br>
-        <span style="font-size:7pt; color:#64748b;">Coordinator</span>
+        <span style="font-size:7pt; color:var(--text-muted);">Coordinator</span>
       </div>
       <div class="arch-arrow">➔</div>
       <div class="arch-node">
         <strong>Scheduler</strong><br>
-        <span style="font-size:7pt; color:#64748b;">RFPDupeFilter</span>
+        <span style="font-size:7pt; color:var(--text-muted);">RFPDupeFilter</span>
       </div>
       <div class="arch-arrow">➔</div>
       <div class="arch-node">
         <strong>Downloader</strong><br>
-        <span style="font-size:7pt; color:#64748b;">Async HTTP</span>
+        <span style="font-size:7pt; color:var(--text-muted);">Async HTTP</span>
       </div>
       <div class="arch-arrow">➔</div>
       <div class="arch-node">
         <strong>Spiders</strong><br>
-        <span style="font-size:7pt; color:#64748b;">Parsel / lxml</span>
+        <span style="font-size:7pt; color:var(--text-muted);">Parsel / lxml</span>
       </div>
       <div class="arch-arrow">➔</div>
       <div class="arch-node">
         <strong>Item Pipeline</strong><br>
-        <span style="font-size:7pt; color:#64748b;">DB Persistence</span>
+        <span style="font-size:7pt; color:var(--text-muted);">DB Persistence</span>
       </div>
     </div>
   </div>
@@ -456,10 +591,10 @@
         <span>Adaptive AutoThrottle Algorithm</span>
         <span class="badge cyan">Dynamic Backoff</span>
       </div>
-      <div style="font-size:8pt; color:#475569; margin-bottom:8px;">
+      <div style="font-size:8pt; color:var(--text-secondary); margin-bottom:8px;">
         Adjusts download delay dynamically according to target server latency and response times.
       </div>
-      <div style="background:#f1f5f9; border-left:3px solid #0284c7; padding:6px 10px; font-size:7.5pt; margin-bottom:6px;">
+      <div style="background:var(--table-header); border-left:3px solid var(--accent-cyan); padding:6px 10px; font-size:7.5pt; margin-bottom:6px;">
         <strong>1. Latency Calculation:</strong> Measures round-trip time (RTT) for each HTTP response.<br>
         <strong>2. Concurrency Target:</strong> Maintains <code>AUTOTHROTTLE_TARGET_CONCURRENCY</code>.<br>
         <strong>3. Proportional Delay:</strong> <code>delay = latency / target_concurrency</code>.<br>
@@ -534,9 +669,24 @@
 
   <div class="doc-footer">
     <span>PhTex Engineering Reference — Tools Series</span>
-    <span>Document ID: PHTEX-SCRAPY-EN-LIGHT-2026.09</span>
+    <span>Document ID: PHTEX-SCRAPY-EN-2026.09</span>
     <span>https://github.com/Fernie2000/PhTex</span>
   </div>
+
+  <script>
+    const btn = document.getElementById('themeToggle');
+    const label = document.getElementById('themeLabel');
+    const saved = localStorage.getItem('phtex-theme') || 'light';
+    document.documentElement.setAttribute('data-theme', saved);
+
+    btn.addEventListener('click', () => {
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const next = isDark ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('phtex-theme', next);
+      label.textContent = next === 'dark' ? 'Dark Mode' : 'Light Mode';
+    });
+  </script>
 
 </body>
 </html>

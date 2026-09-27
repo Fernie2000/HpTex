@@ -5,6 +5,7 @@
 [![Language: Multi](https://img.shields.io/badge/Language-English%20%7C%20فارسی-blue.svg)](#tool-index--فهرست-ابزارها)
 [![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg)](LICENSE)
 [![Format: Markdown & Modern PDF](https://img.shields.io/badge/Format-MD%20%2B%20PDF-purple.svg)](#tool-index--فهرست-ابزارها)
+[![Theme: Dynamic Light / Dark](https://img.shields.io/badge/HTML%20Theme-Light%20%2F%20Dark%20Switcher-indigo.svg)](#interactive-html-features)
 
 ---
 
@@ -15,22 +16,30 @@ PhTex/
 ├── README.md                      # Global entrypoint, tool taxonomy, shortcuts, sources
 ├── .agents/skills/                # Standardized Agent Skills for autonomous tool synthesis
 ├── en/                            # English technical manuals and vectors
+│   ├── scrcpy/
+│   │   ├── scrcpy.md              # Low-latency display virtualization & UHID spec
+│   │   ├── scrcpy.html            # Standalone dynamic light/dark HTML viewer
+│   │   └── scrcpy.pdf             # Modern vector PDF dossier
 │   ├── scrapy/
 │   │   ├── scrapy.md              # Asynchronous crawling specification & settings.py
-│   │   ├── scrapy.html            # Standalone light-theme HTML source
+│   │   ├── scrapy.html            # Standalone dynamic light/dark HTML viewer
 │   │   └── scrapy.pdf             # Modern vector PDF dossier
 │   └── tmux/
 │       ├── tmux.md                # Exhaustive Markdown reference & production config
-│       ├── tmux.html              # Standalone light-theme HTML source
+│       ├── tmux.html              # Standalone dynamic light/dark HTML viewer
 │       └── tmux.pdf               # Stylized modern standalone PDF dossier
 └── fa/                            # راهنماهای فنی و تخصصی به زبان فارسی
+    ├── scrcpy/
+    │   ├── scrcpy.md              # مستندات تخصصی انتقال تصویر و کنترل دستگاه‌های اندروید
+    │   ├── scrcpy.html            # سورس HTML دوحالته لایت/دارک با ساختار کامل RTL
+    │   └── scrcpy.pdf             # نسخه پی‌دی‌اف مدرن وکتور زبان فارسی
     ├── scrapy/
     │   ├── scrapy.md              # مستندات جامع وب اسکرپینگ، معماری و تنظیمات
-    │   ├── scrapy.html            # سورس HTML اختصاصی تم روشن با ساختار RTL
+    │   ├── scrapy.html            # سورس HTML دوحالته لایت/دارک با ساختار کامل RTL
     │   └── scrapy.pdf             # نسخه پی‌دی‌اف مدرن وکتور زبان فارسی
     └── tmux/
         ├── tmux.md                # مستندات جامع، معماری و کانفیگ بهینه‌سازی شده
-        ├── tmux.html              # سورس HTML اختصاصی تم روشن
+        ├── tmux.html              # سورس HTML دوحالته لایت/دارک با ساختار کامل RTL
         └── tmux.pdf               # نسخه سند مدرن و طراحی‌شده‌ی اختصاصی PDF
 ```
 
@@ -42,8 +51,18 @@ PhTex/
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **`tmux`** | Terminal Multiplexing | **EN** (English) | [English Guide](en/tmux/tmux.md) | [English PDF](en/tmux/tmux.pdf) | Client-server PTY management, persistent sessions, decoupled multiplexing |
 | **`tmux`** | ترمینال مالتی‌پلکسر | **FA** (فارسی) | [راهنمای فارسی](fa/tmux/tmux.md) | [پی‌دی‌اف فارسی](fa/tmux/tmux.pdf) | مدیریت کلاینت-سرور PTY، سشن‌های پایدار، تقسیم پنل‌ها و بافرها |
+| **`scrcpy`**| Android Virtualization | **EN** (English) | [English Guide](en/scrcpy/scrcpy.md) | [English PDF](en/scrcpy/scrcpy.pdf) | Low-latency display mirroring, MediaCodec hardware encoding, UHID/AOA input |
+| **`scrcpy`**| کنترل و تصویر اندروید | **FA** (فارسی) | [راهنمای فارسی](fa/scrcpy/scrcpy.md) | [پی‌دی‌اف فارسی](fa/scrcpy/scrcpy.pdf) | مجازی‌سازی بلادرنگ تصویر، انکود سخت‌افزاری MediaCodec، شبیه‌سازی سخت‌افزاری UHID |
 | **`scrapy`**| Asynchronous Web Crawling | **EN** (English) | [English Guide](en/scrapy/scrapy.md) | [English PDF](en/scrapy/scrapy.pdf) | Twisted/asyncio reactive scraping engine, XPath/CSS parsel algebra, AutoThrottle |
 | **`scrapy`**| وب اسکرپینگ ناهمگام | **FA** (فارسی) | [راهنمای فارسی](fa/scrapy/scrapy.md) | [پی‌دی‌اف فارسی](fa/scrapy/scrapy.pdf) | موتور واکشی غیرمسدودکننده رخدادمحور، پایپ‌لاین اقلام، الگوریتم AutoThrottle |
+
+---
+
+## Interactive HTML Features
+
+All standalone `.html` dossiers across `en/` and `fa/` directories incorporate a **Dynamic Light / Dark Theme Switcher**:
+* **Browser View:** Click the floating toggle button (`🌓`) to switch between Dark Slate and Clean Light themes. The preference is persisted in browser `localStorage`.
+* **Print / Vector PDF Compilation:** Strictly locked to the high-contrast light theme under `@media print` to guarantee flawless vector rendering and zero toner/ink waste when rasterizing.
 
 ---
 
@@ -85,17 +104,21 @@ All operations assume standard or optimized Prefix. Default prefix is `Ctrl+b` (
 | Display Pane Indices & Sizes | `tmux display-panes` | `Prefix` + `q` | `Prefix` + `q` |
 | Terminate Active Pane | `tmux kill-pane` | `Prefix` + `x` | `Prefix` + `x` |
 
-### 4. Buffer Operations & Vi Copy Mode
+---
 
-| Operation | Action Sequence |
-| :--- | :--- |
-| Enter Copy Mode | `Prefix` + `[` |
-| Start Selection (Vi mode enabled) | `v` (or `Space` in default emacs mode) |
-| Copy Selection to Buffer | `y` (or `Enter` in default emacs mode) |
-| Paste Active Buffer | `Prefix` + `]` |
-| List Buffer Cache | `tmux list-buffers` or `:list-buffers` |
-| Forward Regex Search | `/` |
-| Backward Regex Search | `?` |
+## scrcpy Quick Reference & Shortcuts
+
+Default modifier key is `MOD` = `Alt` (or `Super` on macOS/Linux).
+
+| Action | CLI Flag / Hotkey | Mechanical Effect |
+| :--- | :--- | :--- |
+| **Wireless Transport** | `scrcpy --tcpip=192.168.1.X:5555` | Disconnects USB; streams over ADB TCP/IP. |
+| **Toggle Fullscreen** | <kbd>MOD</kbd> + <kbd>f</kbd> | Toggles borderless fullscreen SDL2 canvas. |
+| **Android Navigation** | <kbd>MOD</kbd> + <kbd>h</kbd> / <kbd>b</kbd> / <kbd>s</kbd> | Injects Home, Back, or Overview (Recent Apps). |
+| **Turn Screen Off** | `scrcpy -S` or <kbd>MOD</kbd> + <kbd>o</kbd> | Powers off physical panel backlight; preserves stream. |
+| **Clipboard Sync** | <kbd>MOD</kbd> + <kbd>c</kbd> / <kbd>v</kbd> | Bidirectional host/device clipboard paste & copy. |
+| **Direct APK Install** | Drag & Drop APK file | Directly executes streaming `adb install -r`. |
+| **Webcam Emulation** | `scrcpy --video-source=camera --v4l2-sink` | Streams high-fidelity sensor feed as virtual webcam. |
 
 ---
 
@@ -114,9 +137,10 @@ All operations assume standard or optimized Prefix. Default prefix is `Ctrl+b` (
 ## Curated Sources & Primary Specifications
 
 * **tmux Official Repository:** [github.com/tmux/tmux](https://github.com/tmux/tmux)
+* **scrcpy Official Repository:** [github.com/Genymobile/scrcpy](https://github.com/Genymobile/scrcpy)
 * **Scrapy Official Repository:** [github.com/scrapy/scrapy](https://github.com/scrapy/scrapy)
 * **OpenBSD Manual Pages:** [man.openbsd.org/tmux.1](https://man.openbsd.org/tmux.1)
-* **Parsel XPath & CSS Engine:** [github.com/scrapy/parsel](https://github.com/scrapy/parsel)
+* **Android Input Subsystem & UHID:** [source.android.com/devices/input](https://source.android.com/devices/input)
 * **Twisted Asynchronous Network Engine:** [github.com/twisted/twisted](https://github.com/twisted/twisted)
 
 ---
@@ -124,6 +148,7 @@ All operations assume standard or optimized Prefix. Default prefix is `Ctrl+b` (
 ## Roadmap
 
 - [x] **tmux** (Terminal Multiplexer) — `en/`, `fa/` [MD + PDF]
+- [x] **scrcpy** (Low-Latency Screen Copy) — `en/`, `fa/` [MD + PDF]
 - [x] **scrapy** (Asynchronous Web Scraping) — `en/`, `fa/` [MD + PDF]
 - [ ] **neovim** (Modal Hyperextensible Editor) — `en/`, `fa/` [MD + PDF]
 - [ ] **fzf** (Command-line Fuzzy Finder) — `en/`, `fa/` [MD + PDF]

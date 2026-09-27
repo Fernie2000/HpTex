@@ -2,7 +2,7 @@
 <html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
-<title>tmux — Architecture & Operational Engineering Reference</title>
+<title>scrcpy — Architecture & Operational Engineering Reference</title>
 <style>
   :root {
     --canvas: #ffffff;
@@ -413,221 +413,208 @@
   <div class="hero">
     <div class="badge-row">
       <span class="badge">PhTex Architecture Series</span>
-      <span class="badge cyan">v3.3a+ POSIX Standard</span>
+      <span class="badge cyan">v2.4+ Subsystem Spec</span>
       <span class="badge green">Production Ready</span>
     </div>
-    <h1><span class="accent">tmux</span> // Terminal Multiplexer</h1>
-    <div class="subtitle">Complete Technical Architecture, Control Algebra, Vi Buffers & Hardened Configuration</div>
+    <h1><span class="accent">scrcpy</span> // Screen Copy Engine</h1>
+    <div class="subtitle">Low-Latency Android Display Virtualization, Hardware MediaCodec Pipeline & UHID Control</div>
   </div>
 
   <!-- SECTION 1: ARCHITECTURE -->
-  <div class="section-title">01. Architectural Topology & PTY Virtualization</div>
+  <div class="section-title">01. Architectural Topology & Tunnel Pipeline</div>
   <div class="arch-box">
-    <div style="font-weight:700; color:var(--accent-indigo); margin-bottom:4px;">Client-Server Execution Decoupling</div>
-    tmux runs as an asynchronous event-driven daemon (`tmuxd`), detaching child processes from the originating GUI terminal or remote SSH session.
+    <div style="font-weight:700; color:var(--accent-indigo); margin-bottom:4px;">In-Memory Java Daemon Injected via ADB app_process</div>
+    Zero-root architecture tapping Android's private SurfaceControl and hardware MediaCodec, streaming raw NAL units over local ADB forward sockets.
     <div class="arch-flow">
       <div class="arch-node highlight">
-        <strong>Server Daemon</strong><br>
-        <span style="font-size:7pt; color:var(--text-muted);">/tmp/tmux-$UID/default</span>
+        <strong>Host Client</strong><br>
+        <span style="font-size:7pt; color:var(--text-muted);">SDL2 + FFmpeg</span>
       </div>
       <div class="arch-arrow">➔</div>
       <div class="arch-node">
-        <strong>Sessions</strong><br>
-        <span style="font-size:7pt; color:var(--text-muted);">Identified Groups</span>
+        <strong>ADB Tunnel</strong><br>
+        <span style="font-size:7pt; color:var(--text-muted);">USB / TCP:5555</span>
       </div>
       <div class="arch-arrow">➔</div>
       <div class="arch-node">
-        <strong>Windows</strong><br>
-        <span style="font-size:7pt; color:var(--text-muted);">Visual Tabs (1..N)</span>
+        <strong>scrcpy-server</strong><br>
+        <span style="font-size:7pt; color:var(--text-muted);">app_process JAR</span>
       </div>
       <div class="arch-arrow">➔</div>
       <div class="arch-node">
-        <strong>Panes</strong><br>
-        <span style="font-size:7pt; color:var(--text-muted);">Discrete PTY ptys/X</span>
+        <strong>MediaCodec</strong><br>
+        <span style="font-size:7pt; color:var(--text-muted);">Hardware H.264/5</span>
+      </div>
+      <div class="arch-arrow">➔</div>
+      <div class="arch-node">
+        <strong>Kernel Input</strong><br>
+        <span style="font-size:7pt; color:var(--text-muted);">UHID / AOA Driver</span>
       </div>
     </div>
   </div>
 
   <!-- SECTION 2: COMMAND GRAMMAR -->
-  <div class="section-title">02. Control Matrix & Keybinding Algebra</div>
+  <div class="section-title">02. Control Matrix & Execution Parameters</div>
   
   <div class="grid-2">
-    <!-- Session Control -->
+    <!-- Transport & Video -->
     <div class="card">
       <div class="card-header">
-        <span>Session Lifecycle</span>
-        <span class="badge cyan">Global</span>
+        <span>Transport & Video Encoding</span>
+        <span class="badge cyan">Pipeline</span>
       </div>
       <table>
         <thead>
           <tr>
-            <th>Action</th>
-            <th>CLI Command</th>
-            <th>Interactive</th>
+            <th>Flag</th>
+            <th>Default</th>
+            <th>Operational Semantics</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>New Session</td>
-            <td><code>tmux new -s &lt;name&gt;</code></td>
-            <td><code>:new -s &lt;name&gt;</code></td>
+            <td><code>--tcpip=&lt;ip:port&gt;</code></td>
+            <td>USB</td>
+            <td>Switches target to wireless Wi-Fi mode.</td>
           </tr>
           <tr>
-            <td>Attach Target</td>
-            <td><code>tmux attach -t &lt;name&gt;</code></td>
-            <td>—</td>
+            <td><code>-m, --max-size</code></td>
+            <td>0 (Native)</td>
+            <td>Downscales bounding box (e.g. <code>1080</code>).</td>
           </tr>
           <tr>
-            <td>Detach Client</td>
-            <td><code>tmux detach</code></td>
-            <td><kbd>Prefix</kbd> <kbd>d</kbd></td>
+            <td><code>-b, --video-bit-rate</code></td>
+            <td>8M</td>
+            <td>Limits compression bitrate (e.g. <code>4M</code>, <code>16M</code>).</td>
           </tr>
           <tr>
-            <td>Interactive Tree</td>
-            <td><code>tmux choose-tree -s</code></td>
-            <td><kbd>Prefix</kbd> <kbd>s</kbd></td>
+            <td><code>--max-fps</code></td>
+            <td>0</td>
+            <td>Caps frame generation (e.g. <code>60</code>, <code>30</code>).</td>
           </tr>
           <tr>
-            <td>Rename Session</td>
-            <td><code>tmux rename-session &lt;n&gt;</code></td>
-            <td><kbd>Prefix</kbd> <kbd>$</kbd></td>
-          </tr>
-          <tr>
-            <td>Kill Session</td>
-            <td><code>tmux kill-session -t &lt;n&gt;</code></td>
-            <td><code>:kill-session</code></td>
+            <td><code>--video-codec</code></td>
+            <td>h264</td>
+            <td>Selects hardware codec: <code>h264</code>, <code>h265</code>, <code>av1</code>.</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <!-- Window Navigation -->
+    <!-- Device Controls -->
     <div class="card">
       <div class="card-header">
-        <span>Window Virtualization</span>
-        <span class="badge">Tabs</span>
+        <span>Device State & Peripherals</span>
+        <span class="badge">Hardware</span>
       </div>
       <table>
         <thead>
           <tr>
-            <th>Action</th>
-            <th>CLI / Command</th>
-            <th>Interactive</th>
+            <th>Flag</th>
+            <th>Default</th>
+            <th>Operational Semantics</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Create Window</td>
-            <td><code>tmux new-window -n &lt;n&gt;</code></td>
-            <td><kbd>Prefix</kbd> <kbd>c</kbd></td>
+            <td><code>-S, --turn-screen-off</code></td>
+            <td>false</td>
+            <td>Blanks device physical display panel.</td>
           </tr>
           <tr>
-            <td>Next / Previous</td>
-            <td><code>tmux next-window / prev</code></td>
-            <td><kbd>Prefix</kbd> <kbd>n</kbd> / <kbd>p</kbd></td>
+            <td><code>-w, --stay-awake</code></td>
+            <td>false</td>
+            <td>Holds Android OS Wakelock while active.</td>
           </tr>
           <tr>
-            <td>Direct Slot Jump</td>
-            <td><code>tmux select-window -t &lt;i&gt;</code></td>
-            <td><kbd>Prefix</kbd> <kbd>0..9</kbd></td>
+            <td><code>--keyboard=&lt;mode&gt;</code></td>
+            <td>sdk</td>
+            <td>Emulation driver: <code>sdk</code>, <code>uhid</code>, or <code>aoa</code>.</td>
           </tr>
           <tr>
-            <td>Interactive Selector</td>
-            <td><code>tmux choose-tree -w</code></td>
-            <td><kbd>Prefix</kbd> <kbd>w</kbd></td>
+            <td><code>--no-audio</code></td>
+            <td>false</td>
+            <td>Disables audio capture (for Android &lt; 11).</td>
           </tr>
           <tr>
-            <td>Rename Window</td>
-            <td><code>tmux rename-window &lt;n&gt;</code></td>
-            <td><kbd>Prefix</kbd> <kbd>,</kbd></td>
-          </tr>
-          <tr>
-            <td>Terminate Window</td>
-            <td><code>tmux kill-window</code></td>
-            <td><kbd>Prefix</kbd> <kbd>&amp;</kbd></td>
+            <td><code>--record=out.mp4</code></td>
+            <td>none</td>
+            <td>Direct bitstream passthrough recording.</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <!-- Pane Geometry -->
+  <!-- Modal Keybindings -->
   <div class="card" style="margin-bottom:10px;">
     <div class="card-header">
-      <span>Pane Geometry & Geometry Tiling</span>
-      <span class="badge green">Ergonomic</span>
+      <span>Interactive Modal Keybindings (MOD = Alt / Super)</span>
+      <span class="badge green">Real-Time Control</span>
     </div>
     <table>
       <thead>
         <tr>
-          <th>Operation</th>
-          <th>Default Binding</th>
-          <th>Optimized (.tmux.conf)</th>
-          <th>Core System Command</th>
+          <th>Hotkey Combination</th>
+          <th>Action Trigger</th>
+          <th>Android OS Event Injected</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td><strong>Vertical Split (Side-by-Side)</strong></td>
-          <td><kbd>Prefix</kbd> <kbd>%</kbd></td>
-          <td><kbd>Prefix</kbd> <kbd>|</kbd></td>
-          <td><code>split-window -h -c "#{pane_current_path}"</code></td>
+          <td><kbd>MOD</kbd> + <kbd>f</kbd></td>
+          <td><strong>Toggle Fullscreen</strong></td>
+          <td>Switches host SDL2 window between windowed & borderless.</td>
         </tr>
         <tr>
-          <td><strong>Horizontal Split (Stacked)</strong></td>
-          <td><kbd>Prefix</kbd> <kbd>"</kbd></td>
-          <td><kbd>Prefix</kbd> <kbd>-</kbd></td>
-          <td><code>split-window -v -c "#{pane_current_path}"</code></td>
+          <td><kbd>MOD</kbd> + <kbd>h</kbd> / <kbd>b</kbd> / <kbd>s</kbd></td>
+          <td><strong>Home / Back / Overview</strong></td>
+          <td>Injects <code>KEYCODE_HOME</code>, <code>BACK</code>, or App Switcher.</td>
         </tr>
         <tr>
-          <td><strong>Directional Focus Navigation</strong></td>
-          <td><kbd>Prefix</kbd> <kbd>Arrows</kbd></td>
-          <td><kbd>Prefix</kbd> <kbd>h</kbd> <kbd>j</kbd> <kbd>k</kbd> <kbd>l</kbd></td>
-          <td><code>select-pane -[U|D|L|R]</code></td>
+          <td><kbd>MOD</kbd> + <kbd>p</kbd> / <kbd>o</kbd></td>
+          <td><strong>Power / Blank Screen</strong></td>
+          <td>Emulates hardware power toggle or disables panel backlight.</td>
         </tr>
         <tr>
-          <td><strong>Zoom / Fullscreen Toggle</strong></td>
-          <td><kbd>Prefix</kbd> <kbd>z</kbd></td>
-          <td><kbd>Prefix</kbd> <kbd>z</kbd></td>
-          <td><code>resize-pane -Z</code> (preserves layout state)</td>
+          <td><kbd>MOD</kbd> + <kbd>c</kbd> / <kbd>v</kbd></td>
+          <td><strong>Clipboard Sync</strong></td>
+          <td>Bidirectional host/device clipboard synchronisation.</td>
         </tr>
         <tr>
-          <td><strong>Cycle Tiling Layouts</strong></td>
-          <td><kbd>Prefix</kbd> <kbd>Space</kbd></td>
-          <td><kbd>Prefix</kbd> <kbd>Space</kbd></td>
-          <td><code>next-layout</code> (even-horiz, even-vert, tiled)</td>
+          <td><kbd>MOD</kbd> + <kbd>Shift</kbd> + <kbd>v</kbd></td>
+          <td><strong>Inject as Keystrokes</strong></td>
+          <td>Simulates physical key presses from host clipboard string.</td>
         </tr>
         <tr>
-          <td><strong>Synchronize Panes (Broadcast)</strong></td>
-          <td><code>:setw synchronize-panes</code></td>
-          <td><kbd>Prefix</kbd> <kbd>y</kbd></td>
-          <td>Sends simultaneous keystrokes across all panes</td>
+          <td><strong>Drag &amp; Drop APK / File</strong></td>
+          <td><strong>Push &amp; Install</strong></td>
+          <td>Executes <code>adb install -r</code> or pushes to <code>/sdcard/Download/</code>.</td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <!-- PAGE BREAK FOR CLEAN 2-PAGE DOSSIER -->
+  <!-- PAGE BREAK -->
   <div class="page-break"></div>
 
-  <!-- SECTION 3: VI MODE & CLIPBOARD -->
-  <div class="section-title">03. The Vi Buffer Engine & Clipboard Pipeline</div>
+  <!-- SECTION 3: PROFILES & DIAGNOSTICS -->
+  <div class="section-title">03. Production Wireless Pipeline & Diagnostic Matrix</div>
   <div class="grid-2">
     <div class="card">
       <div class="card-header">
-        <span>Vi Copy Mode Pipeline</span>
-        <span class="badge cyan">Memory Buffer</span>
+        <span>Low-Latency Wireless Profile</span>
+        <span class="badge cyan">TCP/IP 5555</span>
       </div>
       <div style="font-size:8pt; color:var(--text-secondary); margin-bottom:8px;">
-        Scrollback is stored in server-allocated memory, isolated from terminal viewport limitations.
+        High-performance configuration bypassing USB while maintaining 60 FPS and UHID input.
       </div>
       <div style="background:var(--table-header); border-left:3px solid var(--accent-cyan); padding:6px 10px; font-size:7.5pt; margin-bottom:6px;">
-        <strong>1. Enter Mode:</strong> <kbd>Prefix</kbd> <kbd>[</kbd><br>
-        <strong>2. Vi Navigation:</strong> <kbd>h</kbd> <kbd>j</kbd> <kbd>k</kbd> <kbd>l</kbd>, <kbd>Ctrl+u</kbd>, <kbd>Ctrl+d</kbd><br>
-        <strong>3. Search:</strong> <kbd>/</kbd> (forward), <kbd>?</kbd> (backward)<br>
-        <strong>4. Visual Select:</strong> <kbd>v</kbd><br>
-        <strong>5. Yank (Copy):</strong> <kbd>y</kbd> ➔ passes to OS clipboard & buffer<br>
-        <strong>6. Paste Buffer:</strong> <kbd>Prefix</kbd> <kbd>]</kbd>
+        <strong>1. Pairing / Connect:</strong> <code>adb connect 192.168.1.X:5555</code><br>
+        <strong>2. Video Encoding:</strong> <code>--video-codec=h265 -m 1600 -b 6M --max-fps=60</code><br>
+        <strong>3. Audio Transport:</strong> <code>--audio-codec=opus --audio-bit-rate=96K</code><br>
+        <strong>4. Thermal Protection:</strong> <code>--turn-screen-off --stay-awake</code><br>
+        <strong>5. Input Fidelity:</strong> <code>--keyboard=uhid --mouse=uhid</code>
       </div>
     </div>
 
@@ -639,65 +626,55 @@
       <table>
         <tbody>
           <tr>
-            <td><strong>Vim Esc Delay</strong></td>
-            <td>Set <code>escape-time 0</code> in config to remove modal delay.</td>
+            <td><strong>device unauthorized</strong></td>
+            <td>Check device screen; accept RSA authorization prompt.</td>
           </tr>
           <tr>
-            <td><strong>Color Loss</strong></td>
-            <td>Enforce <code>default-terminal "tmux-256color"</code> + RGB overrides.</td>
+            <td><strong>MediaCodec Error</strong></td>
+            <td>Downgrade codec: <code>--video-codec=h264</code> or cap <code>-m 1080</code>.</td>
           </tr>
           <tr>
-            <td><strong>Nested SSH</strong></td>
-            <td>Press <kbd>Prefix</kbd> twice to pass hotkey to guest session.</td>
+            <td><strong>Wi-Fi Stutter / Lag</strong></td>
+            <td>Enforce 5GHz Wi-Fi; clamp <code>-b 4M --max-fps=60 -m 1280</code>.</td>
           </tr>
           <tr>
-            <td><strong>Small Viewport</strong></td>
-            <td>Enable <code>setw -g aggressive-resize on</code>.</td>
+            <td><strong>No Audio Output</strong></td>
+            <td>Device runs Android &lt; 11; pass <code>--no-audio</code>.</td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <!-- SECTION 4: HARDENED PRODUCTION CONFIG -->
-  <div class="section-title">04. Hardened Production Configuration (~/.tmux.conf)</div>
+  <!-- SECTION 4: PRODUCTION AUTOMATION PROFILE -->
+  <div class="section-title">04. Production Automation Script (scrcpy-wireless.sh)</div>
   <pre>
+<span class="comment">#!/usr/bin/env bash</span>
 <span class="comment"># ==============================================================================</span>
-<span class="comment"># PhTex High-Performance Production .tmux.conf</span>
+<span class="comment"># PhTex High-Performance scrcpy Production Wireless Script</span>
 <span class="comment"># ==============================================================================</span>
-<span class="keyword">unbind</span> C-b
-<span class="keyword">set</span> -g prefix C-a                                  <span class="comment"># Ergonomic prefix mapping</span>
-<span class="keyword">bind</span> C-a send-prefix
+<span class="keyword">DEVICE_IP</span>=<span class="string">"${1:-192.168.1.150}"</span>
 
-<span class="keyword">set</span> -g default-terminal <span class="string">"tmux-256color"</span>            <span class="comment"># Full 24-bit Truecolor RGB</span>
-<span class="keyword">set</span> -ag terminal-overrides <span class="string">",xterm-256color:RGB"</span>
-<span class="keyword">set</span> -s escape-time 0                               <span class="comment"># 0ms delay for Neovim/Vim</span>
-<span class="keyword">set</span> -g history-limit 50000                         <span class="comment"># 50,000 line scrollback buffer</span>
-<span class="keyword">set</span> -g mouse on                                    <span class="comment"># Full mouse support</span>
+<span class="keyword">adb</span> connect <span class="string">"${DEVICE_IP}:5555"</span> || { echo <span class="string">"ADB connect failed"</span>; exit 1; }
 
-<span class="keyword">set</span> -g base-index 1                                <span class="comment"># 1-based indexing for windows & panes</span>
-<span class="keyword">setw</span> -g pane-base-index 1
-<span class="keyword">set</span> -g renumber-windows on
-
-<span class="comment"># Intuitive Split & Directory Preservation</span>
-<span class="keyword">bind</span> | split-window -h -c <span class="string">"#{pane_current_path}"</span>
-<span class="keyword">bind</span> - split-window -v -c <span class="string">"#{pane_current_path}"</span>
-
-<span class="comment"># Vi Navigation Chords</span>
-<span class="keyword">bind</span> h select-pane -L \; <span class="keyword">bind</span> j select-pane -D \; <span class="keyword">bind</span> k select-pane -U \; <span class="keyword">bind</span> l select-pane -R
-<span class="keyword">setw</span> -g mode-keys vi
-<span class="keyword">bind</span> -T copy-mode-vi v send-keys -X begin-selection
-<span class="keyword">bind</span> -T copy-mode-vi y send-keys -X copy-pipe-and-cancel <span class="string">"wl-copy || xclip -in -selection clipboard"</span>
-
-<span class="comment"># Minimalist Status Bar Design</span>
-<span class="keyword">set</span> -g status-style <span class="string">"bg=#1e1e2e,fg=#cdd6f4"</span>
-<span class="keyword">set</span> -g status-left <span class="string">"#[bg=#89b4fa,fg=#11111b,bold]  #S #[bg=#1e1e2e,fg=#89b4fa] "</span>
-<span class="keyword">set</span> -g window-status-current-format <span class="string">"#[fg=#11111b,bg=#a6e3a1,bold] #I:#W "</span>
-<span class="keyword">bind</span> r source-file ~/.tmux.conf \; display-message <span class="string">"Config Reloaded."</span></pre>
+<span class="keyword">exec</span> scrcpy \
+  --tcpip=<span class="string">"${DEVICE_IP}:5555"</span> \
+  --video-codec=h265 \
+  --max-size=1600 \
+  --video-bit-rate=6M \
+  --max-fps=60 \
+  --audio-codec=opus \
+  --audio-bit-rate=96K \
+  --turn-screen-off \
+  --stay-awake \
+  --keyboard=uhid \
+  --mouse=uhid \
+  --shortcut-mod=lalt \
+  --window-title=<span class="string">"Android [${DEVICE_IP}]"</span></pre>
 
   <div class="doc-footer">
     <span>PhTex Engineering Reference — Tools Series</span>
-    <span>Document ID: PHTEX-TMUX-EN-2026.09</span>
+    <span>Document ID: PHTEX-SCRCPY-EN-LIGHT-2026.09</span>
     <span>https://github.com/Fernie2000/PhTex</span>
   </div>
 
