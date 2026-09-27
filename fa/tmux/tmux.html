@@ -2,7 +2,7 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<title>tmux — مرجع استاندارد مهندسی و راهنمای جامع عملیاتی</title>
+<title>tmux — مرجع استاندارد مهندسی و راهنمای جامع عملیاتی (تم روشن)</title>
 <style>
   @page {
     size: A4 portrait;
@@ -24,24 +24,24 @@
   }
 
   body {
-    background-color: #0b0f19;
-    color: #e2e8f0;
+    background-color: #ffffff;
+    color: #1e293b;
     font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, "Segoe UI", Tahoma, Arial, sans-serif;
     font-size: 9pt;
     line-height: 1.55;
-    padding: 10px;
+    padding: 8px;
     direction: rtl;
     text-align: right;
   }
 
   /* Header Hero */
   .hero {
-    background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 60%, #111827 100%);
-    border: 1px solid #312e81;
+    background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 60%, #e0e7ff 100%);
+    border: 1px solid #c7d2fe;
     border-radius: 12px;
-    padding: 20px 24px;
-    margin-bottom: 16px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    padding: 18px 24px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
   }
 
   .badge-row {
@@ -56,55 +56,56 @@
     letter-spacing: 0.3px;
     padding: 3px 8px;
     border-radius: 4px;
-    background: rgba(99, 102, 241, 0.2);
-    color: #a5b4fc;
-    border: 1px solid rgba(99, 102, 241, 0.4);
+    background: #e0e7ff;
+    color: #3730a3;
+    border: 1px solid #c7d2fe;
   }
 
   .badge.cyan {
-    background: rgba(56, 189, 248, 0.15);
-    color: #38bdf8;
-    border-color: rgba(56, 189, 248, 0.35);
+    background: #e0f2fe;
+    color: #0369a1;
+    border-color: #bae6fd;
   }
 
   .badge.green {
-    background: rgba(52, 211, 153, 0.15);
-    color: #34d399;
-    border-color: rgba(52, 211, 153, 0.35);
+    background: #dcfce7;
+    color: #166534;
+    border-color: #bbf7d0;
   }
 
   h1 {
     font-size: 19pt;
     font-weight: 800;
-    color: #ffffff;
+    color: #0f172a;
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 4px;
+    margin-bottom: 3px;
   }
 
   h1 .accent {
-    color: #38bdf8;
+    color: #4f46e5;
     font-family: 'Consolas', monospace;
     direction: ltr;
   }
 
   .subtitle {
-    color: #94a3b8;
+    color: #475569;
     font-size: 8.5pt;
+    font-weight: 500;
   }
 
   /* Section Title */
   .section-title {
     font-size: 10.5pt;
-    font-weight: 700;
-    color: #38bdf8;
+    font-weight: 800;
+    color: #1e1b4b;
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-top: 14px;
+    margin-top: 12px;
     margin-bottom: 8px;
-    border-bottom: 1px solid #1e293b;
+    border-bottom: 2px solid #e2e8f0;
     padding-bottom: 4px;
   }
 
@@ -113,23 +114,24 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
 
   /* Cards */
   .card {
-    background: #111827;
-    border: 1px solid #1f2937;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
     border-radius: 8px;
     padding: 10px 12px;
     break-inside: avoid;
     page-break-inside: avoid;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
   }
 
   .card-header {
     font-size: 8.5pt;
     font-weight: 700;
-    color: #f1f5f9;
+    color: #0f172a;
     margin-bottom: 6px;
     display: flex;
     justify-content: space-between;
@@ -138,12 +140,12 @@
 
   /* Architecture Box */
   .arch-box {
-    background: #0d1322;
-    border: 1px solid #1e293b;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
     border-radius: 8px;
     padding: 12px;
     font-size: 8pt;
-    color: #cbd5e1;
+    color: #334155;
     margin-bottom: 12px;
     page-break-inside: avoid;
   }
@@ -158,23 +160,24 @@
   }
 
   .arch-node {
-    background: #1e293b;
-    border: 1px solid #334155;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
     border-radius: 6px;
     padding: 6px 8px;
     text-align: center;
     flex: 1;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
   }
 
   .arch-node.highlight {
-    background: #1e1b4b;
-    border-color: #6366f1;
-    color: #c7d2fe;
+    background: #eef2ff;
+    border-color: #818cf8;
+    color: #312e81;
     font-weight: 700;
   }
 
   .arch-arrow {
-    color: #64748b;
+    color: #94a3b8;
     font-size: 11pt;
   }
 
@@ -183,43 +186,43 @@
     width: 100%;
     border-collapse: collapse;
     font-size: 8pt;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
     page-break-inside: avoid;
     direction: rtl;
   }
 
   th {
-    background: #1e293b;
-    color: #94a3b8;
+    background: #f1f5f9;
+    color: #334155;
     text-align: right;
-    padding: 6px 8px;
+    padding: 5px 8px;
     font-weight: 700;
     font-size: 7.5pt;
-    border-top: 1px solid #334155;
-    border-bottom: 1px solid #334155;
+    border-top: 1px solid #cbd5e1;
+    border-bottom: 1px solid #cbd5e1;
   }
 
   td {
     padding: 5px 8px;
-    border-bottom: 1px solid #1e293b;
-    color: #cbd5e1;
+    border-bottom: 1px solid #f1f5f9;
+    color: #1e293b;
   }
 
   tr:nth-child(even) td {
-    background: rgba(17, 24, 39, 0.4);
+    background: #f8fafc;
   }
 
   /* Keyboards & Code Badges */
   kbd {
-    background: #1e293b;
-    border: 1px solid #475569;
-    border-bottom: 2px solid #334155;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-bottom: 2px solid #94a3b8;
     border-radius: 4px;
     padding: 1px 5px;
     font-family: 'Consolas', monospace;
     font-size: 7pt;
-    color: #f8fafc;
-    font-weight: 600;
+    color: #0f172a;
+    font-weight: 700;
     direction: ltr;
     display: inline-block;
   }
@@ -227,39 +230,39 @@
   code {
     font-family: 'Consolas', 'JetBrains Mono', monospace;
     font-size: 7.5pt;
-    background: rgba(15, 23, 42, 0.8);
-    color: #38bdf8;
+    background: #f1f5f9;
+    color: #0284c7;
     padding: 1px 4px;
     border-radius: 3px;
-    border: 1px solid rgba(56, 189, 248, 0.2);
+    border: 1px solid #e2e8f0;
     direction: ltr;
     display: inline-block;
   }
 
   /* Code block */
   pre {
-    background: #050811;
-    border: 1px solid #1e293b;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
     border-radius: 6px;
     padding: 8px 10px;
     font-family: 'Consolas', monospace;
     font-size: 7pt;
     line-height: 1.35;
-    color: #e2e8f0;
+    color: #0f172a;
     overflow: hidden;
     page-break-inside: avoid;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     direction: ltr;
     text-align: left;
   }
 
-  .comment { color: #64748b; }
-  .keyword { color: #f43f5e; font-weight: 600; }
-  .string { color: #a6e3a1; }
+  .comment { color: #64748b; font-style: italic; }
+  .keyword { color: #4338ca; font-weight: 700; }
+  .string { color: #047857; }
 
   .page-break {
     page-break-before: always;
-    margin-top: 14px;
+    margin-top: 12px;
   }
 
   /* Footer */
@@ -267,9 +270,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid #1e293b;
+    border-top: 1px solid #e2e8f0;
     padding-top: 6px;
-    margin-top: 14px;
+    margin-top: 12px;
     font-size: 7.5pt;
     color: #64748b;
   }
@@ -291,27 +294,27 @@
   <!-- SECTION 1: ARCHITECTURE -->
   <div class="section-title">۰۱. آناتومی معماری و توپولوژی سیستم</div>
   <div class="arch-box">
-    <div style="font-weight:700; color:#38bdf8; margin-bottom:4px;">جداسازی کامل چرخه عمر کلاینت از پروسه‌های سرور</div>
+    <div style="font-weight:700; color:#4338ca; margin-bottom:4px;">جداسازی کامل چرخه عمر کلاینت از پروسه‌های سرور</div>
     ابزار tmux در قالب یک دیمن پس‌زمینه ناهمگام (`tmuxd`) اجرا شده و کلیه پردازه‌های درون ترمینال را از چرخه عمر پنجره‌های گرافیکی یا نشست‌های ناپایدار SSH ایزوله می‌سازد.
     <div class="arch-flow">
       <div class="arch-node highlight">
         <strong>سرور دیمن</strong><br>
-        <span style="font-size:6.5pt; color:#94a3b8; direction:ltr; display:inline-block;">/tmp/tmux-$UID/default</span>
+        <span style="font-size:6.5pt; color:#64748b; direction:ltr; display:inline-block;">/tmp/tmux-$UID/default</span>
       </div>
       <div class="arch-arrow">➔</div>
       <div class="arch-node">
         <strong>نشست‌ها (Sessions)</strong><br>
-        <span style="font-size:6.5pt; color:#94a3b8;">گروه‌های نام‌گذاری شده</span>
+        <span style="font-size:6.5pt; color:#64748b;">گروه‌های نام‌گذاری شده</span>
       </div>
       <div class="arch-arrow">➔</div>
       <div class="arch-node">
         <strong>پنجره‌ها (Windows)</strong><br>
-        <span style="font-size:6.5pt; color:#94a3b8;">تب‌های مستقل (۱..N)</span>
+        <span style="font-size:6.5pt; color:#64748b;">تب‌های مستقل (۱..N)</span>
       </div>
       <div class="arch-arrow">➔</div>
       <div class="arch-node">
         <strong>پنل‌ها (Panes)</strong><br>
-        <span style="font-size:6.5pt; color:#94a3b8;">شبیه‌سازهای PTY</span>
+        <span style="font-size:6.5pt; color:#64748b;">شبیه‌سازهای PTY</span>
       </div>
     </div>
   </div>
@@ -420,7 +423,7 @@
   </div>
 
   <!-- Pane Geometry -->
-  <div class="card" style="margin-bottom:12px;">
+  <div class="card" style="margin-bottom:10px;">
     <div class="card-header">
       <span>هندسه و تقسیم‌بندی پنل‌ها (Panes)</span>
       <span class="badge green">ارگونومیک</span>
@@ -486,10 +489,10 @@
         <span>فرایند کپی و ناوبری بافر</span>
         <span class="badge cyan">حافظه سرور</span>
       </div>
-      <div style="font-size:7.8pt; color:#94a3b8; margin-bottom:8px;">
+      <div style="font-size:7.8pt; color:#475569; margin-bottom:8px;">
         تاریخچه اسکرول درون حافظه اختصاصی سرور نگهداری شده و به محدودیت‌های ترمینال وابسته نیست.
       </div>
-      <div style="background:#090d16; border-right:3px solid #38bdf8; padding:6px 10px; font-size:7.5pt; margin-bottom:6px;">
+      <div style="background:#f1f5f9; border-right:3px solid #0284c7; padding:6px 10px; font-size:7.5pt; margin-bottom:6px;">
         <strong>۱. ورود به حالت اسکرول:</strong> <kbd>Prefix</kbd> <kbd>[</kbd><br>
         <strong>۲. ناوبری مطابق Vim:</strong> <kbd>h</kbd> <kbd>j</kbd> <kbd>k</kbd> <kbd>l</kbd> و <kbd>Ctrl+u</kbd> / <kbd>Ctrl+d</kbd><br>
         <strong>۳. جستجو در متن:</strong> <kbd>/</kbd> (رو به جلو) و <kbd>?</kbd> (رو به عقب)<br>
@@ -531,7 +534,7 @@
   <div class="section-title">۰۴. فایل کانفیگ بهینه‌شده برای محیط عملیاتی (~/.tmux.conf)</div>
   <pre>
 <span class="comment"># ==============================================================================</span>
-<span class="comment"># PhTex High-Performance Production .tmux.conf</span>
+<span class="comment"># PhTex High-Performance Production .tmux.conf (Light Theme Build)</span>
 <span class="comment"># ==============================================================================</span>
 <span class="keyword">unbind</span> C-b
 <span class="keyword">set</span> -g prefix C-a                                  <span class="comment"># پیشوند ارگونومیک با کلید Ctrl-a</span>
@@ -558,14 +561,14 @@
 <span class="keyword">bind</span> -T copy-mode-vi y send-keys -X copy-pipe-and-cancel <span class="string">"wl-copy || xclip -in -selection clipboard"</span>
 
 <span class="comment"># استایل نوار وضعیت مدرن و مینیمال</span>
-<span class="keyword">set</span> -g status-style <span class="string">"bg=#1e1e2e,fg=#cdd6f4"</span>
-<span class="keyword">set</span> -g status-left <span class="string">"#[bg=#89b4fa,fg=#11111b,bold]  #S #[bg=#1e1e2e,fg=#89b4fa] "</span>
-<span class="keyword">set</span> -g window-status-current-format <span class="string">"#[fg=#11111b,bg=#a6e3a1,bold] #I:#W "</span>
+<span class="keyword">set</span> -g status-style <span class="string">"bg=#e2e8f0,fg=#0f172a"</span>
+<span class="keyword">set</span> -g status-left <span class="string">"#[bg=#4f46e5,fg=#ffffff,bold]  #S #[bg=#e2e8f0,fg=#4f46e5] "</span>
+<span class="keyword">set</span> -g window-status-current-format <span class="string">"#[fg=#ffffff,bg=#059669,bold] #I:#W "</span>
 <span class="keyword">bind</span> r source-file ~/.tmux.conf \; display-message <span class="string">"کانفیگ مجدداً بارگذاری شد."</span></pre>
 
   <div class="doc-footer">
     <span>مجموعه مرجع مهندسی PhTex — ابزارهای سیستمی</span>
-    <span>شناسه سند: PHTEX-TMUX-FA-2026.09</span>
+    <span>شناسه سند: PHTEX-TMUX-FA-LIGHT-2026.09</span>
     <span style="direction:ltr;">https://github.com/Fernie2000/PhTex</span>
   </div>
 
