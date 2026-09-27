@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Scrapy — Architecture & Operational Engineering Reference (Light)</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 10mm 10mm 12mm 10mm;
+    @bottom-right {
+      content: "Page " counter(page);
+      font-size: 8pt;
+      color: #64748b;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+    }
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body {
+    background-color: #ffffff;
+    color: #1e293b;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 9.5pt;
+    line-height: 1.45;
+    padding: 8px;
+  }
+
+  /* Header Hero */
+  .hero {
+    background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 60%, #e0e7ff 100%);
+    border: 1px solid #c7d2fe;
+    border-radius: 12px;
+    padding: 18px 24px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+  }
+
+  .badge-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .badge {
+    font-size: 7pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: #e0e7ff;
+    color: #3730a3;
+    border: 1px solid #c7d2fe;
+  }
+
+  .badge.cyan {
+    background: #e0f2fe;
+    color: #0369a1;
+    border-color: #bae6fd;
+  }
+
+  .badge.green {
+    background: #dcfce7;
+    color: #166534;
+    border-color: #bbf7d0;
+  }
+
+  h1 {
+    font-size: 20pt;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 3px;
+  }
+
+  h1 .accent {
+    color: #4f46e5;
+  }
+
+  .subtitle {
+    color: #475569;
+    font-size: 8.8pt;
+    font-weight: 500;
+  }
+
+  /* Section Title */
+  .section-title {
+    font-size: 10.5pt;
+    font-weight: 800;
+    color: #1e1b4b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    margin-bottom: 8px;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 4px;
+  }
+
+  /* Grid Layouts */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  /* Cards */
+  .card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 10px 12px;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+  }
+
+  .card-header {
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Architecture Box */
+  .arch-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 8pt;
+    color: #334155;
+    margin-bottom: 12px;
+    page-break-inside: avoid;
+  }
+
+  .arch-flow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .arch-node {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 6px 8px;
+    text-align: center;
+    flex: 1;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  }
+
+  .arch-node.highlight {
+    background: #eef2ff;
+    border-color: #818cf8;
+    color: #312e81;
+    font-weight: 700;
+  }
+
+  .arch-arrow {
+    color: #94a3b8;
+    font-size: 11pt;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8.5pt;
+    margin-bottom: 6px;
+    page-break-inside: avoid;
+  }
+
+  th {
+    background: #f1f5f9;
+    color: #334155;
+    text-align: left;
+    padding: 5px 8px;
+    font-weight: 700;
+    font-size: 7.5pt;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-top: 1px solid #cbd5e1;
+    border-bottom: 1px solid #cbd5e1;
+  }
+
+  td {
+    padding: 5px 8px;
+    border-bottom: 1px solid #f1f5f9;
+    color: #1e293b;
+  }
+
+  tr:nth-child(even) td {
+    background: #f8fafc;
+  }
+
+  /* Keyboards & Code Badges */
+  kbd {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-bottom: 2px solid #94a3b8;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-family: 'Consolas', monospace;
+    font-size: 7.5pt;
+    color: #0f172a;
+    font-weight: 700;
+  }
+
+  code {
+    font-family: 'Consolas', 'JetBrains Mono', monospace;
+    font-size: 8pt;
+    background: #f1f5f9;
+    color: #0284c7;
+    padding: 1px 4px;
+    border-radius: 3px;
+    border: 1px solid #e2e8f0;
+  }
+
+  /* Code block */
+  pre {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-family: 'Consolas', monospace;
+    font-size: 7.5pt;
+    line-height: 1.35;
+    color: #0f172a;
+    overflow: hidden;
+    page-break-inside: avoid;
+    margin-bottom: 6px;
+  }
+
+  .comment { color: #64748b; font-style: italic; }
+  .keyword { color: #4338ca; font-weight: 700; }
+  .string { color: #047857; }
+
+  .page-break {
+    page-break-before: always;
+    margin-top: 12px;
+  }
+
+  /* Footer */
+  .doc-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 6px;
+    margin-top: 12px;
+    font-size: 7.5pt;
+    color: #64748b;
+  }
+</style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="badge-row">
+      <span class="badge">PhTex Architecture Series</span>
+      <span class="badge cyan">v2.11+ Twisted/Asyncio</span>
+      <span class="badge green">Production Ready</span>
+    </div>
+    <h1><span class="accent">Scrapy</span> // Asynchronous Crawling Framework</h1>
+    <div class="subtitle">Reactive Reactor Topology, Parsing Algebra, AutoThrottle Engine & Hardened Settings</div>
+  </div>
+
+  <!-- SECTION 1: ARCHITECTURE -->
+  <div class="section-title">01. Architectural Topology & Reactive Data Flow</div>
+  <div class="arch-box">
+    <div style="font-weight:700; color:#4338ca; margin-bottom:4px;">Non-Blocking Twisted / Asyncio Finite State Machine</div>
+    The Scrapy Engine coordinates non-blocking I/O event loops, passing Requests and Responses through middleware pipelines without blocking execution threads.
+    <div class="arch-flow">
+      <div class="arch-node highlight">
+        <strong>Engine</strong><br>
+        <span style="font-size:7pt; color:#64748b;">Coordinator</span>
+      </div>
+      <div class="arch-arrow">➔</div>
+      <div class="arch-node">
+        <strong>Scheduler</strong><br>
+        <span style="font-size:7pt; color:#64748b;">RFPDupeFilter</span>
+      </div>
+      <div class="arch-arrow">➔</div>
+      <div class="arch-node">
+        <strong>Downloader</strong><br>
+        <span style="font-size:7pt; color:#64748b;">Async HTTP</span>
+      </div>
+      <div class="arch-arrow">➔</div>
+      <div class="arch-node">
+        <strong>Spiders</strong><br>
+        <span style="font-size:7pt; color:#64748b;">Parsel / lxml</span>
+      </div>
+      <div class="arch-arrow">➔</div>
+      <div class="arch-node">
+        <strong>Item Pipeline</strong><br>
+        <span style="font-size:7pt; color:#64748b;">DB Persistence</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: COMMAND GRAMMAR -->
+  <div class="section-title">02. Control Matrix & CLI Commands</div>
+  
+  <div class="grid-2">
+    <!-- Project Commands -->
+    <div class="card">
+      <div class="card-header">
+        <span>Project-Scoped Execution</span>
+        <span class="badge cyan">Workspace</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Command</th>
+            <th>Syntax Example</th>
+            <th>Operational Semantics</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>crawl</code></td>
+            <td><code>scrapy crawl spider -O out.jsonl</code></td>
+            <td>Boots reactor, runs spider, stream exports.</td>
+          </tr>
+          <tr>
+            <td><code>parse</code></td>
+            <td><code>scrapy parse --spider=sp -c parse_item &lt;url&gt;</code></td>
+            <td>Unit tests spider callback routines directly.</td>
+          </tr>
+          <tr>
+            <td><code>genspider</code></td>
+            <td><code>scrapy genspider -t crawl name domain.com</code></td>
+            <td>Scaffolds template spider code.</td>
+          </tr>
+          <tr>
+            <td><code>check</code></td>
+            <td><code>scrapy check &lt;spider_name&gt;</code></td>
+            <td>Runs contract unit tests defined in docstrings.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Global Commands -->
+    <div class="card">
+      <div class="card-header">
+        <span>Global Diagnostics</span>
+        <span class="badge">Standalone</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Command</th>
+            <th>Syntax Example</th>
+            <th>Operational Semantics</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>shell</code></td>
+            <td><code>scrapy shell "&lt;url&gt;" --nolog</code></td>
+            <td>Interactive IPython REPL for testing selectors.</td>
+          </tr>
+          <tr>
+            <td><code>fetch</code></td>
+            <td><code>scrapy fetch --headers "&lt;url&gt;"</code></td>
+            <td>Fetches raw HTTP headers & body via Downloader.</td>
+          </tr>
+          <tr>
+            <td><code>view</code></td>
+            <td><code>scrapy view "&lt;url&gt;"</code></td>
+            <td>Renders page in local browser to test JS reliance.</td>
+          </tr>
+          <tr>
+            <td><code>runspider</code></td>
+            <td><code>scrapy runspider standalone_spider.py</code></td>
+            <td>Executes single-file self-contained spider.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Selectors Comparison -->
+  <div class="card" style="margin-bottom:10px;">
+    <div class="card-header">
+      <span>Selector Engine: CSS3 vs XPath 1.0</span>
+      <span class="badge green">lxml Compiled</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Extraction Objective</th>
+          <th>CSS3 Syntax</th>
+          <th>XPath 1.0 Equivalent</th>
+          <th>Algorithmic Nuance</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Attribute Value</strong></td>
+          <td><code>a::attr(href)</code></td>
+          <td><code>//a/@href</code></td>
+          <td>XPath supports <code>contains()</code> and <code>starts-with()</code>.</td>
+        </tr>
+        <tr>
+          <td><strong>Text Extraction</strong></td>
+          <td><code>div.title::text</code></td>
+          <td><code>//div[@class='title']/text()</code></td>
+          <td>XPath supports recursive string collation: <code>string(//div)</code>.</td>
+        </tr>
+        <tr>
+          <td><strong>Ancestor Traversal</strong></td>
+          <td><em>Not supported</em></td>
+          <td><code>//input[@id='x']/ancestor::form</code></td>
+          <td>Permits bidirectional graph traversal across DOM tree.</td>
+        </tr>
+        <tr>
+          <td><strong>Regex Extraction</strong></td>
+          <td><code>css('h1::text').re(r'\d+')</code></td>
+          <td><code>xpath('//h1/text()').re_first(r'\d+')</code></td>
+          <td>Direct node regex matching without Python string allocation.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PAGE BREAK -->
+  <div class="page-break"></div>
+
+  <!-- SECTION 3: AUTOTHROTTLE & DIAGNOSTICS -->
+  <div class="section-title">03. AutoThrottle Engine & Diagnostic Matrix</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header">
+        <span>Adaptive AutoThrottle Algorithm</span>
+        <span class="badge cyan">Dynamic Backoff</span>
+      </div>
+      <div style="font-size:8pt; color:#475569; margin-bottom:8px;">
+        Adjusts download delay dynamically according to target server latency and response times.
+      </div>
+      <div style="background:#f1f5f9; border-left:3px solid #0284c7; padding:6px 10px; font-size:7.5pt; margin-bottom:6px;">
+        <strong>1. Latency Calculation:</strong> Measures round-trip time (RTT) for each HTTP response.<br>
+        <strong>2. Concurrency Target:</strong> Maintains <code>AUTOTHROTTLE_TARGET_CONCURRENCY</code>.<br>
+        <strong>3. Proportional Delay:</strong> <code>delay = latency / target_concurrency</code>.<br>
+        <strong>4. Safety Bounds:</strong> Clamped within <code>START_DELAY</code> and <code>MAX_DELAY</code>.<br>
+        <strong>5. Backoff on Overload:</strong> Auto-throttles up upon receiving 503 or 429 status codes.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span>Failure Remediation</span>
+        <span class="badge">Diagnostics</span>
+      </div>
+      <table>
+        <tbody>
+          <tr>
+            <td><strong>Cloudflare 403</strong></td>
+            <td>Use residential proxies, modern Sec-CH headers, or Playwright sidecar.</td>
+          </tr>
+          <tr>
+            <td><strong>Reactor Error</strong></td>
+            <td>Call <code>asyncioreactor.install()</code> prior to importing reactor.</td>
+          </tr>
+          <tr>
+            <td><strong>OOM / Memory Balloon</strong></td>
+            <td>Set <code>DEPTH_PRIORITY = 1</code> and enforce <code>MEMUSAGE_LIMIT_MB</code>.</td>
+          </tr>
+          <tr>
+            <td><strong>DNS Timeouts</strong></td>
+            <td>Enable <code>DNSCACHE_ENABLED = True</code> and reduce <code>DOWNLOAD_TIMEOUT</code>.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 4: PRODUCTION CONFIG -->
+  <div class="section-title">04. Hardened Production Configuration (settings.py)</div>
+  <pre>
+<span class="comment"># ==============================================================================</span>
+<span class="comment"># PhTex High-Performance Production Scrapy settings.py</span>
+<span class="comment"># ==============================================================================</span>
+<span class="keyword">TWISTED_REACTOR</span> = <span class="string">"twisted.internet.asyncioreactor.AsyncioSelectorReactor"</span>
+<span class="keyword">CONCURRENT_REQUESTS</span> = 32                           <span class="comment"># Max concurrent asynchronous I/O loops</span>
+<span class="keyword">CONCURRENT_REQUESTS_PER_DOMAIN</span> = 16
+<span class="keyword">DOWNLOAD_TIMEOUT</span> = 15                              <span class="comment"># Prevent hung socket resource starvation</span>
+
+<span class="comment"># Adaptive AutoThrottle Rate Control</span>
+<span class="keyword">AUTOTHROTTLE_ENABLED</span> = True
+<span class="keyword">AUTOTHROTTLE_START_DELAY</span> = 1.0
+<span class="keyword">AUTOTHROTTLE_MAX_DELAY</span> = 10.0
+<span class="keyword">AUTOTHROTTLE_TARGET_CONCURRENCY</span> = 2.0
+
+<span class="comment"># Retry Resiliency & Memory Protection</span>
+<span class="keyword">RETRY_ENABLED</span> = True
+<span class="keyword">RETRY_TIMES</span> = 3
+<span class="keyword">RETRY_HTTP_CODES</span> = [500, 502, 503, 504, 522, 524, 408, 429]
+<span class="keyword">MEMUSAGE_ENABLED</span> = True
+<span class="keyword">MEMUSAGE_LIMIT_MB</span> = 2048                           <span class="comment"># Terminate cleanly before OS OOM killer</span>
+
+<span class="comment"># DNS Resolution Caching & Deduplication</span>
+<span class="keyword">DNSCACHE_ENABLED</span> = True
+<span class="keyword">DNSCACHE_SIZE</span> = 10000
+<span class="keyword">REQUEST_FINGERPRINTER_IMPLEMENTATION</span> = <span class="string">"2.7"</span>
+<span class="keyword">DUPEFILTER_CLASS</span> = <span class="string">"scrapy.dupefilters.RFPDupeFilter"</span>
+
+<span class="keyword">DEFAULT_REQUEST_HEADERS</span> = {
+    <span class="string">"Accept"</span>: <span class="string">"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"</span>,
+    <span class="string">"Accept-Language"</span>: <span class="string">"en-US,en;q=0.9"</span>,
+    <span class="string">"Upgrade-Insecure-Requests"</span>: <span class="string">"1"</span>,
+}</pre>
+
+  <div class="doc-footer">
+    <span>PhTex Engineering Reference — Tools Series</span>
+    <span>Document ID: PHTEX-SCRAPY-EN-LIGHT-2026.09</span>
+    <span>https://github.com/Fernie2000/PhTex</span>
+  </div>
+
+</body>
+</html>

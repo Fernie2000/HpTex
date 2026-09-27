@@ -2,9 +2,9 @@
 
 > **High-density, mathematically rigorous, production-grade technical manuals and quick-reference manifests for vital developer utilities.**
 
-[![Language: Multi](https://img.shields.io/badge/Language-English%20%7C%20فارسی-blue.svg)](#index-فهرست)
+[![Language: Multi](https://img.shields.io/badge/Language-English%20%7C%20فارسی-blue.svg)](#tool-index--فهرست-ابزارها)
 [![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg)](LICENSE)
-[![Format: Markdown & Modern PDF](https://img.shields.io/badge/Format-MD%20%2B%20PDF-purple.svg)](#available-modules)
+[![Format: Markdown & Modern PDF](https://img.shields.io/badge/Format-MD%20%2B%20PDF-purple.svg)](#tool-index--فهرست-ابزارها)
 
 ---
 
@@ -13,13 +13,24 @@
 ```text
 PhTex/
 ├── README.md                      # Global entrypoint, tool taxonomy, shortcuts, sources
+├── .agents/skills/                # Standardized Agent Skills for autonomous tool synthesis
 ├── en/                            # English technical manuals and vectors
+│   ├── scrapy/
+│   │   ├── scrapy.md              # Asynchronous crawling specification & settings.py
+│   │   ├── scrapy.html            # Standalone light-theme HTML source
+│   │   └── scrapy.pdf             # Modern vector PDF dossier
 │   └── tmux/
 │       ├── tmux.md                # Exhaustive Markdown reference & production config
+│       ├── tmux.html              # Standalone light-theme HTML source
 │       └── tmux.pdf               # Stylized modern standalone PDF dossier
 └── fa/                            # راهنماهای فنی و تخصصی به زبان فارسی
+    ├── scrapy/
+    │   ├── scrapy.md              # مستندات جامع وب اسکرپینگ، معماری و تنظیمات
+    │   ├── scrapy.html            # سورس HTML اختصاصی تم روشن با ساختار RTL
+    │   └── scrapy.pdf             # نسخه پی‌دی‌اف مدرن وکتور زبان فارسی
     └── tmux/
         ├── tmux.md                # مستندات جامع، معماری و کانفیگ بهینه‌سازی شده
+        ├── tmux.html              # سورس HTML اختصاصی تم روشن
         └── tmux.pdf               # نسخه سند مدرن و طراحی‌شده‌ی اختصاصی PDF
 ```
 
@@ -30,7 +41,9 @@ PhTex/
 | Tool | Category | Language | Markdown Dossier | Modern PDF Dossier | Core Capability |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **`tmux`** | Terminal Multiplexing | **EN** (English) | [English Guide](en/tmux/tmux.md) | [English PDF](en/tmux/tmux.pdf) | Client-server PTY management, persistent sessions, decoupled multiplexing |
-| **`tmux`** | ترمینال مالتی‌پلکسر | **FA** (فارسی) | [راهنمای فارسی](fa/tmux/tmux.md) | [نسخه پی‌دی‌اف فارسی](fa/tmux/tmux.pdf) | مدیریت کلاینت-سرور PTY، سشن‌های پایدار، تقسیم پنل‌ها و بافرها |
+| **`tmux`** | ترمینال مالتی‌پلکسر | **FA** (فارسی) | [راهنمای فارسی](fa/tmux/tmux.md) | [پی‌دی‌اف فارسی](fa/tmux/tmux.pdf) | مدیریت کلاینت-سرور PTY، سشن‌های پایدار، تقسیم پنل‌ها و بافرها |
+| **`scrapy`**| Asynchronous Web Crawling | **EN** (English) | [English Guide](en/scrapy/scrapy.md) | [English PDF](en/scrapy/scrapy.pdf) | Twisted/asyncio reactive scraping engine, XPath/CSS parsel algebra, AutoThrottle |
+| **`scrapy`**| وب اسکرپینگ ناهمگام | **FA** (فارسی) | [راهنمای فارسی](fa/scrapy/scrapy.md) | [پی‌دی‌اف فارسی](fa/scrapy/scrapy.pdf) | موتور واکشی غیرمسدودکننده رخدادمحور، پایپ‌لاین اقلام، الگوریتم AutoThrottle |
 
 ---
 
@@ -86,19 +99,32 @@ All operations assume standard or optimized Prefix. Default prefix is `Ctrl+b` (
 
 ---
 
+## Scrapy CLI Quick Reference
+
+| Command | Scope | Syntax Pattern | Target Action |
+| :--- | :--- | :--- | :--- |
+| **`crawl`** | Project | `scrapy crawl <spider> -O out.jsonl` | Boots reactor, parses target, streams items to file. |
+| **`shell`** | Global | `scrapy shell "<url>" --nolog` | Interactive XPath/CSS evaluation in IPython. |
+| **`fetch`** | Global | `scrapy fetch --headers "<url>"` | Low-level HTTP response inspection. |
+| **`view`** | Global | `scrapy view "<url>"` | Verifies browser rendering against raw downloader response. |
+| **`parse`** | Project | `scrapy parse --spider=<sp> <url>` | Direct contract and callback verification. |
+
+---
+
 ## Curated Sources & Primary Specifications
 
-* **Official Repository & Issue Tracker:** [github.com/tmux/tmux](https://github.com/tmux/tmux)
+* **tmux Official Repository:** [github.com/tmux/tmux](https://github.com/tmux/tmux)
+* **Scrapy Official Repository:** [github.com/scrapy/scrapy](https://github.com/scrapy/scrapy)
 * **OpenBSD Manual Pages:** [man.openbsd.org/tmux.1](https://man.openbsd.org/tmux.1)
-* **Tmux Plugin Manager (TPM):** [github.com/tmux-plugins/tpm](https://github.com/tmux-plugins/tpm)
-* **OSC 52 Clipboard Protocol Specification:** [invisible-island.net/xterm/ctlseqs](https://invisible-island.net/xterm/ctlseqs/ctlseqs.html)
-* **POSIX Pseudo-Terminal (PTY) Specifications:** [pubs.opengroup.org/onlinepubs/9699919799/basedefs/termios.h.html](https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/termios.h.html)
+* **Parsel XPath & CSS Engine:** [github.com/scrapy/parsel](https://github.com/scrapy/parsel)
+* **Twisted Asynchronous Network Engine:** [github.com/twisted/twisted](https://github.com/twisted/twisted)
 
 ---
 
 ## Roadmap
 
 - [x] **tmux** (Terminal Multiplexer) — `en/`, `fa/` [MD + PDF]
+- [x] **scrapy** (Asynchronous Web Scraping) — `en/`, `fa/` [MD + PDF]
 - [ ] **neovim** (Modal Hyperextensible Editor) — `en/`, `fa/` [MD + PDF]
 - [ ] **fzf** (Command-line Fuzzy Finder) — `en/`, `fa/` [MD + PDF]
 - [ ] **ripgrep (`rg`)** (Parallel Regex File Search) — `en/`, `fa/` [MD + PDF]

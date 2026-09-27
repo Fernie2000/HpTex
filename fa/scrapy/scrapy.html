@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>Scrapy — مرجع استاندارد مهندسی و راهنمای جامع عملیاتی (تم روشن)</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 10mm 10mm 12mm 10mm;
+    @bottom-left {
+      content: "صفحه " counter(page);
+      font-size: 8pt;
+      color: #64748b;
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+    }
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body {
+    background-color: #ffffff;
+    color: #1e293b;
+    font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, "Segoe UI", Tahoma, Arial, sans-serif;
+    font-size: 9pt;
+    line-height: 1.55;
+    padding: 8px;
+    direction: rtl;
+    text-align: right;
+  }
+
+  /* Header Hero */
+  .hero {
+    background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 60%, #e0e7ff 100%);
+    border: 1px solid #c7d2fe;
+    border-radius: 12px;
+    padding: 18px 24px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+  }
+
+  .badge-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .badge {
+    font-size: 7.5pt;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: #e0e7ff;
+    color: #3730a3;
+    border: 1px solid #c7d2fe;
+  }
+
+  .badge.cyan {
+    background: #e0f2fe;
+    color: #0369a1;
+    border-color: #bae6fd;
+  }
+
+  .badge.green {
+    background: #dcfce7;
+    color: #166534;
+    border-color: #bbf7d0;
+  }
+
+  h1 {
+    font-size: 19pt;
+    font-weight: 800;
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 3px;
+  }
+
+  h1 .accent {
+    color: #4f46e5;
+    font-family: 'Consolas', monospace;
+    direction: ltr;
+  }
+
+  .subtitle {
+    color: #475569;
+    font-size: 8.5pt;
+    font-weight: 500;
+  }
+
+  /* Section Title */
+  .section-title {
+    font-size: 10.5pt;
+    font-weight: 800;
+    color: #1e1b4b;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    margin-bottom: 8px;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 4px;
+  }
+
+  /* Grid Layouts */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  /* Cards */
+  .card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 10px 12px;
+    break-inside: avoid;
+    page-break-inside: avoid;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+  }
+
+  .card-header {
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  /* Architecture Box */
+  .arch-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 8pt;
+    color: #334155;
+    margin-bottom: 12px;
+    page-break-inside: avoid;
+  }
+
+  .arch-flow {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .arch-node {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    padding: 6px 8px;
+    text-align: center;
+    flex: 1;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  }
+
+  .arch-node.highlight {
+    background: #eef2ff;
+    border-color: #818cf8;
+    color: #312e81;
+    font-weight: 700;
+  }
+
+  .arch-arrow {
+    color: #94a3b8;
+    font-size: 11pt;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8pt;
+    margin-bottom: 6px;
+    page-break-inside: avoid;
+    direction: rtl;
+  }
+
+  th {
+    background: #f1f5f9;
+    color: #334155;
+    text-align: right;
+    padding: 5px 8px;
+    font-weight: 700;
+    font-size: 7.5pt;
+    border-top: 1px solid #cbd5e1;
+    border-bottom: 1px solid #cbd5e1;
+  }
+
+  td {
+    padding: 5px 8px;
+    border-bottom: 1px solid #f1f5f9;
+    color: #1e293b;
+  }
+
+  tr:nth-child(even) td {
+    background: #f8fafc;
+  }
+
+  /* Keyboards & Code Badges */
+  kbd {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-bottom: 2px solid #94a3b8;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-family: 'Consolas', monospace;
+    font-size: 7pt;
+    color: #0f172a;
+    font-weight: 700;
+    direction: ltr;
+    display: inline-block;
+  }
+
+  code {
+    font-family: 'Consolas', 'JetBrains Mono', monospace;
+    font-size: 7.5pt;
+    background: #f1f5f9;
+    color: #0284c7;
+    padding: 1px 4px;
+    border-radius: 3px;
+    border: 1px solid #e2e8f0;
+    direction: ltr;
+    display: inline-block;
+  }
+
+  /* Code block */
+  pre {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-family: 'Consolas', monospace;
+    font-size: 7pt;
+    line-height: 1.35;
+    color: #0f172a;
+    overflow: hidden;
+    page-break-inside: avoid;
+    margin-bottom: 6px;
+    direction: ltr;
+    text-align: left;
+  }
+
+  .comment { color: #64748b; font-style: italic; }
+  .keyword { color: #4338ca; font-weight: 700; }
+  .string { color: #047857; }
+
+  .page-break {
+    page-break-before: always;
+    margin-top: 12px;
+  }
+
+  /* Footer */
+  .doc-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 6px;
+    margin-top: 12px;
+    font-size: 7.5pt;
+    color: #64748b;
+  }
+</style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="badge-row">
+      <span class="badge">مستندات استاندارد مهندسی PhTex</span>
+      <span class="badge cyan">نسخه Twisted/Asyncio v2.11+</span>
+      <span class="badge green">آماده برای محیط عملیاتی</span>
+    </div>
+    <h1><span class="accent">Scrapy</span> // فریم‌ورک وب کراولینگ ناهمگام</h1>
+    <div class="subtitle">توپولوژی راکتور غیرمسدودکننده، جبر استخراج با سلکتورها، الگوریتم AutoThrottle و کانفیگ پایدار</div>
+  </div>
+
+  <!-- SECTION 1: ARCHITECTURE -->
+  <div class="section-title">۰۱. آناتومی معماری و چرخه جریان داده (Data Flow)</div>
+  <div class="arch-box">
+    <div style="font-weight:700; color:#4338ca; margin-bottom:4px;">ماشین حالت متناهی و حلقه رخداد غیرمسدودکننده Twisted / Asyncio</div>
+    موتور اسکرپی جریان داده میان صف زمان‌بندی، دانلودر غیرهمگام شبکه و لایه‌های پایپ‌لاین را بدون قفل کردن پردازه‌ها هماهنگ می‌کند.
+    <div class="arch-flow">
+      <div class="arch-node highlight">
+        <strong>موتور مرکزی</strong><br>
+        <span style="font-size:6.5pt; color:#64748b;">هماهنگ‌کننده</span>
+      </div>
+      <div class="arch-arrow">➔</div>
+      <div class="arch-node">
+        <strong>زمان‌بند صف</strong><br>
+        <span style="font-size:6.5pt; color:#64748b;">حذف تکراری‌ها</span>
+      </div>
+      <div class="arch-arrow">➔</div>
+      <div class="arch-node">
+        <strong>دانلودر</strong><br>
+        <span style="font-size:6.5pt; color:#64748b;">واکشی HTTP</span>
+      </div>
+      <div class="arch-arrow">➔</div>
+      <div class="arch-node">
+        <strong>اسپایدرها</strong><br>
+        <span style="font-size:6.5pt; color:#64748b;">پارسر XPath/CSS</span>
+      </div>
+      <div class="arch-arrow">➔</div>
+      <div class="arch-node">
+        <strong>پایپ‌لاین اقلام</strong><br>
+        <span style="font-size:6.5pt; color:#64748b;">ذخیره در DB</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: COMMAND GRAMMAR -->
+  <div class="section-title">۰۲. گرامر دستورات و جدول ماتریس CLI</div>
+  
+  <div class="grid-2">
+    <!-- Project Commands -->
+    <div class="card">
+      <div class="card-header">
+        <span>دستورات قلمرو پروژه</span>
+        <span class="badge cyan">محیط کاری</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>دستور</th>
+            <th>مثال دستوری</th>
+            <th>عملکرد سیستمی</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>crawl</code></td>
+            <td><code>scrapy crawl sp -O out.jsonl</code></td>
+            <td>اجرای اسپایدر و استریم به فایل خروجی.</td>
+          </tr>
+          <tr>
+            <td><code>parse</code></td>
+            <td><code>scrapy parse --spider=sp &lt;url&gt;</code></td>
+            <td>تست واحد کالبک‌های اسپایدر به طور مجزا.</td>
+          </tr>
+          <tr>
+            <td><code>genspider</code></td>
+            <td><code>scrapy genspider -t crawl name site.com</code></td>
+            <td>تولید قالب اولیه اسپایدر از روی الگو.</td>
+          </tr>
+          <tr>
+            <td><code>check</code></td>
+            <td><code>scrapy check &lt;spider_name&gt;</code></td>
+            <td>بررسی اعتبارسنجی قراردادها (Contracts).</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Global Commands -->
+    <div class="card">
+      <div class="card-header">
+        <span>دستورات سراسری سیستم</span>
+        <span class="badge">مستقل</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>دستور</th>
+            <th>مثال دستوری</th>
+            <th>عملکرد سیستمی</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>shell</code></td>
+            <td><code>scrapy shell "&lt;url&gt;" --nolog</code></td>
+            <td>محیط تعاملی REPL برای ارزیابی سلکتورها.</td>
+          </tr>
+          <tr>
+            <td><code>fetch</code></td>
+            <td><code>scrapy fetch --headers "&lt;url&gt;"</code></td>
+            <td>دریافت سند خام HTTP با دانلودر داخلی.</td>
+          </tr>
+          <tr>
+            <td><code>view</code></td>
+            <td><code>scrapy view "&lt;url&gt;"</code></td>
+            <td>بررسی رندر صفحه در مرورگر برای تست JS.</td>
+          </tr>
+          <tr>
+            <td><code>runspider</code></td>
+            <td><code>scrapy runspider single_spider.py</code></td>
+            <td>اجرای مستقیم فایل پایتون بدون پروژه.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Selectors Comparison -->
+  <div class="card" style="margin-bottom:10px;">
+    <div class="card-header">
+      <span>موتور انتخاب‌گرها: مقایسه CSS3 و XPath 1.0</span>
+      <span class="badge green">مبتنی بر lxml در C</span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>هدف استخراج</th>
+          <th>ساختار نحو CSS3</th>
+          <th>معادل استاندارد XPath 1.0</th>
+          <th>مزیت و نکات فنی</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>مقدار ویژگی (Attribute)</strong></td>
+          <td><code>a::attr(href)</code></td>
+          <td><code>//a/@href</code></td>
+          <td>پشتیبانی XPath از توابع <code>contains()</code> و <code>starts-with()</code>.</td>
+        </tr>
+        <tr>
+          <td><strong>استخراج متن گره</strong></td>
+          <td><code>div.title::text</code></td>
+          <td><code>//div[@class='title']/text()</code></td>
+          <td>تجمیع بازگشتی متون نودهای فرزند با <code>string(//div)</code>.</td>
+        </tr>
+        <tr>
+          <td><strong>پیمایش معکوس والد</strong></td>
+          <td><em>غیرقابل پشتیبانی</em></td>
+          <td><code>//input[@id='x']/ancestor::form</code></td>
+          <td>پیمایش دوطرفه در کل گراف DOM بدون وابستگی به درخت.</td>
+        </tr>
+        <tr>
+          <td><strong>استخراج با ریجکس</strong></td>
+          <td><code>css('h1::text').re(r'\d+')</code></td>
+          <td><code>xpath('//h1/text()').re_first(r'\d+')</code></td>
+          <td>تطبیق مستقیم الگو بدون تخصیص حافظه اضافه در پایتون.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PAGE BREAK -->
+  <div class="page-break"></div>
+
+  <!-- SECTION 3: AUTOTHROTTLE & DIAGNOSTICS -->
+  <div class="section-title">۰۳. موتور کنترل تطبیقی AutoThrottle و جدول عیب‌یابی</div>
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header">
+        <span>منطق الگوریتم AutoThrottle</span>
+        <span class="badge cyan">تنظیم خودکار تأخیر</span>
+      </div>
+      <div style="font-size:7.8pt; color:#475569; margin-bottom:8px;">
+        میزان تأخیر دانلود را به طور پویا بر اساس تأخیر پاسخ‌دهی (Latency) سرور مقصد تنظیم می‌کند.
+      </div>
+      <div style="background:#f1f5f9; border-right:3px solid #0284c7; padding:6px 10px; font-size:7.5pt; margin-bottom:6px;">
+        <strong>۱. محاسبه تأخیر:</strong> محاسبه زمان رفت و برگشت (RTT) هر پاسخ HTTP.<br>
+        <strong>۲. هدف‌گذاری هم‌روندی:</strong> حفظ ضریب <code>AUTOTHROTTLE_TARGET_CONCURRENCY</code>.<br>
+        <strong>۳. فرمول تأخیر:</strong> <code>delay = latency / target_concurrency</code>.<br>
+        <strong>۴. بازه امنیتی:</strong> محدودسازی بین مقادیر <code>START_DELAY</code> و <code>MAX_DELAY</code>.<br>
+        <strong>۵. واکنش به ترافیک بالا:</strong> افزایش آنی تأخیر در صورت دریافت کدهای 503 یا 429.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <span>جدول عیب‌یابی و سناریوهای بحرانی</span>
+        <span class="badge">عیب‌یابی</span>
+      </div>
+      <table>
+        <tbody>
+          <tr>
+            <td><strong>خطای 403 کلودفلر</strong></td>
+            <td>استفاده از پروکسی مسکونی، هدرهای Sec-CH یا درایور Playwright.</td>
+          </tr>
+          <tr>
+            <td><strong>خطای Reactor</strong></td>
+            <td>فراخوانی <code>asyncioreactor.install()</code> قبل از ایمپورت راکتور.</td>
+          </tr>
+          <tr>
+            <td><strong>نشت رم و خطای OOM</strong></td>
+            <td>تنظیم <code>DEPTH_PRIORITY = 1</code> و فعال‌سازی <code>MEMUSAGE_LIMIT_MB</code>.</td>
+          </tr>
+          <tr>
+            <td><strong>تایم‌اوت DNS</strong></td>
+            <td>فعال‌سازی <code>DNSCACHE_ENABLED = True</code> و کاهش <code>DOWNLOAD_TIMEOUT</code>.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- SECTION 4: PRODUCTION CONFIG -->
+  <div class="section-title">۰۴. فایل تنظیمات بهینه‌شده برای محیط عملیاتی (settings.py)</div>
+  <pre>
+<span class="comment"># ==============================================================================</span>
+<span class="comment"># PhTex High-Performance Production Scrapy settings.py (Light Theme Build)</span>
+<span class="comment"># ==============================================================================</span>
+<span class="keyword">TWISTED_REACTOR</span> = <span class="string">"twisted.internet.asyncioreactor.AsyncioSelectorReactor"</span>
+<span class="keyword">CONCURRENT_REQUESTS</span> = 32                           <span class="comment"># حداکثر چرخه‌های هم‌روند شبکه در حلقه رخداد</span>
+<span class="keyword">CONCURRENT_REQUESTS_PER_DOMAIN</span> = 16
+<span class="keyword">DOWNLOAD_TIMEOUT</span> = 15                              <span class="comment"># پیشگیری از قفل شدن پورت‌های معلق شبکه</span>
+
+<span class="comment"># کنترل تطبیقی و هوشمند نرخ ارسال درخواست‌ها</span>
+<span class="keyword">AUTOTHROTTLE_ENABLED</span> = True
+<span class="keyword">AUTOTHROTTLE_START_DELAY</span> = 1.0
+<span class="keyword">AUTOTHROTTLE_MAX_DELAY</span> = 10.0
+<span class="keyword">AUTOTHROTTLE_TARGET_CONCURRENCY</span> = 2.0
+
+<span class="comment"># تاب‌آوری در برابر خطاهای سرور و حفاظت از رم سرور</span>
+<span class="keyword">RETRY_ENABLED</span> = True
+<span class="keyword">RETRY_TIMES</span> = 3
+<span class="keyword">RETRY_HTTP_CODES</span> = [500, 502, 503, 504, 522, 524, 408, 429]
+<span class="keyword">MEMUSAGE_ENABLED</span> = True
+<span class="keyword">MEMUSAGE_LIMIT_MB</span> = 2048                           <span class="comment"># بستن ایمن پروسه قبل از فرخوانی OOM-killer سیستم عامل</span>
+
+<span class="comment"># کش داخلی تفکیک آدرس DNS و فیلتر درخواست‌های تکراری</span>
+<span class="keyword">DNSCACHE_ENABLED</span> = True
+<span class="keyword">DNSCACHE_SIZE</span> = 10000
+<span class="keyword">REQUEST_FINGERPRINTER_IMPLEMENTATION</span> = <span class="string">"2.7"</span>
+<span class="keyword">DUPEFILTER_CLASS</span> = <span class="string">"scrapy.dupefilters.RFPDupeFilter"</span>
+
+<span class="keyword">DEFAULT_REQUEST_HEADERS</span> = {
+    <span class="string">"Accept"</span>: <span class="string">"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"</span>,
+    <span class="string">"Accept-Language"</span>: <span class="string">"fa-IR,fa;q=0.9,en-US;q=0.8,en;q=0.7"</span>,
+    <span class="string">"Upgrade-Insecure-Requests"</span>: <span class="string">"1"</span>,
+}</pre>
+
+  <div class="doc-footer">
+    <span>مجموعه مرجع مهندسی PhTex — ابزارهای سیستمی</span>
+    <span>شناسه سند: PHTEX-SCRAPY-FA-LIGHT-2026.09</span>
+    <span style="direction:ltr;">https://github.com/Fernie2000/PhTex</span>
+  </div>
+
+</body>
+</html>
